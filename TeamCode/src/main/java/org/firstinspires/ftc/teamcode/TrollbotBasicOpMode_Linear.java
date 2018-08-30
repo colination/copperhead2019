@@ -72,6 +72,7 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         motorFL  = hardwareMap.get(DcMotor.class, "motorFL");
         motorFR  = hardwareMap.get(DcMotor.class, "motorFR");
+
         motorBL  = hardwareMap.get(DcMotor.class, "motorBL");
         motorBR  = hardwareMap.get(DcMotor.class, "motorBR");
 
@@ -105,13 +106,15 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
+
             leftPower  = gamepad1.left_stick_y ;
             rightPower = gamepad1.right_stick_y ;
 
+
             // Send calculated power to wheels
             motorFL.setPower(leftPower);
-            motorBL.setPower(leftPower);
-            motorFR.setPower(rightPower);
+
+
             motorBR.setPower(rightPower);
 
             // Show the elapsed game time and wheel power.
