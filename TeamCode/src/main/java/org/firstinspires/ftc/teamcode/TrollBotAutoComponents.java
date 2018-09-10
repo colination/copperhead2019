@@ -29,10 +29,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This is NOT an opmode.
@@ -50,10 +53,23 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class TrollBotTeleOp
+public abstract class TrollBotAutoComponents extends LinearOpMode
 {
+
+
     /* Public OpMode members. */
-    public DcMotor  motorFL   = null;
+    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+    ElapsedTime     runtime = new ElapsedTime();
+
+    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double     DRIVE_SPEED             = 0.6;
+    static final double     TURN_SPEED              = 0.5;
+
+    public DcMotor  motorFL  = null;
     public DcMotor  motorFR  = null;
     public DcMotor  motorBL  = null;
     public DcMotor  motorBR  = null;
@@ -62,12 +78,20 @@ public class TrollBotTeleOp
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
 
+    static final int landingSpeed                   = 10;
+    static final int blockDistance                  = 10;
+    static final int betweenMinerals                = 10;
+    static final int rightMineralToWall             = 10;
+    static final int wallToDepot                    = 10;
+    static final int depotToCraterEdge              = 10;
+    static final double collectorPosition           = 1.0;
+
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public TrollBotTeleOp(){
+    public TrollBotAutoComponents(){
 
     }
 
@@ -77,8 +101,8 @@ public class TrollBotTeleOp
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        motorFL  = hwMap.get(DcMotor.class, "motorFL");
-        motorFR  = hwMap.get(DcMotor.class, "motorFR");
+        motorFL = hwMap.get(DcMotor.class, "motorFL");
+        motorFR = hwMap.get(DcMotor.class, "motorFR");
         motorBL = hwMap.get(DcMotor.class, "motorBL");
         motorBR = hwMap.get(DcMotor.class, "motorBR");
 
