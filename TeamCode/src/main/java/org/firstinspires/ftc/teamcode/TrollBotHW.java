@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class TrollBotHW {
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+
+public abstract class TrollBotHW extends LinearOpMode{
 
     HardwareMap hwMap           =  null;
     ElapsedTime runtime = new ElapsedTime();
-    
+    HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+
     public DcMotor  motorFL  = null;
     public DcMotor  motorFR  = null;
     public DcMotor  motorBL  = null;
@@ -19,9 +23,11 @@ public class TrollBotHW {
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
-    public void init(HardwareMap ahwMap) {
+    public void initialize(HardwareMap ahwMap) {
         // Save reference to Hardware map
+
         hwMap = ahwMap;
+
 
         // Define and Initialize Motors
         motorFL = hwMap.get(DcMotor.class, "motorFL");
