@@ -9,7 +9,6 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 public abstract class TrollBotHW extends LinearOpMode{
 
-    HardwareMap hwMap           =  null;
     ElapsedTime runtime = new ElapsedTime();
     HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
 
@@ -23,17 +22,17 @@ public abstract class TrollBotHW extends LinearOpMode{
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
-    public void initialize(HardwareMap ahwMap) {
+    public void initialize() {
         // Save reference to Hardware map
 
-        hwMap = ahwMap;
+
 
 
         // Define and Initialize Motors
-        motorFL = hwMap.get(DcMotor.class, "motorFL");
-        motorFR = hwMap.get(DcMotor.class, "motorFR");
-        motorBL = hwMap.get(DcMotor.class, "motorBL");
-        motorBR = hwMap.get(DcMotor.class, "motorBR");
+        motorFL = hardwareMap.get(DcMotor.class, "motorFL");
+        motorFR = hardwareMap.get(DcMotor.class, "motorFR");
+        motorBL = hardwareMap.get(DcMotor.class, "motorBL");
+        motorBR = hardwareMap.get(DcMotor.class, "motorBR");
 
         // Set all motors to zero power
         motorFL.setPower(0);
