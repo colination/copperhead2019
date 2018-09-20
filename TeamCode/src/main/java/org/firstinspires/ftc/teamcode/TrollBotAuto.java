@@ -66,7 +66,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name="TrollBotAuto", group="Pushbot")
 
-public class TrollBotAuto extends TrollBotHW {
+public class TrollBotAuto extends TrollBotAutoComponents {
 
     /* Declare OpMode members.
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -90,24 +90,36 @@ public class TrollBotAuto extends TrollBotHW {
 
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
 
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
+<<<<<<< HEAD
+<<<<<<< HEAD
         initialize();
+=======
+        robot.init(hardwareMap);
+>>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
+=======
+        initialize(hardwareMap);
+>>>>>>> parent of 3b76e7f... fixed hardware map
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
-        reset();
 
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          motorFL.getCurrentPosition(),
-                          motorFR.getCurrentPosition());
+                          robot.leftDrive.getCurrentPosition(),
+                          robot.rightDrive.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -115,9 +127,9 @@ public class TrollBotAuto extends TrollBotHW {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        //encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0);
@@ -186,13 +198,6 @@ public class TrollBotAuto extends TrollBotHW {
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
-            sleep(5000);
-            fullReset();
-            reset();
-            setMode();
-            targetPosition(12);
-            goInches(12, .5, 5);
-
         }
     }
 }
