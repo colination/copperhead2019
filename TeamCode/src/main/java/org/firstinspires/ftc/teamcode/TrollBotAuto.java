@@ -97,21 +97,29 @@ public class TrollBotAuto extends TrollBotAutoComponents {
          * The init() method of the hardware class does all the work here
          */
 <<<<<<< HEAD
+<<<<<<< HEAD
         initialize();
 =======
         robot.init(hardwareMap);
 >>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
+=======
+        initialize(hardwareMap);
+>>>>>>> parent of 3b76e7f... fixed hardware map
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
-        reset();
 
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          motorFL.getCurrentPosition(),
-                          motorFR.getCurrentPosition());
+                          robot.leftDrive.getCurrentPosition(),
+                          robot.rightDrive.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
