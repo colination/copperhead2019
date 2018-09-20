@@ -66,7 +66,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name="TrollBotAuto", group="Pushbot")
 
-public class TrollBotAuto extends TrollBotHW {
+public class TrollBotAuto extends TrollBotAutoComponents {
 
     /* Declare OpMode members.
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -90,13 +90,17 @@ public class TrollBotAuto extends TrollBotHW {
 
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
 
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
+<<<<<<< HEAD
         initialize();
+=======
+        robot.init(hardwareMap);
+>>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -115,9 +119,9 @@ public class TrollBotAuto extends TrollBotHW {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        //encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0);
@@ -186,13 +190,6 @@ public class TrollBotAuto extends TrollBotHW {
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
-            sleep(5000);
-            fullReset();
-            reset();
-            setMode();
-            targetPosition(12);
-            goInches(12, .5, 5);
-
         }
     }
 }
