@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+public class TrollBotHW {
 
-public abstract class TrollBotHW extends LinearOpMode{
-
+    HardwareMap hwMap           =  null;
     ElapsedTime runtime = new ElapsedTime();
-    HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
-
+    
     public DcMotor  motorFL  = null;
     public DcMotor  motorFR  = null;
     public DcMotor  motorBL  = null;
@@ -22,17 +19,30 @@ public abstract class TrollBotHW extends LinearOpMode{
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
     public void initialize() {
         // Save reference to Hardware map
 
 
+=======
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+>>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
+=======
+    public void initialize(HardwareMap ahwMap) {
+        // Save reference to Hardware map
 
+        hwMap = ahwMap;
+
+>>>>>>> parent of 3b76e7f... fixed hardware map
 
         // Define and Initialize Motors
-        motorFL = hardwareMap.get(DcMotor.class, "motorFL");
-        motorFR = hardwareMap.get(DcMotor.class, "motorFR");
-        motorBL = hardwareMap.get(DcMotor.class, "motorBL");
-        motorBR = hardwareMap.get(DcMotor.class, "motorBR");
+        motorFL = hwMap.get(DcMotor.class, "motorFL");
+        motorFR = hwMap.get(DcMotor.class, "motorFR");
+        motorBL = hwMap.get(DcMotor.class, "motorBL");
+        motorBR = hwMap.get(DcMotor.class, "motorBR");
 
         // Set all motors to zero power
         motorFL.setPower(0);
