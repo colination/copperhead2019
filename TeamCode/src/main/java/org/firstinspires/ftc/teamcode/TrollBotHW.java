@@ -8,7 +8,7 @@ public class TrollBotHW {
 
     HardwareMap hwMap           =  null;
     ElapsedTime runtime = new ElapsedTime();
-    
+    // Drivetrain drivetrain = anew drivetrain();
     public DcMotor  motorFL  = null;
     public DcMotor  motorFR  = null;
     public DcMotor  motorBL  = null;
@@ -19,24 +19,15 @@ public class TrollBotHW {
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void initialize() {
-        // Save reference to Hardware map
 
 
-=======
+
+
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
->>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
-=======
-    public void initialize(HardwareMap ahwMap) {
-        // Save reference to Hardware map
 
-        hwMap = ahwMap;
-
->>>>>>> parent of 3b76e7f... fixed hardware map
+        //drivetrain.init(Telemetry8)
 
         // Define and Initialize Motors
         motorFL = hwMap.get(DcMotor.class, "motorFL");

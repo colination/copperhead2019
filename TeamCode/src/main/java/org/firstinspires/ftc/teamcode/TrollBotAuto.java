@@ -96,47 +96,50 @@ public class TrollBotAuto extends TrollBotAutoComponents {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+        telemetry.addData("Status", "initializing");    //
+        telemetry.update();
         initialize();
-=======
-        robot.init(hardwareMap);
->>>>>>> parent of 3e73790... combined rohit's auto for the trollbot
-=======
-        initialize(hardwareMap);
->>>>>>> parent of 3b76e7f... fixed hardware map
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
-
+        /*
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        */
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          robot.leftDrive.getCurrentPosition(),
-                          robot.rightDrive.getCurrentPosition());
+                          motorFL.getCurrentPosition(),
+                          motorFR.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        while(opModeIsActive()) {
+            // Step through each leg of the path,
+            // Note: Reverse movement is obtained by setting a negative distance (not speed)
+            encoderDrive(DRIVE_SPEED, 48, 48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(TURN_SPEED, 12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+            encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0);
-        sleep(1000);     // pause for servos to move
+            sleep(1000);     // pause for servos to move
 
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
+            telemetry.addData("Path", "Complete");
+            telemetry.update();
+
+            sleep(5000);
+            telemetry.addData("Path", "Of other stuff");
+            telemetry.update();
+
+            encoderMove(.3, 600);
+            sleep(20000);
+        }
     }
 
     /*
@@ -157,18 +160,17 @@ public class TrollBotAuto extends TrollBotAutoComponents {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.leftDrive.setTargetPosition(newLeftTarget);
-            robot.rightDrive.setTargetPosition(newRightTarget);
+            //newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            //newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            //robot.leftDrive.setTargetPosition(newLeftTarget);
+            //robot.rightDrive.setTargetPosition(newRightTarget);
             newLeftTarget = motorFL.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             newRightTarget = motorFR.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             motorFL.setTargetPosition(newLeftTarget);
             motorFR.setTargetPosition(newRightTarget);
 
             // Turn On RUN_TO_POSITION
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
             motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -176,8 +178,7 @@ public class TrollBotAuto extends TrollBotAutoComponents {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.leftDrive.setPower(Math.abs(speed));
-            robot.rightDrive.setPower(Math.abs(speed));
+
             motorFL.setPower(Math.abs(speed));
             motorBL.setPower(Math.abs(speed));
             motorBR.setPower(Math.abs(speed));
@@ -193,30 +194,27 @@ public class TrollBotAuto extends TrollBotAutoComponents {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
-                   (motorFL.isBusy() && motorFR.isBusy())) {
+                    ((runtime.seconds() < timeoutS) &&
+                            (motorFL.isBusy() && motorFR.isBusy() && motorBL.isBusy() && motorBR.isBusy()))) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            robot.leftDrive.getCurrentPosition(),
-                                            robot.rightDrive.getCurrentPosition());
                                             motorFL.getCurrentPosition(),
                                             motorFR.getCurrentPosition());
                 telemetry.update();
             }
 
+
             // Stop all motion;
-            robot.leftDrive.setPower(0);
-            robot.rightDrive.setPower(0);
+
             motorFL.setPower(0);
             motorBL.setPower(0);
             motorFR.setPower(0);
             motorBR.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
             motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

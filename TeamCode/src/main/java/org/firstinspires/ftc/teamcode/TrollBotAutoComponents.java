@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -59,6 +60,7 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
 
     /* Public OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+
     ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -96,15 +98,18 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void initialize() {
         // Save reference to Hardware map
-        hwMap = ahwMap;
-
+        telemetry.addData("Status", "initializing in the method");    //
+        telemetry.update();
         // Define and Initialize Motors
-        motorFL = hwMap.get(DcMotor.class, "motorFL");
-        motorFR = hwMap.get(DcMotor.class, "motorFR");
-        motorBL = hwMap.get(DcMotor.class, "motorBL");
-        motorBR = hwMap.get(DcMotor.class, "motorBR");
+        motorFL = hardwareMap.get(DcMotor.class, "motorFL");
+        motorFR = hardwareMap.get(DcMotor.class, "motorFR");
+        motorBL = hardwareMap.get(DcMotor.class, "motorBL");
+        motorBR = hardwareMap.get(DcMotor.class, "motorBR");
+
+        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorBL.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         motorFL.setPower(0);
@@ -112,12 +117,39 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
         motorBL.setPower(0);
         motorBR.setPower(0);
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        telemetry.addData("Status", "just need to reset");    //
+        telemetry.update();
+        encoderReset();
+
+
+    }
+
+    public void encoderReset() {
+        motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void encoderMove(double speed, int distance) {
+        encoderReset();
+        while ((Math.abs(motorBL.getCurrentPosition()) < distance) && (opModeIsActive())) {//encoders may be moving forward
+            motorFL.setPower(speed);
+            motorFR.setPower(speed);
+            motorBL.setPower(speed);
+            motorBR.setPower(speed);
+            telemetry.addData("Encoder", (Math.abs(motorBL.getCurrentPosition())));
+            telemetry.update();
+        }
+        motorFL.setPower(0);
+        motorFR.setPower(0);
+        motorBL.setPower(0);
+        motorBR.setPower(0);
 
     }
  }
