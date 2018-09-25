@@ -123,10 +123,10 @@ public class TrollBotAuto extends TrollBotAutoComponents {
         while(opModeIsActive()) {
             // Step through each leg of the path,
             // Note: Reverse movement is obtained by setting a negative distance (not speed)
-            encoderDrive(DRIVE_SPEED, 48, 48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            /*encoderDrive(DRIVE_SPEED, 48, 48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             encoderDrive(TURN_SPEED, 12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
             encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-
+            */
 
             sleep(1000);     // pause for servos to move
 
@@ -137,7 +137,30 @@ public class TrollBotAuto extends TrollBotAutoComponents {
             telemetry.addData("Path", "Of other stuff");
             telemetry.update();
 
-            encoderMove(.3, 600);
+            // unhook
+            encoderMove(.3, 600); // back away from the lander
+
+            encoderMove(); // move into position with the middle mineral
+            // test color of mineral, if gold, flick
+            encoderMove(); // move left in position with the leftmost mineral
+            // test color of mineral, if gold, flick
+            encoderMove(); // move right in position with the rightmost mineral
+            // test color of mineral, if gold, flick
+
+            encoderMove(); // until it hits the wall
+            encoderMove(); // straighten with wall
+
+            encoderMove(); // move into the depot
+            // drop the marker into the depot
+
+            encoderMove(); // move onto the edge of the crater
+
+
+
+
+
+
+
             sleep(20000);
         }
     }

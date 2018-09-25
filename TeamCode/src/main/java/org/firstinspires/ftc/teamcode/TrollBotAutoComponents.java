@@ -159,8 +159,8 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
             motorFR.setPower(.5);
             motorBL.setPower(-.5);
             motorBR.setPower(.5);
-            //telemetry.addData("Encoder", (Math.abs(motorFR.getCurrentPosition())));
-            //telemetry.update();
+            telemetry.addData("Encoder", (Math.abs(motorFR.getCurrentPosition())));
+            telemetry.update();
         }
         motorFL.setPower(0);
         motorFR.setPower(0);
