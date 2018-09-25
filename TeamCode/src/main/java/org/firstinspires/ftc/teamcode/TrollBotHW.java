@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class TrollBotHW {
-
     HardwareMap hwMap           =  null;
     ElapsedTime runtime = new ElapsedTime();
     
