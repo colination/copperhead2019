@@ -113,7 +113,8 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
 
             // Send calculated power to wheels
             motorFL.setPower(leftPower);
-
+            motorBL.setPower(leftPower);
+            motorFR.setPower(rightPower);
             motorBR.setPower(rightPower);
 
             // Show the elapsed game time and wheel power.
