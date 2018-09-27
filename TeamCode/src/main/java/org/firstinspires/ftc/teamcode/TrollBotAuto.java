@@ -129,7 +129,8 @@ public class TrollBotAuto extends TrollBotAutoComponents {
             telemetry.addData("Path", "Of other stuff");
             telemetry.update();
 
-            encoderMove(.3, 950); // From landing position to middle cube
+            //encoderMove(.3, 950); // From landing position to middle cube
+            encoderMove(.3, 1000);
             turnLeft(ninetyDegreeTurn);
 
 

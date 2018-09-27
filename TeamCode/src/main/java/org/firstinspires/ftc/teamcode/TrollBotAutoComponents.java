@@ -87,7 +87,7 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
     static final int wallToDepot                    = 10;
     static final int depotToCraterEdge              = 10;
     static final double collectorPosition           = 1.0;
-    static final int ninetyDegreeTurn               = 300;
+    static final int ninetyDegreeTurn               = 290;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -156,10 +156,10 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
     public void turnLeft(int encoderTicks) {
         encoderReset();
         while ((Math.abs(motorBL.getCurrentPosition()) < encoderTicks) && (opModeIsActive())) {//clockwise previously 1350 1400
-            motorFL.setPower(-.5);
-            motorFR.setPower(.5);
-            motorBL.setPower(-.5);
-            motorBR.setPower(.5);
+            motorFL.setPower(-.3);
+            motorFR.setPower(.3);
+            motorBL.setPower(-.3);
+            motorBR.setPower(.3);
             //telemetry.addData("Encoder", (Math.abs(motorFR.getCurrentPosition())));
             //telemetry.update();
         }
@@ -170,11 +170,11 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
     }
     public void turnRight(int encoderTicks) {
         encoderReset();
-        while ((Math.abs(motorBR.getCurrentPosition()) < encoderTicks) && (opModeIsActive())) {//clockwise previously 1350 1400
-            motorFL.setPower(.5);
-            motorFR.setPower(-.5);
-            motorBL.setPower(.5);
-            motorBR.setPower(-.5);
+        while ((Math.abs(motorBL.getCurrentPosition()) < encoderTicks) && (opModeIsActive())) {//clockwise previously 1350 1400
+            motorFL.setPower(.3);
+            motorFR.setPower(-.3);
+            motorBL.setPower(.3);
+            motorBR.setPower(-.3);
             //telemetry.addData("Encoder", (Math.abs(motorFR.getCurrentPosition())));
             //telemetry.update();
         }
