@@ -141,6 +141,7 @@ public class TrollBotAuto extends TrollBotAutoComponents {
             telemetry.update();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             // unhook
             encoderMove(.3, 600); // back away from the lander
 
@@ -165,6 +166,10 @@ public class TrollBotAuto extends TrollBotAutoComponents {
 =======
             //encoderMove(.3, 950); // From landing position to middle cube
             encoderMove(.3, 1000);
+=======
+            encoderMove(.3, 950); // From landing position to middle
+            sleep(1000);
+>>>>>>> c894920711be755ef1b6e7d0b4a55c67e5072012
             turnLeft(ninetyDegreeTurn);
 >>>>>>> b8a30251c71f40ad3efadcca0983decf715d7084
 

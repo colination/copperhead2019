@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -60,6 +61,7 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
     private DcMotor motorFR = null;
     private DcMotor motorBL = null;
     private DcMotor motorBR = null;
+    private Servo servoR;
 
 
     @Override
@@ -72,9 +74,10 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         motorFL  = hardwareMap.get(DcMotor.class, "motorFL");
         motorFR  = hardwareMap.get(DcMotor.class, "motorFR");
-
         motorBL  = hardwareMap.get(DcMotor.class, "motorBL");
         motorBR  = hardwareMap.get(DcMotor.class, "motorBR");
+
+        servoR = hardwareMap.get(Servo.class, "servoR");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -118,7 +121,8 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
-            leftPower  = || gamepad1.left_stick_y ;
+
+            leftPower  = gamepad1.left_stick_y ;
             rightPower = gamepad1.right_stick_y ;
 
 
@@ -128,12 +132,26 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
             motorFR.setPower(rightPower);
             motorBR.setPower(rightPower);
 
+            if(gamepad1.y) {
+                // move to 0 degrees.
+                servoR.setPosition(0.17);
+            } else if (gamepad1.x || gamepad1.b) {
+                // move to 90 degrees.
+                servoR.setPosition(0.33);
+            } else if (gamepad1.a) {
+                // move to 180 degrees.
+                servoR.setPosition(.49);
+            }
+
+            // Shows servo position
 
             // Show run time and motor power, as well as ticks
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.addData("motorBLTicks", motorBL.getCurrentPosition());
             telemetry.addData("motorBRTicks", motorBR.getCurrentPosition());
+            telemetry.addData("Servo Position", servoR.getPosition());
+            telemetry.addData("Status", "Running");
             telemetry.update();
         }
     }
