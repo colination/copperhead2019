@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-
+// This class is where we put methods that all classes use.
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -10,9 +10,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public abstract class robotPart {
     protected Telemetry privateTelemetry;
     protected LinearOpMode privateOpMode;
-    private ElapsedTime runtime;
+    public ElapsedTime runtime;
 
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry, LinearOpMode myOpMode){
-
+    public void init(HardwareMap ahwmap, Telemetry myTelemetry){
+        privateTelemetry = myTelemetry;
+        privateTelemetry.update();
     }
 }
