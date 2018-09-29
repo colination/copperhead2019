@@ -121,6 +121,7 @@ public class TrollBotAuto extends TrollBotAutoComponents {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while(opModeIsActive()) {
+<<<<<<< HEAD
             // Step through each leg of the path,
             // Note: Reverse movement is obtained by setting a negative distance (not speed)
             /*encoderDrive(DRIVE_SPEED, 48, 48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -129,14 +130,17 @@ public class TrollBotAuto extends TrollBotAutoComponents {
             */
 
             sleep(1000);     // pause for servos to move
+=======
+>>>>>>> b8a30251c71f40ad3efadcca0983decf715d7084
 
             telemetry.addData("Path", "Complete");
             telemetry.update();
 
-            sleep(5000);
+            sleep(500);
             telemetry.addData("Path", "Of other stuff");
             telemetry.update();
 
+<<<<<<< HEAD
             // unhook
             encoderMove(.3, 600); // back away from the lander
 
@@ -158,6 +162,11 @@ public class TrollBotAuto extends TrollBotAutoComponents {
 
 
 
+=======
+            //encoderMove(.3, 950); // From landing position to middle cube
+            encoderMove(.3, 1000);
+            turnLeft(ninetyDegreeTurn);
+>>>>>>> b8a30251c71f40ad3efadcca0983decf715d7084
 
 
 

@@ -87,6 +87,17 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        // Reset encoder ticks
+        motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -107,18 +118,22 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
-            leftPower  = gamepad1.left_stick_y ;
+            leftPower  = || gamepad1.left_stick_y ;
             rightPower = gamepad1.right_stick_y ;
 
 
             // Send calculated power to wheels
             motorFL.setPower(leftPower);
-
+            motorBL.setPower(leftPower);
+            motorFR.setPower(rightPower);
             motorBR.setPower(rightPower);
 
-            // Show the elapsed game time and wheel power.
+
+            // Show run time and motor power, as well as ticks
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("motorBLTicks", motorBL.getCurrentPosition());
+            telemetry.addData("motorBRTicks", motorBR.getCurrentPosition());
             telemetry.update();
         }
     }
