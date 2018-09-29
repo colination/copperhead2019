@@ -63,7 +63,7 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
 
     ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 2240 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -87,7 +87,7 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
     static final int wallToDepot                    = 10;
     static final int depotToCraterEdge              = 10;
     static final double collectorPosition           = 1.0;
-    static final int ninetyDegreeTurn               = 290;
+    static final int ninetyDegreeTurn               = 320;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -139,19 +139,19 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
 
     public void encoderMove(double speed, int distance) {
         encoderReset();
-        while ((Math.abs(motorBL.getCurrentPosition()) < distance) && (opModeIsActive())) {//encoders may be moving forward
+        while ((Math.abs(motorBL.getCurrentPosition()) < (distance)) && (opModeIsActive())) {//encoders may be moving forward
             motorFL.setPower(speed);
             motorFR.setPower(speed);
             motorBL.setPower(speed);
             motorBR.setPower(speed);
-            telemetry.addData("Encoder", (Math.abs(motorBL.getCurrentPosition())));
+            telemetry.addData("EncoderBL", (Math.abs(motorBL.getCurrentPosition())));
+            telemetry.addData("EncoderBR", (Math.abs(motorBR.getCurrentPosition())));
             telemetry.update();
         }
         motorFL.setPower(0);
         motorFR.setPower(0);
         motorBL.setPower(0);
         motorBR.setPower(0);
-
     }
     public void turnLeft(int encoderTicks) {
         encoderReset();
