@@ -134,13 +134,13 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
 
             if(gamepad1.y) {
                 // move to 0 degrees.
-                servoR.setPosition(0.17);
+                servoR.setPosition(0.0);
             } else if (gamepad1.x || gamepad1.b) {
                 // move to 90 degrees.
                 servoR.setPosition(0.33);
             } else if (gamepad1.a) {
                 // move to 180 degrees.
-                servoR.setPosition(.49);
+                servoR.setPosition(.66);
             }
 
             // Shows servo position
