@@ -69,6 +69,12 @@ public class DriveTrain extends robotPart {
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
+    public void Turn(double power){
+        mtrFL.setPower(-power);
+        mtrBL.setPower(-power);
+        mtrFR.setPower(power);
+        mtrBR.setPower(power);
+    }
     public void timeoutExit(double seconds){
         runtime.reset();
         while (runtime.seconds() < seconds && mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy()){
