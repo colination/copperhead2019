@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.hitechnic.HiTechnicNxtGyroSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -37,10 +38,13 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 import android.graphics.Color;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import android.view.View;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -74,6 +78,9 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
     private ColorSensor sensorColor;
     private Color colorSensorL;
     private Color colorSensorR;
+    private Gyroscope gyroscope;
+    private Gyroscope hiTechnicNxtGyroSensor;
+
 
 
     @Override
@@ -95,6 +102,10 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
 
         servoR = hardwareMap.get(Servo.class, "servoR");
         servoL = hardwareMap.get(Servo.class, "servoL");
+
+        gyroscope = hardwareMap.get(Gyroscope.class, "gyroscope");
+        hiTechnicNxtGyroSensor = hardwareMap.get(HiTechnicNxtGyroSensor.class, "gyroscope");
+
 
         sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
