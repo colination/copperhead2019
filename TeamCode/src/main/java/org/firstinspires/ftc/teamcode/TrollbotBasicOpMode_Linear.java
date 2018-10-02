@@ -168,7 +168,7 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
                 if (gamepad1.y) {
                     // move to 0 degrees.
                     servoR.setPosition(1);
-                } else if (gamepad1.a && sensorColor.blue() > 70{
+                } else if (gamepad1.a && sensorColor.blue() > 70){
                     // move to 90 degrees.
                     servoR.setPosition(.40);
                 } else if (gamepad1.a) {
