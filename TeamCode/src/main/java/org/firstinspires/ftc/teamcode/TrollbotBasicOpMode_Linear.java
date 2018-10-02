@@ -33,12 +33,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 import android.graphics.Color;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import android.view.View;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 /**
@@ -66,6 +70,8 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
     private DcMotor motorBR = null;
     private Servo servoR;
     private Servo servoL;
+    private DistanceSensor sensorDistance;
+    private ColorSensor sensorColor;
     private Color colorSensorL;
     private Color colorSensorR;
 
@@ -89,6 +95,9 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
 
         servoR = hardwareMap.get(Servo.class, "servoR");
         servoL = hardwareMap.get(Servo.class, "servoL");
+
+        sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
+        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -144,35 +153,32 @@ public class TrollbotBasicOpMode_Linear extends LinearOpMode {
             motorBR.setPower(rightPower);
 
             // servoL
-            if(gamepad1.y) {
-                // move to 0 degrees.
-                servoL.setPosition(0);
-            } else if (gamepad1.x || gamepad1.b) {
-                // move to 90 degrees.
-                servoL.setPosition(.40);
-            } else if (gamepad1.a) {
-                // move to 180 degrees.
-                servoL.setPosition(.66);
-            }
-
-            // servoR
-            if(gamepad1.y) {
-                // move to 0 degrees.
-                servoR.setPosition(1);
-            } else if (gamepad1.x || gamepad1.b) {
-                // move to 90 degrees.
-                servoR.setPosition(.40);
-            } else if (gamepad1.a) {
-                // move to 180 degrees.
-                servoR.setPosition(0);
+            if (sensorDistance.getDistance(DistanceUnit.CM) < 7.0) {
+                if (gamepad1.y) {
+                    // move to 0 degrees.
+                    servoL.setPosition(0);
+                } else if (gamepad1.x || gamepad1.b) {
+                    // move to 90 degrees.
+                    servoL.setPosition(.40);
+                } else if (gamepad1.a) {
+                    // move to 180 degrees.
+                    servoL.setPosition(.66);
+                }
+                // servoR
+                if (gamepad1.y) {
+                    // move to 0 degrees.
+                    servoR.setPosition(1);
+                } else if (gamepad1.a && sensorColor.blue() > 70{
+                    // move to 90 degrees.
+                    servoR.setPosition(.40);
+                } else if (gamepad1.a) {
+                    // move to 180 degrees.
+                    servoR.setPosition(0);
+                }
             }
 
             // if (colorSensorL.blue() > 75)
             // if statement for colorSensorL, do after imports fixed
-
-
-
-
 
             // Shows servo position
 
