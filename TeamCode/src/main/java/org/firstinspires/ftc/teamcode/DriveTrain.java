@@ -75,6 +75,12 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(power);
         mtrBR.setPower(power);
     }
+    public void Tank(double leftPower, double rightPower) {
+        mtrFL.setPower(leftPower);
+        mtrBL.setPower(leftPower);
+        mtrFR.setPower(rightPower);
+        mtrBR.setPower(rightPower);
+    }
     public void timeoutExit(double seconds){
         runtime.reset();
         while (runtime.seconds() < seconds && mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy()){
