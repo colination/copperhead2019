@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
@@ -18,8 +19,8 @@ public class LiftAndHook extends robotPart {
     public DcMotor mtrLiftL;
 
     //Servos
-    public Servo servoR;
-    public Servo servoL;
+    public Servo servoDepositR;
+    public Servo servoDepositL;
     //Sensors
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
@@ -33,8 +34,10 @@ public class LiftAndHook extends robotPart {
         super.init(ahwmap, myTelemetry);
         mtrLiftL = ahwmap.dcMotor.get("mtrLiftL");
         mtrLiftR = ahwmap.dcMotor.get("mtrLiftR");
-        servoR = ahwmap.servo.get("servoR");
-        servoL = ahwmap.servo.get("servoL");
+        mtrLiftR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        servoDepositR = ahwmap.servo.get("servoDepositR");
+        servoDepositL = ahwmap.servo.get("servoDepositL");
 
 
 
