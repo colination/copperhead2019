@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -23,16 +25,22 @@ public class LiftAndHook extends robotPart {
     public DistanceSensor sensorDistanceL;
     public ColorSensor sensorColorR;
     public ColorSensor sensorColorL;
+//    public SensorREVColorDistance colorDistanceR;
+//    public SensorREVColorDistance colorDistanceL;
+//
 
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
+   public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
         mtrLiftL = ahwmap.dcMotor.get("mtrLiftL");
         mtrLiftR = ahwmap.dcMotor.get("mtrLiftR");
         servoR = ahwmap.servo.get("servoR");
         servoL = ahwmap.servo.get("servoL");
-        sensorColorR = ahwmap.colorSensor.get("sensorColor");
-        sensorColorL = ahwmap.colorSensor.get("sensorColor");
-        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorDistance");
-        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorDistance");
+
+
+
+        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
+        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
+        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
+        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
     }
 }
