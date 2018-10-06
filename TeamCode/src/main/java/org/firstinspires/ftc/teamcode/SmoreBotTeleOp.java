@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp(name = "SmoreTele",group = "12596")
+@TeleOp(name = "Smore TeleOp",group = "12596")
 public class SmoreBotTeleOp extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     @Override
@@ -14,6 +14,13 @@ public class SmoreBotTeleOp extends OpMode {
         telemetry.addData("Hello","Driver");
         telemetry.update();
     }
+    public double WeightAvg(double x, double y){
+        double speed_D = 0;
+        if (Math.abs(x) + Math.abs(y) !=0 ){
+            speed_D = (((x * Math.abs(x)) + (y * Math.abs(y))) /(Math.abs(x) + Math.abs(y)));
+        }
+        return(speed_D);
+    }
 
     @Override
     public void loop() {
@@ -21,11 +28,21 @@ public class SmoreBotTeleOp extends OpMode {
         double Turn = -gamepad1.left_stick_x;
 
         if (Math.abs(FwdBack) > 0.1){
-            robot.driveTrain.move(FwdBack);
+            FwdBack = FwdBack;
+        }
+        else {
+            FwdBack = 0;
         }
         if (Math.abs(Turn) > 0.1){
-            robot.driveTrain.Turn(Turn);
+            Turn = Turn;
         }
+        else {
+            Turn = 0;
+        }
+        robot.driveTrain.mtrFL.setPower(WeightAvg(FwdBack, -Turn));
+        robot.driveTrain.mtrBL.setPower(WeightAvg(FwdBack, -Turn));
+        robot.driveTrain.mtrFR.setPower(WeightAvg(FwdBack, Turn));
+        robot.driveTrain.mtrBR.setPower(WeightAvg(FwdBack, Turn));
 
         // Sets deposits straight up
         if (gamepad1.y) {
@@ -34,17 +51,15 @@ public class SmoreBotTeleOp extends OpMode {
             robot.liftAndHook.servoR.setPosition(1);
         }
 
-        // Left side deposit
-        if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
-            if (gamepad1.a) {
-                if (robot.liftAndHook.sensorColorL.blue() > 70) {
-                    robot.liftAndHook.servoL.setPosition(.66);
-                }
-                else {
-                    robot.liftAndHook.servoL.setPosition(.40);
+            if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
+                if (gamepad1.a) {
+                    if (robot.liftAndHook.sensorColorL.blue() > 70) {
+                        robot.liftAndHook.servoL.setPosition(.66);
+                    } else {
+                        robot.liftAndHook.servoL.setPosition(.40);
+                    }
                 }
             }
-        }
 
         // Right side deposit
         if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 7.0)  {
