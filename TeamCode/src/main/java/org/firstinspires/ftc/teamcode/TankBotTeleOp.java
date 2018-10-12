@@ -21,63 +21,78 @@ public class TankBotTeleOp extends OpMode {
     public void loop() {
         double leftPower  = -gamepad1.left_stick_y ;
         double rightPower = -gamepad1.right_stick_y ;
+        double Lift = -gamepad2.right_stick_y;
 
-        robot.driveTrain.Tank(leftPower, rightPower); // Tank Drive
+        robot.driveTrain.Tank(-leftPower, -rightPower); // Tank Drive
 
-        /*color sorted teleop, use once color sensors are wired
+        //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
         if (gamepad1.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoL.setPosition(0);
-            robot.liftAndHook.servoR.setPosition(1);
+            robot.liftAndHook.servoDepositL.setPosition(0);
+            robot.liftAndHook.servoDepositR.setPosition(.85);
         }
 
         // Left side deposit
-        if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
+        if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
             if (gamepad1.a) {
                 if (robot.liftAndHook.sensorColorL.blue() > 70) {
-                    robot.liftAndHook.servoL.setPosition(.66); // Deposit silver
+                    robot.liftAndHook.servoDepositL.setPosition(.66); // Deposit silver
                 }
                 else {
-                    robot.liftAndHook.servoL.setPosition(.40); // Deposit Gold
+                    robot.liftAndHook.servoDepositL.setPosition(.40); // Deposit Gold
                 }
             }
         }
         // Right side deposit
-        if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 7.0)  {
+        if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0)  {
             if (gamepad1.a) {
                 if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
-                    robot.liftAndHook.servoR.setPosition(0);
+                    robot.liftAndHook.servoDepositR.setPosition(.15);
                 }
                 else {
-                    robot.liftAndHook.servoR.setPosition(.40); // Deposit Gold mineral
+                    robot.liftAndHook.servoDepositR.setPosition(.40); // Deposit Gold mineral
                 }
             }
-        }*/
+        }
+        if (Math.abs(Lift) > 0.1){
+            Lift = Lift;
+        }
+        else {
+            Lift = 0;
+        }
+
+        robot.liftAndHook.mtrLiftR.setPower(Lift);
+        robot.liftAndHook.mtrLiftL.setPower(Lift);
+        /*
         if (gamepad1.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoL.setPosition(0);
-            robot.liftAndHook.servoR.setPosition(1);
+            robot.liftAndHook.servoDepositL.setPosition(0);
+            robot.liftAndHook.servoDepositR.setPosition(.85);
         }
         if (gamepad1.b) {
             // Deposit Gold
-            robot.liftAndHook.servoL.setPosition(.4);
-            robot.liftAndHook.servoR.setPosition(.37);
+            robot.liftAndHook.servoDepositL.setPosition(.4);
+            robot.liftAndHook.servoDepositR.setPosition(.4);
         }
         if ( gamepad1.x) {
-            robot.liftAndHook.servoL.setPosition(.66);
-            robot.liftAndHook.servoR.setPosition(.37);
+            robot.liftAndHook.servoDepositL.setPosition(.66);
+            robot.liftAndHook.servoDepositR.setPosition(.4);
         }
         if (gamepad1.a) {
             // Deposit silver
-            robot.liftAndHook.servoL.setPosition(.66);
-            robot.liftAndHook.servoR.setPosition(0);
-        }
+            robot.liftAndHook.servoDepositL.setPosition(.66);
+            robot.liftAndHook.servoDepositR.setPosition(.15);
+        }*/
 
 
         //Telemetry
-        telemetry.addData("Distance (cm)",
+        telemetry.addData("rightDistance (cm)",
                 String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM)));
+        telemetry.addData("leftDistance (cm)",
+                String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM)));
+        telemetry.addData("rightBlue ", robot.liftAndHook.sensorColorR.blue());
+        telemetry.addData("leftBlue ", robot.liftAndHook.sensorColorL.blue());
         telemetry.update();
 
     }
