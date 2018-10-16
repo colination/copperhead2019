@@ -23,8 +23,6 @@ public class TankBotTeleOp extends OpMode {
         double rightPower = -gamepad1.right_stick_y ;
         double Lift = -gamepad2.right_stick_y;
 
-        robot.driveTrain.Tank(-leftPower, -rightPower); // Tank Drive
-
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
         if (gamepad1.y) {
@@ -55,15 +53,24 @@ public class TankBotTeleOp extends OpMode {
                 }
             }
         }
+        if(gamepad2.y){
+            robot.liftAndHook.reset();
+        }
         if (Math.abs(Lift) > 0.1){
             Lift = Lift;
         }
         else {
             Lift = 0;
         }
+        //50% speed for depositing control
+        if (gamepad1.left_trigger > 0.1) {
+            leftPower  = -gamepad1.left_stick_y / 2 ;
+            rightPower = -gamepad1.right_stick_y / 2 ;
+        }
 
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
+        robot.driveTrain.Tank(-leftPower, -rightPower); // Tank Drive
         /*
         if (gamepad1.y) {
             // move to 0 degrees.
@@ -93,8 +100,9 @@ public class TankBotTeleOp extends OpMode {
                 String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM)));
         telemetry.addData("rightBlue ", robot.liftAndHook.sensorColorR.blue());
         telemetry.addData("leftBlue ", robot.liftAndHook.sensorColorL.blue());
+        telemetry.addData("liftLTicks", robot.liftAndHook.mtrLiftL.getCurrentPosition());
+        telemetry.addData("liftRTicks", robot.liftAndHook.mtrLiftR.getCurrentPosition());
         telemetry.update();
-
     }
 }
 

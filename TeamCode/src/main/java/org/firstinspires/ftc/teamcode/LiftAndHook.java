@@ -21,19 +21,18 @@ public class LiftAndHook extends robotPart {
     //Servos
     public Servo servoDepositR;
     public Servo servoDepositL;
+
     //Sensors
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
     public ColorSensor sensorColorR;
     public ColorSensor sensorColorL;
-//    public SensorREVColorDistance colorDistanceR;
-//    public SensorREVColorDistance colorDistanceL;
-//
 
    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
         mtrLiftL = ahwmap.dcMotor.get("mtrLiftL");
         mtrLiftR = ahwmap.dcMotor.get("mtrLiftR");
+
         mtrLiftR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         servoDepositR = ahwmap.servo.get("servoDepositR");
@@ -45,5 +44,10 @@ public class LiftAndHook extends robotPart {
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
+    }
+
+    public void reset() {
+        mtrLiftL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mtrLiftR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }
