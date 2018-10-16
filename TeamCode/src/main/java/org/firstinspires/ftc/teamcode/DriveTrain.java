@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -12,6 +13,7 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
+    public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1440 ;
     double     DRIVE_GEAR_REDUCTION    = 2.0 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
@@ -63,6 +65,9 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
+    public double target(double inches) {
+        return (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH));
+    }
     public void move(double power){
         mtrFL.setPower(power);
         mtrFR.setPower(power);
@@ -83,7 +88,7 @@ public class DriveTrain extends robotPart {
     }
     public void timeoutExit(double seconds){
         runtime.reset();
-        while (runtime.seconds() < seconds && mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy()){
+        while (runtime.seconds() < seconds || (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())){
             privateTelemetry.addData("Path1", "Running to target position");
             privateTelemetry.addData("Path2","Running at:",
                     mtrBL.getCurrentPosition(),
@@ -96,6 +101,7 @@ public class DriveTrain extends robotPart {
 
     public void goInches(double inches, double speed, double timeout){
         runtime.reset();
+        reset();
         setMode();
         targetPosition(inches);
         move(speed);
@@ -103,5 +109,15 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
+    public void goDistance(double inches, double speed){
+        reset();
+        setMode();
+        while ((Math.abs(mtrBL.getCurrentPosition()) < target(inches))) {
+            move(speed);
+        }
+        stopMotors();
+        reset();
+    }
+
 
 }
