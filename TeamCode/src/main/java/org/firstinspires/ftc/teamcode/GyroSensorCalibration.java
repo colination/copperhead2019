@@ -106,7 +106,7 @@ public class GyroSensorCalibration extends LinearOpMode
     //----------------------------------------------------------------------------------------------
 
     // Our sensors, motors, and other devices go here, along with other long term state
-    BNO055IMU imu;
+    BNO055IMU imu1;
 
     // State used for updating telemetry
     Orientation angles;
@@ -132,8 +132,8 @@ public class GyroSensorCalibration extends LinearOpMode
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.loggingEnabled = true;
         parameters.loggingTag     = "IMU";
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        imu1 = hardwareMap.get(BNO055IMU.class, "imu1");
+        imu1.initialize(parameters);
 
         composeTelemetry();
         telemetry.log().add("Waiting for start...");
@@ -151,7 +151,7 @@ public class GyroSensorCalibration extends LinearOpMode
             if (gamepad1.a) {
 
                 // Get the calibration data
-                BNO055IMU.CalibrationData calibrationData = imu.readCalibrationData();
+                BNO055IMU.CalibrationData calibrationData = imu1.readCalibrationData();
 
                 // Save the calibration data to a file. You can choose whatever file
                 // name you wish here, but you'll want to indicate the same file name
@@ -183,19 +183,19 @@ public class GyroSensorCalibration extends LinearOpMode
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                angles   = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 }
             });
 
         telemetry.addLine()
             .addData("status", new Func<String>() {
                 @Override public String value() {
-                    return imu.getSystemStatus().toShortString();
+                    return imu1.getSystemStatus().toShortString();
                     }
                 })
             .addData("calib", new Func<String>() {
                 @Override public String value() {
-                    return imu.getCalibrationStatus().toString();
+                    return imu1.getCalibrationStatus().toString();
                     }
                 });
 
