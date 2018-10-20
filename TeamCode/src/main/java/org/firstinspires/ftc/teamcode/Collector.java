@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class Collector extends robotPart {
+public class    Collector extends robotPart {
     public Servo srvCollectorL;
     public Servo srvCollectorR;
     public Servo srvFlopL;

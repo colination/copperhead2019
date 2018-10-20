@@ -99,6 +99,7 @@ import java.util.Locale;
  * @see <a href="https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST_BNO055_DS000_14.pdf">BNO055 specification</a>
  */
 @TeleOp(name = "Sensor: BNO055 IMU Calibration", group = "Sensor")
+@Disabled                            // Uncomment this to add to the opmode list
 public class GyroSensorCalibration extends LinearOpMode
     {
     //----------------------------------------------------------------------------------------------
@@ -132,7 +133,7 @@ public class GyroSensorCalibration extends LinearOpMode
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.loggingEnabled = true;
         parameters.loggingTag     = "IMU";
-        imu1 = hardwareMap.get(BNO055IMU.class, "imu1");
+        imu1 = hardwareMap.get(BNO055IMU.class, "imu");
         imu1.initialize(parameters);
 
         composeTelemetry();
@@ -158,10 +159,10 @@ public class GyroSensorCalibration extends LinearOpMode
                 // when you initialize the IMU in an opmode in which it is used. If you
                 // have more than one IMU on your robot, you'll of course want to use
                 // different configuration file names for each.
-                String filename = "AdafruitIMUCalibration.json";
-                File file = AppUtil.getInstance().getSettingsFile(filename);
+                String calibration = "AdafruitIMUCalibration.json";
+                File file = AppUtil.getInstance().getSettingsFile(calibration);
                 ReadWriteFile.writeFile(file, calibrationData.serialize());
-                telemetry.log().add("saved to '%s'", filename);
+                telemetry.log().add("saved to '%s'", calibration);
 
                 // Wait for the button to be released
                 while (gamepad1.a) {
