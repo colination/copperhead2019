@@ -102,7 +102,7 @@ public class TankBotTeleOp extends OpMode {
             robot.collector.srvCollectorL.setPosition(0);
             robot.collector.srvCollectorR.setPosition(0);
         }
-        if (gamepad2.a) {
+        if (gamepad1.a) {
             robot.collector.srvCollectorR.setPosition(1);
             robot.collector.srvCollectorL.setPosition(1);
         }
