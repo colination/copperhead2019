@@ -47,7 +47,7 @@ import java.io.File;
 import java.util.Locale;
 
 /**
- * {@link SensorBNO055IMUCalibration} calibrates the IMU accelerometer per
+ * {@link GyroSensorCalibration} calibrates the IMU accelerometer per
  * "Section 3.11 Calibration" of the BNO055 specification.
  *
  * <p>Manual calibration of the IMU is definitely NOT necessary: except for the magnetometer
@@ -100,14 +100,14 @@ import java.util.Locale;
  */
 @TeleOp(name = "Sensor: BNO055 IMU Calibration", group = "Sensor")
 @Disabled                            // Uncomment this to add to the opmode list
-public class SensorBNO055IMUCalibration extends LinearOpMode
+public class GyroSensorCalibration extends LinearOpMode
     {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------
 
     // Our sensors, motors, and other devices go here, along with other long term state
-    BNO055IMU imu;
+    BNO055IMU imu1;
 
     // State used for updating telemetry
     Orientation angles;
@@ -133,8 +133,8 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.loggingEnabled = true;
         parameters.loggingTag     = "IMU";
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        imu1 = hardwareMap.get(BNO055IMU.class, "imu");
+        imu1.initialize(parameters);
 
         composeTelemetry();
         telemetry.log().add("Waiting for start...");
@@ -152,7 +152,7 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
             if (gamepad1.a) {
 
                 // Get the calibration data
-                BNO055IMU.CalibrationData calibrationData = imu.readCalibrationData();
+                BNO055IMU.CalibrationData calibrationData = imu1.readCalibrationData();
 
                 // Save the calibration data to a file. You can choose whatever file
                 // name you wish here, but you'll want to indicate the same file name
@@ -184,19 +184,19 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                angles   = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 }
             });
 
         telemetry.addLine()
             .addData("status", new Func<String>() {
                 @Override public String value() {
-                    return imu.getSystemStatus().toShortString();
+                    return imu1.getSystemStatus().toShortString();
                     }
                 })
             .addData("calib", new Func<String>() {
                 @Override public String value() {
-                    return imu.getCalibrationStatus().toString();
+                    return imu1.getCalibrationStatus().toString();
                     }
                 });
 

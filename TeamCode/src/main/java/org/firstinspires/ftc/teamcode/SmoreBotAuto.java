@@ -17,7 +17,7 @@ public class SmoreBotAuto extends LinearOpMode {
 
             // orient robot ? How much will the robot shift upon landing from its initial orientation? We need hook finished to test this.
 
-            // move forward and use Vuforia to determine which of the minerals is gld.
+            // move forward and use Vuforia to determine which of the minerals is gold.
 
             if // gold is in middle
             {
