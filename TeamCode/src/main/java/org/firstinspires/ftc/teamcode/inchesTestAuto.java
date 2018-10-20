@@ -12,7 +12,7 @@ public class inchesTestAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         while (opModeIsActive() && finished == false){
-            robot.driveTrain.goInches(36,.8,6);
+            robot.driveTrain.goInches(12,.5,6);
             robot.driveTrain.stopMotors();
             finished = true;
         }
