@@ -51,3 +51,4 @@ public class LiftAndHook extends robotPart {
         mtrLiftR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }
+

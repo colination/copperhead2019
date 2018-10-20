@@ -15,7 +15,7 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrBR = null;
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1440 ;
-    double     DRIVE_GEAR_REDUCTION    = 2.0 ;
+    double     DRIVE_GEAR_REDUCTION    = 0.5 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI);
 
@@ -65,16 +65,13 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
-    public double target(double inches) {
-        return (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH));
-    }
     public void move(double power){
         mtrFL.setPower(power);
         mtrFR.setPower(power);
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
-    public void Turn(double power){
+    public void turn(double power){
         mtrFL.setPower(-power);
         mtrBL.setPower(-power);
         mtrFR.setPower(power);
@@ -109,15 +106,14 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-    public void goDistance(double inches, double speed){
+    public void turnInches(double inches, double speed, double timeout){
+        runtime.reset();
         reset();
         setMode();
-        while ((Math.abs(mtrBL.getCurrentPosition()) < target(inches))) {
-            move(speed);
-        }
+        targetPosition(inches);
+        turn(speed);
+        timeoutExit(timeout);
         stopMotors();
         reset();
     }
-
-
 }

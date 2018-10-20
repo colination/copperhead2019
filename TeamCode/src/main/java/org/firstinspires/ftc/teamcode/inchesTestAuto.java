@@ -9,10 +9,12 @@ public class inchesTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap,telemetry);
+        telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
+        telemetry.update();
         boolean finished = false;
         waitForStart();
         while (opModeIsActive() && finished == false){
-            robot.driveTrain.goInches(36,.8,6);
+            robot.driveTrain.goInches(24.0, .2, 6);
             robot.driveTrain.stopMotors();
             finished = true;
         }

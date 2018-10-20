@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -25,7 +26,8 @@ public class TankBotTeleOp extends OpMode {
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
-        if (gamepad1.y) {
+        /*
+        if (gamepad2.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
             robot.liftAndHook.servoDepositR.setPosition(.85);
@@ -33,7 +35,7 @@ public class TankBotTeleOp extends OpMode {
 
         // Left side deposit
         if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 if (robot.liftAndHook.sensorColorL.blue() > 70) {
                     robot.liftAndHook.servoDepositL.setPosition(.66); // Deposit silver
                 }
@@ -44,7 +46,7 @@ public class TankBotTeleOp extends OpMode {
         }
         // Right side deposit
         if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0)  {
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
                     robot.liftAndHook.servoDepositR.setPosition(.15);
                 }
@@ -53,14 +55,19 @@ public class TankBotTeleOp extends OpMode {
                 }
             }
         }
-        if(gamepad2.y){
+        //Reset encoder ticks for lift motors
+        if(gamepad2.right_bumper){
             robot.liftAndHook.reset();
         }
+        // Up arrow on controller 2 to make lift achieve max height & down arrow for min height
+
+        // Lift with joystick
         if (Math.abs(Lift) > 0.1){
             Lift = Lift;
         }
         else {
-            Lift = 0;
+            robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         //50% speed for depositing control
         if (gamepad1.left_trigger > 0.1) {
@@ -70,7 +77,7 @@ public class TankBotTeleOp extends OpMode {
 
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
-        robot.driveTrain.Tank(-leftPower, -rightPower); // Tank Drive
+        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
         /*
         if (gamepad1.y) {
             // move to 0 degrees.
@@ -91,6 +98,14 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.servoDepositL.setPosition(.66);
             robot.liftAndHook.servoDepositR.setPosition(.15);
         }*/
+        if (gamepad1.y) {
+            robot.collector.srvCollectorL.setPosition(0);
+            robot.collector.srvCollectorR.setPosition(0);
+        }
+        if (gamepad2.a) {
+            robot.collector.srvCollectorR.setPosition(1);
+            robot.collector.srvCollectorL.setPosition(1);
+        }
 
 
         //Telemetry
