@@ -14,7 +14,7 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
     public ElapsedTime runtime = new ElapsedTime();
-    double     COUNTS_PER_MOTOR_REV    = 1440 ;
+    double     COUNTS_PER_MOTOR_REV    = 1120 ;
     double     DRIVE_GEAR_REDUCTION    = 2.0 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI);
