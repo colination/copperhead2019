@@ -28,4 +28,9 @@ public class    Collector extends robotPart {
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
     }
+
+    public void Extend(double Power){
+        mtrExtendR.setPower(Power);
+        mtrExtendL.setPower(Power);
+    }
 }

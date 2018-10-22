@@ -26,7 +26,7 @@ public class TankBotTeleOp extends OpMode {
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
-        /*
+
         if (gamepad2.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
@@ -78,7 +78,7 @@ public class TankBotTeleOp extends OpMode {
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-        /*
+
         if (gamepad1.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
@@ -97,7 +97,7 @@ public class TankBotTeleOp extends OpMode {
             // Deposit silver
             robot.liftAndHook.servoDepositL.setPosition(.66);
             robot.liftAndHook.servoDepositR.setPosition(.15);
-        }*/
+        }
         if (gamepad1.y) {
             robot.collector.srvCollectorL.setPosition(0);
             robot.collector.srvCollectorR.setPosition(0);

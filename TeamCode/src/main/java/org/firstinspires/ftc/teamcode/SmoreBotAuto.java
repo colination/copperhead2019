@@ -23,8 +23,8 @@ public class SmoreBotAuto extends LinearOpMode {
 
             if // gold is in middle
             {
-                // turn 90 degrees
-                // extend collector to hit gold
+                // turn 90 degrees (need PID)
+                // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
                 // move towards the depot (find encoder value)
                 // move the opposite direction towards the crater and onto it (find encoder value)
@@ -33,7 +33,7 @@ public class SmoreBotAuto extends LinearOpMode {
             if // gold is to left
             {
                 // turn 45 degrees
-                // extend collector to hit gold
+                // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
                 // move towards the depot (find encoder value)
                 // move the opposite direction towards the crater and onto it (find encoder value)
@@ -42,7 +42,7 @@ public class SmoreBotAuto extends LinearOpMode {
             if // gold is to right
             {
                 // turn 135 degrees
-                // extend collector to hit gold
+                // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
                 // move towards the depot (find encoder value)
                 // move the opposite direction towards the crater and onto it (find encoder value)
