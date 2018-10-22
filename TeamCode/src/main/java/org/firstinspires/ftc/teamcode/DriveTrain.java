@@ -71,12 +71,6 @@ public class DriveTrain extends robotPart {
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
-    public void turn(double power){
-        mtrFL.setPower(-power);
-        mtrBL.setPower(-power);
-        mtrFR.setPower(power);
-        mtrBR.setPower(power);
-    }
     public void Tank(double leftPower, double rightPower) {
         mtrFL.setPower(leftPower);
         mtrBL.setPower(leftPower);
@@ -106,12 +100,12 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-    public void turnInches(double inches, double speed, double timeout){
+    public void gyroInches(double inches, double speed, double timeout){
         runtime.reset();
         reset();
         setMode();
         targetPosition(inches);
-        turn(speed);
+        Tank(speed, speed);
         timeoutExit(timeout);
         stopMotors();
         reset();

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -22,11 +23,11 @@ public class TankBotTeleOp extends OpMode {
     public void loop() {
         double leftPower  = -gamepad1.left_stick_y ;
         double rightPower = -gamepad1.right_stick_y ;
-        double Lift = -gamepad2.right_stick_y;
+        double Lift = -gamepad1.right_stick_y;
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
-        /*
+
         if (gamepad2.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
@@ -62,8 +63,10 @@ public class TankBotTeleOp extends OpMode {
         // Up arrow on controller 2 to make lift achieve max height & down arrow for min height
 
         // Lift with joystick
-        if (Math.abs(Lift) > 0.1){
-            Lift = Lift;
+        if (gamepad1.right_trigger > 0.1) {
+            if (Math.abs(Lift) > 0.1) {
+                Lift = Lift;
+            }
         }
         else {
             robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -97,15 +100,15 @@ public class TankBotTeleOp extends OpMode {
             // Deposit silver
             robot.liftAndHook.servoDepositL.setPosition(.66);
             robot.liftAndHook.servoDepositR.setPosition(.15);
-        }*/
+        }/*
         if (gamepad1.y) {
             robot.collector.srvCollectorL.setPosition(0);
             robot.collector.srvCollectorR.setPosition(0);
         }
         if (gamepad1.a) {
-            robot.collector.srvCollectorR.setPosition(1);
+            robot.collector.srvCollectorR.setPosition(.55);
             robot.collector.srvCollectorL.setPosition(1);
-        }
+        }*/
 
 
         //Telemetry
@@ -118,6 +121,7 @@ public class TankBotTeleOp extends OpMode {
         telemetry.addData("liftLTicks", robot.liftAndHook.mtrLiftL.getCurrentPosition());
         telemetry.addData("liftRTicks", robot.liftAndHook.mtrLiftR.getCurrentPosition());
         telemetry.update();
+
     }
 }
 

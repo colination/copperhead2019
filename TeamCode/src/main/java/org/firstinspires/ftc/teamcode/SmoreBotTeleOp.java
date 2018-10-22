@@ -51,6 +51,7 @@ public class SmoreBotTeleOp extends OpMode {
         robot.driveTrain.mtrFR.setPower(WeightAvg(FwdBack, Turn));
         robot.driveTrain.mtrBR.setPower(WeightAvg(FwdBack, Turn));
 
+
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
 
@@ -82,6 +83,7 @@ public class SmoreBotTeleOp extends OpMode {
                 }
             }
         }
+
     }
 }
 
