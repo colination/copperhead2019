@@ -35,13 +35,11 @@ public class gyroTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
-        robot.driveTrain.mtrFR.setDirection(DcMotor.Direction.REVERSE);
-        robot.driveTrain.mtrFR.setDirection(DcMotor.Direction.REVERSE);
 
-        robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -78,8 +76,8 @@ public class gyroTestAuto extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData("Mode", "running");
-        telemetry.update();
+        //telemetry.addData("Mode", "running");
+        //telemetry.update();
 
         sleep(1000);
 
@@ -90,14 +88,22 @@ public class gyroTestAuto extends LinearOpMode {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
 
-            telemetry.addData("1 imu heading", lastAngles.firstAngle);
-            telemetry.addData("2 global heading", globalAngle);
-            telemetry.addData("3 correction", correction);
+            robot.driveTrain.gyroInches(12.0);
+            robot.driveTrain.Tank(.2 + correction, .2);
+            telemetry.addLine("test 1");
             telemetry.update();
-            robot.driveTrain.gyroInches(12.0, .2, 6);
-            //rotate(90, .2);
+            sleep(2000);
+            rotate(90, .2);
+            telemetry.addLine("test 2");
+            telemetry.update();
+            robot.driveTrain.stopMotors();
             sleep(20000);
 
+            telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
+            telemetry.addLine().addData("2 global heading", globalAngle);
+            telemetry.addLine().addData("3 correction", correction);
+            //telemetry.addLine().addData("Robot Angle", getAngle());
+            telemetry.update();
             //robot.driveTrain.mtrFL.setPower(-power + correction);
             //robot.driveTrain.mtrBL.setPower(-power + correction);
             //robot.driveTrain.mtrFR.setPower(-power);
@@ -182,6 +188,7 @@ public class gyroTestAuto extends LinearOpMode {
 
         // restart imu movement tracking.
         resetAngle();
+        telemetry.addLine().addData("Robot Angle", getAngle());
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).

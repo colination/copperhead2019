@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+/*
 @Disabled
 @Autonomous(name = "SmoreBot Auto", group = "12596")
 public class SmoreBotAuto extends LinearOpMode {
@@ -21,7 +21,7 @@ public class SmoreBotAuto extends LinearOpMode {
 
             // Use Vuforia to determine which of the minerals is the gold.
 
-            if // gold is in middle
+            //if // gold is in middle
             {
                 // turn 90 degrees (need PID)
                 // robot.collector.Extend(.3);
@@ -30,7 +30,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 // move the opposite direction towards the crater and onto it (find encoder value)
             }
 
-            if // gold is to left
+            //if // gold is to left
             {
                 // turn 45 degrees
                 // robot.collector.Extend(.3);
@@ -39,7 +39,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 // move the opposite direction towards the crater and onto it (find encoder value)
             }
 
-            if // gold is to right
+            //if // gold is to right
             {
                 // turn 135 degrees
                 // robot.collector.Extend(.3);
@@ -52,3 +52,4 @@ public class SmoreBotAuto extends LinearOpMode {
         }
     }
 }
+*/

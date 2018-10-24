@@ -4,14 +4,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    Collector extends robotPart {
-    public Servo srvCollectorL;
-    public Servo srvCollectorR;
-    public Servo srvFlopL;
-    public Servo srvFlopR;
+    public CRServo srvCollectorL;
+    public CRServo srvCollectorR;
+    public CRServo srvFlopL;
+    public CRServo srvFlopR;
 
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
@@ -19,14 +20,16 @@ public class    Collector extends robotPart {
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
 
-        srvCollectorL = ahwmap.servo.get("srvCollectorL");
-        srvCollectorR = ahwmap.servo.get("srvCollectorR");
-        srvFlopL = ahwmap.servo.get("srvFlopL");
-        srvFlopR = ahwmap.servo.get("srvFlopR");
+        srvCollectorL = ahwmap.crservo.get("srvCollectorL");
+        srvCollectorR = ahwmap.crservo.get("srvCollectorR");
+        srvFlopL = ahwmap.crservo.get("srvFlopL");
+        srvFlopR = ahwmap.crservo.get("srvFlopR");
 
         mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
+        srvCollectorR.setDirection(CRServo.Direction.REVERSE);
+        srvFlopR.setDirection(CRServo.Direction.REVERSE);
     }
 
     public void Extend(double Power){
