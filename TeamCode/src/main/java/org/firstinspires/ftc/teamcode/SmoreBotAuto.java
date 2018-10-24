@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+// NOTE: THIS AUTO IS ONLY FOR THE RED POSITION CLOSEST TO THE DEPOT
+
 @Disabled
 @Autonomous(name = "SmoreBot Auto", group = "12596")
 public class SmoreBotAuto extends LinearOpMode {
@@ -19,33 +21,33 @@ public class SmoreBotAuto extends LinearOpMode {
 
             // orient robot ? How much will the robot shift upon landing from its initial orientation? We need hook finished to test this.
 
-            // Use Vuforia to determine which of the minerals is the gold.
+            // Use OpenCD to determine which of the minerals is the gold.
 
             if // gold is in middle
             {
-                // turn 90 degrees (need PID)
+                // turn 90 degrees (need gyro)
                 // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
-                // move towards the depot (find encoder value)
-                // move the opposite direction towards the crater and onto it (find encoder value)
+                // robot.driveTrain.goInches(50, .5, 6); << VALUES ARE ROUGH
+                // robot.driveTrain.goInches(-70, .6, 6); << VALUES ARE ROUGH
             }
 
             if // gold is to left
             {
-                // turn 45 degrees
+                // turn 45 degrees (need gyro)
                 // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
-                // move towards the depot (find encoder value)
-                // move the opposite direction towards the crater and onto it (find encoder value)
+                // robot.driveTrain.goInches(50, .5, 6); << VALUES ARE ROUGH
+                // robot.driveTrain.goInches(-70, .6, 6); << VALUES ARE ROUGH
             }
 
             if // gold is to right
             {
-                // turn 135 degrees
+                // turn 135 degrees (need gyro)
                 // robot.collector.Extend(.3);
                 // move diagonally until we hit the wall
-                // move towards the depot (find encoder value)
-                // move the opposite direction towards the crater and onto it (find encoder value)
+                // robot.driveTrain.goInches(50, .5, 6); << VALUES ARE ROUGH
+                // robot.driveTrain.goInches(-70, .6, 6); << VALUES ARE ROUGH
             }
 
             finished = true;
