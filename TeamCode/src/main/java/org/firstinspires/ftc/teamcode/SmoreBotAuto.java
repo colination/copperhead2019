@@ -3,9 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+<<<<<<< HEAD
 
 // NOTE: THIS AUTO IS ONLY FOR THE RED POSITION CLOSEST TO THE DEPOT
 
+=======
+/*
+>>>>>>> b8c084d4f73b8b98b5eb5a880ca7c9ee8c7fc39a
 @Disabled
 @Autonomous(name = "SmoreBot Auto", group = "12596")
 public class SmoreBotAuto extends LinearOpMode {
@@ -23,7 +27,7 @@ public class SmoreBotAuto extends LinearOpMode {
 
             // Use OpenCD to determine which of the minerals is the gold.
 
-            if // gold is in middle
+            //if // gold is in middle
             {
                 // turn 90 degrees (need gyro)
                 // robot.collector.Extend(.3);
@@ -32,7 +36,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 // robot.driveTrain.goInches(-70, .6, 6); << VALUES ARE ROUGH
             }
 
-            if // gold is to left
+            //if // gold is to left
             {
                 // turn 45 degrees (need gyro)
                 // robot.collector.Extend(.3);
@@ -41,7 +45,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 // robot.driveTrain.goInches(-70, .6, 6); << VALUES ARE ROUGH
             }
 
-            if // gold is to right
+            //if // gold is to right
             {
                 // turn 135 degrees (need gyro)
                 // robot.collector.Extend(.3);
@@ -54,3 +58,4 @@ public class SmoreBotAuto extends LinearOpMode {
         }
     }
 }
+*/

@@ -36,10 +36,12 @@ public class DriveTrain extends robotPart {
         mtrFR.setDirection(DcMotorSimple.Direction.REVERSE);
         mtrBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        stopMotors();
     }
     public void stopMotors(){
         mtrFL.setPower(0);
@@ -64,6 +66,9 @@ public class DriveTrain extends robotPart {
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+    }
+    public int target(double inches) {
+        return (int)(inches * COUNTS_PER_INCH);
     }
     public void move(double power){
         mtrFL.setPower(power);
@@ -100,14 +105,9 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-    public void gyroInches(double inches, double speed, double timeout){
-        runtime.reset();
+    public void gyroInches(double inches){
         reset();
         setMode();
         targetPosition(inches);
-        Tank(speed, speed);
-        timeoutExit(timeout);
-        stopMotors();
-        reset();
     }
 }

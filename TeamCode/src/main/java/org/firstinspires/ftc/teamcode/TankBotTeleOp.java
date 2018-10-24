@@ -24,6 +24,8 @@ public class TankBotTeleOp extends OpMode {
         double leftPower  = -gamepad1.left_stick_y ;
         double rightPower = -gamepad1.right_stick_y ;
         double Lift = -gamepad1.right_stick_y;
+        double extend = - gamepad2.right_stick_y;
+        double flop = gamepad2.left_stick_y;
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
@@ -36,7 +38,7 @@ public class TankBotTeleOp extends OpMode {
 
         // Left side deposit
         if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 if (robot.liftAndHook.sensorColorL.blue() > 70) {
                     robot.liftAndHook.servoDepositL.setPosition(.66); // Deposit silver
                 }
@@ -47,7 +49,7 @@ public class TankBotTeleOp extends OpMode {
         }
         // Right side deposit
         if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0)  {
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
                     robot.liftAndHook.servoDepositR.setPosition(.15);
                 }
@@ -56,13 +58,8 @@ public class TankBotTeleOp extends OpMode {
                 }
             }
         }
-        //Reset encoder ticks for lift motors
-        if(gamepad2.right_bumper){
-            robot.liftAndHook.reset();
-        }
-        // Up arrow on controller 2 to make lift achieve max height & down arrow for min height
 
-        // Lift with joystick
+        // Lift with right joystick and holding right trigger
         if (gamepad1.right_trigger > 0.1) {
             if (Math.abs(Lift) > 0.1) {
                 Lift = Lift;
@@ -72,15 +69,44 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
+
+        // Extending motors with right joystick
+        if (Math.abs(extend) > 0.1) {
+            extend = extend;
+        }
+        else {
+            robot.collector.mtrExtendL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.collector.mtrExtendR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+
+        // Flopping out collector with left Joystick
+        if (Math.abs(flop) > 0.1) {
+            flop = flop;
+        }
+        else {
+            flop = 0;
+        }
+
+        // Right trigger to rotate intake
+        if (gamepad2.right_trigger > 0.1) {
+            robot.collector.srvCollectorR.setPower(1.0);
+            robot.collector.srvCollectorR.setPower(1.0);
+        }
+
         //50% speed for depositing control
         if (gamepad1.left_trigger > 0.1) {
             leftPower  = -gamepad1.left_stick_y / 2 ;
             rightPower = -gamepad1.right_stick_y / 2 ;
         }
 
-        robot.liftAndHook.mtrLiftR.setPower(Lift);
+        // Set corresponding power to motors
+        robot.liftAndHook.mtrLiftR.setPower(Lift); // Lift motors
         robot.liftAndHook.mtrLiftL.setPower(Lift);
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
+        robot.collector.mtrExtendL.setPower(extend); // Collector extension
+        robot.collector.mtrExtendL.setPower(extend);
+        robot.collector.srvFlopL.setPower(flop); // Collector flop out
+        robot.collector.srvFlopR.setPower(flop);
         /*
         if (gamepad1.y) {
             // move to 0 degrees.
