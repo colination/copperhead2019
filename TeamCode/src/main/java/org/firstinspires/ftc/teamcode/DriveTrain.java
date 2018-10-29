@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -13,6 +14,10 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
+
+    //servos
+    public Servo srvRoller = null;
+
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
     double     DRIVE_GEAR_REDUCTION    = 0.5 ;
@@ -26,6 +31,7 @@ public class DriveTrain extends robotPart {
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
 
+        //Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
         mtrFR = ahwmap.dcMotor.get("mtrFR");
         mtrBL = ahwmap.dcMotor.get("mtrBL");
@@ -40,8 +46,14 @@ public class DriveTrain extends robotPart {
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        stopMotors();
+        //Servos
+        srvRoller = ahwmap.servo.get("srvRoller");
+        srvRoller.setPosition(1);
     }
     public void stopMotors(){
         mtrFL.setPower(0);
@@ -115,9 +127,13 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-    public void gyroInches(double inches){
         reset();
         setMode();
         target(inches);
+        targetPosition(inches);
+        Tank(speed, speed);
+        timeoutExit(timeout);
+        stopMotors();
+        reset();
     }
 }
