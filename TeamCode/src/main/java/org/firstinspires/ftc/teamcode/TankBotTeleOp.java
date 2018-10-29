@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -62,7 +64,8 @@ public class TankBotTeleOp extends OpMode {
         // Lift with right joystick and holding right trigger
         if (gamepad1.right_trigger > 0.1) {
             if (Math.abs(Lift) > 0.1) {
-                Lift = Lift;
+                robot.liftAndHook.mtrLiftR.setPower(Lift);
+                robot.liftAndHook.mtrLiftL.setPower(Lift);
             }
         }
         else {
@@ -87,10 +90,23 @@ public class TankBotTeleOp extends OpMode {
             flop = 0;
         }
 
-        // Right trigger to rotate intake
+        // Right trigger to rotate intake, left trigger spits out
         if (gamepad2.right_trigger > 0.1) {
+            robot.collector.srvCollectorR.setDirection(CRServo.Direction.FORWARD);
+            robot.collector.srvCollectorL.setDirection(CRServo.Direction.REVERSE);
+            robot.collector.srvCollectorL.setPower(1.0);
             robot.collector.srvCollectorR.setPower(1.0);
+        }
+        else if (gamepad2.left_trigger> 0.1) {
+            robot.collector.srvCollectorR.setDirection(CRServo.Direction.REVERSE);
+            robot.collector.srvCollectorL.setDirection(CRServo.Direction.FORWARD);
+            robot.collector.srvCollectorL.setPower(1.0);
             robot.collector.srvCollectorR.setPower(1.0);
+        }
+        else
+        {
+            robot.collector.srvCollectorL.setPower(0);
+            robot.collector.srvCollectorR.setPower(0);
         }
 
         //50% speed for depositing control
@@ -100,11 +116,9 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Set corresponding power to motors
-        robot.liftAndHook.mtrLiftR.setPower(Lift); // Lift motors
-        robot.liftAndHook.mtrLiftL.setPower(Lift);
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-        robot.collector.mtrExtendL.setPower(extend); // Collector extension
-        robot.collector.mtrExtendL.setPower(extend);
+        robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
+        robot.collector.mtrExtendR.setPower(extend/2);
         robot.collector.srvFlopL.setPower(flop); // Collector flop out
         robot.collector.srvFlopR.setPower(flop);
         /*

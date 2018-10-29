@@ -89,15 +89,28 @@ public class gyroTestAuto extends LinearOpMode {
             correction = checkDirection();
 
             robot.driveTrain.gyroInches(12.0);
-            robot.driveTrain.Tank(.2 + correction, .2);
             telemetry.addLine("test 1");
             telemetry.update();
-            sleep(2000);
-            rotate(90, .2);
+            sleep(200);
+            robot.driveTrain.Tank(.2 + correction, .2);
             telemetry.addLine("test 2");
             telemetry.update();
+            sleep(200);
             robot.driveTrain.stopMotors();
-            sleep(20000);
+            telemetry.addLine("test 3");
+            telemetry.update();
+            sleep(200);
+            robot.driveTrain.turnMode();
+            sleep(200);
+            telemetry.addLine("test 4");
+            telemetry.update();
+            sleep(200);
+            telemetry.addLine().addData("turnAngle", getAngle());
+            telemetry.update();
+            rotate(90, .2);
+            telemetry.update();
+            robot.driveTrain.stopMotors();
+
 
             telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
