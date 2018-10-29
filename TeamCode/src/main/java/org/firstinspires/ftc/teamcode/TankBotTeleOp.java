@@ -64,7 +64,8 @@ public class TankBotTeleOp extends OpMode {
         // Lift with right joystick and holding right trigger
         if (gamepad1.right_trigger > 0.1) {
             if (Math.abs(Lift) > 0.1) {
-                Lift = Lift;
+                robot.liftAndHook.mtrLiftR.setPower(Lift);
+                robot.liftAndHook.mtrLiftL.setPower(Lift);
             }
         }
         else {
@@ -115,8 +116,6 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Set corresponding power to motors
-        robot.liftAndHook.mtrLiftR.setPower(Lift); // Lift motors
-        robot.liftAndHook.mtrLiftL.setPower(Lift);
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
         robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
         robot.collector.mtrExtendR.setPower(extend/2);

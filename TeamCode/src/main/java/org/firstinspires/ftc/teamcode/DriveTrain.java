@@ -30,7 +30,6 @@ public class DriveTrain extends robotPart {
 
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
-
         //Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
         mtrFR = ahwmap.dcMotor.get("mtrFR");
@@ -42,10 +41,6 @@ public class DriveTrain extends robotPart {
         mtrFR.setDirection(DcMotorSimple.Direction.REVERSE);
         mtrBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -54,7 +49,9 @@ public class DriveTrain extends robotPart {
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
         srvRoller.setPosition(1);
+
     }
+
     public void stopMotors(){
         mtrFL.setPower(0);
         mtrBL.setPower(0);
@@ -85,6 +82,7 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
+
     public void move(double power){
         mtrFL.setPower(power);
         mtrFR.setPower(power);
@@ -127,13 +125,9 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
+    public void gyroInches(double inches){
         reset();
         setMode();
         target(inches);
-        targetPosition(inches);
-        Tank(speed, speed);
-        timeoutExit(timeout);
-        stopMotors();
-        reset();
     }
 }

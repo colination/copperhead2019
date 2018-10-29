@@ -108,7 +108,6 @@ public class gyroTestAuto extends LinearOpMode {
             telemetry.addLine().addData("turnAngle", getAngle());
             telemetry.update();
             rotate(90, .2);
-
             telemetry.update();
             robot.driveTrain.stopMotors();
 

@@ -9,6 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    Collector extends robotPart {
+    public CRServo srvCollectorL;
+    public CRServo srvCollectorR;
+    public CRServo srvFlopL;
+    public CRServo srvFlopR;
 
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
@@ -16,10 +20,13 @@ public class    Collector extends robotPart {
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
 
+        srvCollectorL = ahwmap.crservo.get("srvCollectorL");
+        srvCollectorR = ahwmap.crservo.get("srvCollectorR");
+        srvFlopL = ahwmap.crservo.get("srvFlopL");
+        srvFlopR = ahwmap.crservo.get("srvFlopR");
 
         mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
-        mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
         srvFlopR.setDirection(CRServo.Direction.REVERSE);
     }
 
@@ -28,7 +35,7 @@ public class    Collector extends robotPart {
         mtrExtendL.setPower(Power);
     }
     public void collect(double power){
-        csrvCollectorL.setPower(-power);
-        csrvCollectorR.setPower(power);
+        srvCollectorL.setPower(-power);
+        srvCollectorR.setPower(power);
     }
 }
