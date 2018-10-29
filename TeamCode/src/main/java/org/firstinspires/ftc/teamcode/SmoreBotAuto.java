@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-<<<<<<< HEAD
 
 // NOTE: THIS AUTO IS ONLY FOR THE RED POSITION CLOSEST TO THE DEPOT
 
-=======
+
 /*
 >>>>>>> b8c084d4f73b8b98b5eb5a880ca7c9ee8c7fc39a
 @Disabled
