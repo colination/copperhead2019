@@ -20,7 +20,7 @@ public class SmoreBotAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         while (opModeIsActive() && finished == false){
-
+ v
             // unhook from lander -- lift will have to move a certain encoder value (see Joel's code for tele-op lift when finished)
 
             // orient robot ? How much will the robot shift upon landing from its initial orientation? We need hook finished to test this.

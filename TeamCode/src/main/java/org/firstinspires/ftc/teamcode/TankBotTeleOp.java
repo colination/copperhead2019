@@ -63,6 +63,8 @@ public class TankBotTeleOp extends OpMode {
 
         // Lift with right joystick and holding right trigger
         if (gamepad1.right_trigger > 0.1) {
+            leftPower = 0;
+            rightPower = 0;
             if (Math.abs(Lift) > 0.1) {
                 robot.liftAndHook.mtrLiftR.setPower(Lift);
                 robot.liftAndHook.mtrLiftL.setPower(Lift);
