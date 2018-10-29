@@ -67,8 +67,11 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
-    public int target(double inches) {
-        return (int)(inches * COUNTS_PER_INCH);
+    public void target(double inches) {
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
     public void move(double power){
         mtrFL.setPower(power);
@@ -82,6 +85,13 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
+    public void turnMode() {
+        mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
     public void timeoutExit(double seconds){
         runtime.reset();
         while (runtime.seconds() < seconds || (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())){
@@ -108,6 +118,6 @@ public class DriveTrain extends robotPart {
     public void gyroInches(double inches){
         reset();
         setMode();
-        targetPosition(inches);
+        target(inches);
     }
 }

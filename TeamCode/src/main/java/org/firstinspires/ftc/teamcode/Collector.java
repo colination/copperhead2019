@@ -28,7 +28,6 @@ public class    Collector extends robotPart {
         mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
-        srvCollectorR.setDirection(CRServo.Direction.REVERSE);
         srvFlopR.setDirection(CRServo.Direction.REVERSE);
     }
 
