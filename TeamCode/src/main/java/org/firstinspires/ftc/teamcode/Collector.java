@@ -10,12 +10,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    Collector extends robotPart {
-
     public CRServo srvCollectorL;
     public CRServo srvCollectorR;
     public CRServo srvFlopL;
     public CRServo srvFlopR;
-
 
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;

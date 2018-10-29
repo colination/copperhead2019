@@ -51,13 +51,13 @@ public class DriveTrain extends robotPart {
         srvRoller = ahwmap.servo.get("srvRoller");
         srvRoller.setPosition(1);
 
+
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         stopMotors();
-
     }
 
     public void stopMotors(){
@@ -84,8 +84,12 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
-
-
+    public void target(double inches) {
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+    }
 
     public void move(double power){
         mtrFL.setPower(power);
@@ -107,6 +111,13 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
+    public void turnMode() {
+        mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
     public void timeoutExit(double seconds){
         runtime.reset();
         while (runtime.seconds() < seconds || (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())){
@@ -131,26 +142,24 @@ public class DriveTrain extends robotPart {
         reset();
     }
 
-    public void goLean(double inches, double power, double timeout, boolean direction){
+    public void goLean(double inches, double power, double timeout, boolean direction) {
         double powerShift;
         //true for direction is forward, false for direction is backwards
-        if (direction == true){
+        if (direction == true) {
             powerShift = .1;
-        }
-        else{
+        } else {
             powerShift = -.1;
         }
         runtime.reset();
         reset();
         setMode();
         targetPosition(inches);
-        moveLean(power,powerShift);
+        moveLean(power, powerShift);
         timeoutExit(timeout);
         stopMotors();
         reset();
     }
-
-    public void gyroInches(double inches){
+    public void gyroInches ( double inches){
         reset();
         setMode();
         targetPosition(inches);
