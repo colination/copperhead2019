@@ -34,6 +34,11 @@ public class    Collector extends robotPart {
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
     }
+
+    public void Retract(double Power){
+        mtrExtendR.setPower(-Power);
+        mtrExtendL.setPower(-Power);
+    }
     public void collect(double power){
         csrvCollectorL.setPower(-power);
         csrvCollectorR.setPower(power);

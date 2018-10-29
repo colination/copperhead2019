@@ -14,6 +14,7 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
+    public Servo sideRoller = null;
 
     //servos
     public Servo srvRoller = null;
@@ -35,6 +36,7 @@ public class DriveTrain extends robotPart {
         mtrFR = ahwmap.dcMotor.get("mtrFR");
         mtrBL = ahwmap.dcMotor.get("mtrBL");
         mtrBR = ahwmap.dcMotor.get("mtrBR");
+
 
         mtrFL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrBL.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -119,5 +121,9 @@ public class DriveTrain extends robotPart {
         timeoutExit(timeout);
         stopMotors();
         reset();
+    }
+
+    public void setSideRoller(double Position){
+        srvRoller.setPosition(Position);
     }
 }
