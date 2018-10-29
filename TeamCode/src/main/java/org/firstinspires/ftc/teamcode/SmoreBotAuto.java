@@ -6,6 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 // NOTE: THIS AUTO IS ONLY FOR THE POSITION CLOSEST TO THE DEPOT
 
+<<<<<<< HEAD
+=======
+
+/*
+>>>>>>> b8c084d4f73b8b98b5eb5a880ca7c9ee8c7fc39a
+>>>>>>> d0e3923112c461bd993a41a4569e774d5714fe6a
 @Disabled
 @Autonomous(name = "SmoreBot Auto", group = "12596")
 public class SmoreBotAuto extends LinearOpMode {
@@ -16,7 +22,7 @@ public class SmoreBotAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         while (opModeIsActive() && finished == false){
-
+ v
             // unhook from lander -- lift will have to move a certain encoder value (see Joel's code for tele-op lift when finished)
             robot.driveTrain.srvRoller.setPosition(1);
             // turn to the left, begin scanning while turning
