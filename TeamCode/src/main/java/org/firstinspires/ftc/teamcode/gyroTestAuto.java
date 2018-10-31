@@ -31,7 +31,7 @@ public class gyroTestAuto extends LinearOpMode {
     double globalAngle, power = .30, correction;
     boolean                 aButton, bButton, touched;
 
-     // called when init button is  pressed.
+    // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);

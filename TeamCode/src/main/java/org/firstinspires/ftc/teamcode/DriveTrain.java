@@ -14,7 +14,6 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
-    public Servo sideRoller = null;
 
     //servos
     public Servo srvRoller = null;
@@ -37,7 +36,6 @@ public class DriveTrain extends robotPart {
         mtrBL = ahwmap.dcMotor.get("mtrBL");
         mtrBR = ahwmap.dcMotor.get("mtrBR");
 
-
         mtrFL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrBL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -53,13 +51,13 @@ public class DriveTrain extends robotPart {
         srvRoller = ahwmap.servo.get("srvRoller");
         srvRoller.setPosition(-1);
 
-
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         stopMotors();
+
     }
 
     public void stopMotors(){
@@ -86,12 +84,8 @@ public class DriveTrain extends robotPart {
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
-    public void target(double inches) {
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
-        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
-        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-    }
+
+
 
     public void move(double power){
         mtrFL.setPower(power);
@@ -113,11 +107,7 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
-<<<<<<< HEAD
     public void turnMode(){
-=======
-    public void turnMode() {
->>>>>>> 32f39b771d0d02e0df60fd32d306fdb406bb7676
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -148,32 +138,28 @@ public class DriveTrain extends robotPart {
         reset();
     }
 
-    public void goLean(double inches, double power, double timeout, boolean direction) {
+    public void goLean(double inches, double power, double timeout, boolean direction){
         double powerShift;
         //true for direction is forward, false for direction is backwards
-        if (direction == true) {
+        if (direction == true){
             powerShift = .1;
-        } else {
+        }
+        else{
             powerShift = -.1;
         }
         runtime.reset();
         reset();
         setMode();
         targetPosition(inches);
-        moveLean(power, powerShift);
+        moveLean(power,powerShift);
         timeoutExit(timeout);
         stopMotors();
         reset();
     }
-<<<<<<< HEAD
 
-    public void setSideRoller(double Position){
-        srvRoller.setPosition(Position);
-=======
-    public void gyroInches ( double inches){
+    public void gyroInches(double inches){
         reset();
         setMode();
         targetPosition(inches);
->>>>>>> d0e3923112c461bd993a41a4569e774d5714fe6a
     }
 }

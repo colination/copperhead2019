@@ -80,7 +80,6 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-
         // Extending motors with right joystick
         if (Math.abs(extend) > 0.1) {
             extend = extend;
@@ -171,6 +170,7 @@ public class TankBotTeleOp extends OpMode {
         telemetry.addData("liftLTicks", robot.liftAndHook.mtrLiftL.getCurrentPosition());
         telemetry.addData("liftRTicks", robot.liftAndHook.mtrLiftR.getCurrentPosition());
         telemetry.update();
+
     }
 }
 

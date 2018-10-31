@@ -10,11 +10,13 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    Collector extends robotPart {
+
     public CRServo srvCollectorL;
     public CRServo srvCollectorR;
     public CRServo srvFlopL;
     public CRServo srvFlopR;
     public Servo brushSystem;
+
 
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
@@ -38,11 +40,6 @@ public class    Collector extends robotPart {
     public void Extend(double Power){
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
-    }
-
-    public void Retract(double Power){
-        mtrExtendR.setPower(-Power);
-        mtrExtendL.setPower(-Power);
     }
     public void collect(double power){
         srvCollectorL.setPower(-power);

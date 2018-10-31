@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @TeleOp(name = "Smore TeleOp",group = "12596")
 public class SmoreBotTeleOp extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
@@ -19,6 +21,7 @@ public class SmoreBotTeleOp extends OpMode {
         }
         return(speed_D);
     }
+
     @Override
     public void loop() {
         double FwdBack = -gamepad1.right_stick_y;
@@ -43,19 +46,22 @@ public class SmoreBotTeleOp extends OpMode {
         else {
             Lift = 0;
         }
-        robot.driveTrain.mtrFL.setPower(WeightAvg(FwdBack, Turn));
-        robot.driveTrain.mtrBL.setPower(WeightAvg(FwdBack, Turn));
-        robot.driveTrain.mtrFR.setPower(WeightAvg(FwdBack, -Turn));
-        robot.driveTrain.mtrBR.setPower(WeightAvg(FwdBack, -Turn));
+        robot.driveTrain.mtrFL.setPower(WeightAvg(FwdBack, -Turn));
+        robot.driveTrain.mtrBL.setPower(WeightAvg(FwdBack, -Turn));
+        robot.driveTrain.mtrFR.setPower(WeightAvg(FwdBack, Turn));
+        robot.driveTrain.mtrBR.setPower(WeightAvg(FwdBack, Turn));
+
 
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
+
         // Sets deposits straight up
         if (gamepad1.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
             robot.liftAndHook.servoDepositR.setPosition(1);
         }
+
             if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
                 if (gamepad1.a) {
                     if (robot.liftAndHook.sensorColorL.blue() > 70) {
@@ -65,6 +71,7 @@ public class SmoreBotTeleOp extends OpMode {
                     }
                 }
             }
+
         // Right side deposit
         if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 7.0)  {
             if (gamepad1.a) {
@@ -76,5 +83,7 @@ public class SmoreBotTeleOp extends OpMode {
                 }
             }
         }
+
     }
 }
+
