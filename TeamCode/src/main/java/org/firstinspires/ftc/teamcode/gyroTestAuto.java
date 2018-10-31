@@ -112,7 +112,7 @@ public class gyroTestAuto extends LinearOpMode {
             robot.driveTrain.stopMotors();
 
 
-            telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
+            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
             //telemetry.addLine().addData("Robot Angle", getAngle());
@@ -154,7 +154,7 @@ public class gyroTestAuto extends LinearOpMode {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;

@@ -40,8 +40,8 @@ public class LiftAndHook extends robotPart {
 
 
 
-        sensorColorR = ahwmap.colorSensor.get("servoDepositR");
-        sensorColorL = ahwmap.colorSensor.get("servoDepositL");
+        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
+        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
     }
