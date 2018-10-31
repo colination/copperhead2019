@@ -161,15 +161,16 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-<<<<<<< HEAD
 
-    public void setSideRoller(double Position){
+    public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
-=======
-    public void gyroInches ( double inches){
+
+        }
+
+    public void gyroInches ( double inches) {
         reset();
         setMode();
         targetPosition(inches);
->>>>>>> d0e3923112c461bd993a41a4569e774d5714fe6a
+
     }
 }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -17,6 +18,7 @@ public class    Collector extends robotPart {
 
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
+    public ElapsedTime runtime = new ElapsedTime();
 
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
@@ -45,5 +47,33 @@ public class    Collector extends robotPart {
     public void collect(double power){
         srvCollectorL.setPower(-power);
         srvCollectorR.setPower(power);
+    }
+    public void stop(){
+        mtrExtendL.setPower(0);
+        mtrExtendR.setPower(0);
+        srvCollectorL.setPower(0);
+        srvCollectorR.setPower(0);
+        srvFlopL.setPower(0);
+        srvFlopL.setPower(0);
+    }
+
+    public void depositMarker(){
+        runtime.reset();
+        while(runtime.seconds() < 1){
+
+        }
+        runtime.reset();
+        stop();
+
+        while(runtime.seconds() < 1){
+            collect(-1);
+        }
+        stop();
+
+        runtime.reset();
+        while(runtime.seconds() < 1){
+            
+        }
+        stop();
     }
 }
