@@ -49,7 +49,7 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-        srvRoller.setPosition(1);
+        srvRoller.setPosition(-1);
 
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -107,6 +107,13 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
+    public void turnMode(){
+        mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
     public void timeoutExit(double seconds){
         runtime.reset();
         while (runtime.seconds() < seconds || (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())){
