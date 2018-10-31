@@ -34,17 +34,17 @@ public class    Collector extends robotPart {
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
         srvCollectorR.setDirection(CRServo.Direction.REVERSE);
-        srvFlopR.setDirection(CRServo.Direction.REVERSE);
+        //srvFlopR.setDirection(CRServo.Direction.REVERSE);
     }
 
-    public void Extend(double Power){
+    public void extend(double Power){
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
     }
 
-    public void Retract(double Power){
-        mtrExtendR.setPower(-Power);
-        mtrExtendL.setPower(-Power);
+    public void angle(double Power){
+        srvFlopL.setPower(1);
+        srvFlopR.setPower(1);
     }
     public void collect(double power){
         srvCollectorL.setPower(-power);
@@ -60,9 +60,11 @@ public class    Collector extends robotPart {
     }
 
     public void depositMarker(){
+        privateTelemetry.addData("Depositing","Now");
+        privateTelemetry.update();
         runtime.reset();
         while(runtime.seconds() < 1){
-
+            angle(1);
         }
         runtime.reset();
         stop();
@@ -74,7 +76,7 @@ public class    Collector extends robotPart {
 
         runtime.reset();
         while(runtime.seconds() < 1){
-            
+            angle(-1);
         }
         stop();
     }
