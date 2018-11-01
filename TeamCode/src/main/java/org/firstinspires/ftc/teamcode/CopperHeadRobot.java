@@ -16,4 +16,8 @@ public class CopperHeadRobot {
         collector.init(ahwmap, myTelemetry);
         gyro.init(ahwmap, myTelemetry);
     }
+    public void markerAndPark(double power){
+
+    }
+
 }
