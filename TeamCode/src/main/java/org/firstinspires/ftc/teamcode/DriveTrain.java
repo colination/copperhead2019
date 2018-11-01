@@ -51,7 +51,7 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-        srvRoller.setPosition(1);
+        srvRoller.setPosition(-1);
 
 
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -113,7 +113,11 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
+<<<<<<< HEAD
+    public void turnMode(){
+=======
     public void turnMode() {
+>>>>>>> 32f39b771d0d02e0df60fd32d306fdb406bb7676
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -161,15 +165,16 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
-<<<<<<< HEAD
 
-    public void setSideRoller(double Position){
+    public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
-=======
-    public void gyroInches ( double inches){
+
+        }
+
+    public void gyroInches ( double inches) {
         reset();
         setMode();
         targetPosition(inches);
->>>>>>> d0e3923112c461bd993a41a4569e774d5714fe6a
+
     }
 }
