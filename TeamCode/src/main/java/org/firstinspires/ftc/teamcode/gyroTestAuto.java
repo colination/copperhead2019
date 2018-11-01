@@ -23,7 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 @Autonomous(name="Gyro Test Auto", group="12596")
 
-public class gyroTestAuto extends LinearOpMode {
+public class gyroTestAuto extends robotPart {
     CopperHeadRobot robot = new CopperHeadRobot();
     DigitalChannel          touch;
     BNO055IMU               imu;
@@ -195,7 +195,7 @@ public class gyroTestAuto extends LinearOpMode {
      * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
      * @param degrees Degrees to turn, + is left - is right
      */
-    private void rotate(int degrees, double power)
+    public void rotate(int degrees, double power)
     {
         double  leftPower, rightPower;
 
