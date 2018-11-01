@@ -16,7 +16,7 @@ public class SmoreBotAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         while (opModeIsActive() && finished == false){
- v
+
             // unhook from lander -- lift will have to move a certain encoder value (see Joel's code for tele-op lift when finished)
             robot.driveTrain.srvRoller.setPosition(1);
             robot.gyro.rotate(15, -.5); // turn left to scan leftmost mineral
@@ -33,9 +33,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 robot.driveTrain.goInches(60, 0.6, 8); // move backwards until we hit wall
                 // turn right to orient ourselves with the wall
                 robot.driveTrain.goInches(50, .6, 8); // move into depot
-                robot.liftAndHook.servoDepositR.setPosition(.85); // angle deposit down to drop the marker into the depot
-                sleep(200); // wait .2 seconds
-                robot.liftAndHook.servoDepositR.setPosition(0); // move the deposit back up to the 0 position
+                robot.collector.depositMarker(); // deposit marker
                 robot.driveTrain.goInches(70, -.6, 8); // move onto crater
             }
 
@@ -45,17 +43,15 @@ public class SmoreBotAuto extends LinearOpMode {
                 robot.collector.Extend(.3); // extend collector to hit gold
                 sleep(200); // wait .2 seconds
                 robot.collector.Retract(.3); // retract collector
-                robot.gyro.rotate(15, 5); // rotate 
+                robot.gyro.rotate(15, 5); // rotate
                 robot.driveTrain.goInches(60, 0.6, 8); // move backwards until we hit wall
                 // turn right to orient ourselves with the wall
                 robot.driveTrain.goInches(50, .6, 8); // << move into depot
-                robot.liftAndHook.servoDepositR.setPosition(.85); // angle deposit down to drop the marker into the depot
-                sleep(200); // wait .2 seconds
-                robot.liftAndHook.servoDepositR.setPosition(0); // move the deposit back up to the 0 position
+                robot.collector.depositMarker(); // deposit marker
                 robot.driveTrain.goInches(70, -.6, 8); // move onto crater
             }
 
-            if  // gold is to right
+            if () // gold is to right
             {
                 // stay put since already facing right most
                 robot.collector.Extend(.3); // extend collector to hit gold
@@ -65,9 +61,7 @@ public class SmoreBotAuto extends LinearOpMode {
                 robot.driveTrain.goInches(60, 0.6, 8); // move backwards until we hit wall
                 // turn right to orient ourselves with the wall
                 robot.driveTrain.goInches(50, .6, 8); // move into depot
-                robot.liftAndHook.servoDepositR.setPosition(.85); // angle deposit down to drop the marker into the depot
-                sleep(200); // wait .2 seconds
-                robot.liftAndHook.servoDepositR.setPosition(0); // move the deposit back up to the 0 position
+                robot.collector.depositMarker(); // deposit marker
                 robot.driveTrain.goInches(70, -.6, 8?); // move onto crater
             }
 
