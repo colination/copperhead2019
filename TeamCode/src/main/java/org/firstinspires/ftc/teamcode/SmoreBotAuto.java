@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 // NOTE: THIS AUTO IS ONLY FOR THE POSITION CLOSEST TO THE DEPOT
 
-<<<<<<< HEAD
-=======
+
 
 /*
 >>>>>>> b8c084d4f73b8b98b5eb5a880ca7c9ee8c7fc39a

@@ -14,4 +14,8 @@ public class CopperHeadRobot {
         liftAndHook.init(ahwmap, myTelemetry);
         collector.init(ahwmap, myTelemetry);
     }
+    public void markerAndPark(double power){
+
+    }
+
 }
