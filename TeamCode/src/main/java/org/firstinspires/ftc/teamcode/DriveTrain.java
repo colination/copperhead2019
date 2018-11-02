@@ -88,9 +88,9 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void targetPosition(double inches){
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
     public void target(double inches) {
