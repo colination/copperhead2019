@@ -17,7 +17,9 @@ public class CopperHeadRobot {
         gyro.init(ahwmap, myTelemetry);
     }
     public void markerAndPark(double power){
-
+        driveTrain.goLean(12,power,6,true);
+        collector.depositMarker();
+        driveTrain.goLean(-60,power,24,false);
     }
 
 }

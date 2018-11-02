@@ -157,9 +157,9 @@ public class DriveTrain extends robotPart {
         double powerShift;
         //true for direction is forward, false for direction is backwards
         if (direction == true) {
-            powerShift = .1;
+            powerShift = .15;
         } else {
-            powerShift = -.1;
+            powerShift = -.15;
         }
         runtime.reset();
         reset();
