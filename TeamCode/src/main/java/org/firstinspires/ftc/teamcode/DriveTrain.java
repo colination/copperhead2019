@@ -40,7 +40,6 @@ public class DriveTrain extends robotPart {
         mtrBL = ahwmap.dcMotor.get("mtrBL");
         mtrBR = ahwmap.dcMotor.get("mtrBR");
 
-
         mtrFL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrBL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -177,7 +176,6 @@ public class DriveTrain extends robotPart {
         srvRoller.setPosition(Position);
 
         }
-
     public void gyroInches(double inches) {
         reset();
         setMode();

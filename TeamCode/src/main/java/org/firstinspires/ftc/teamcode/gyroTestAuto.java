@@ -23,7 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 @Autonomous(name="Gyro Test Auto", group="12596")
 
-public class gyroTestAuto extends robotPart {
+public class gyroTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     DigitalChannel          touch;
     BNO055IMU               imu;
