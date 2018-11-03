@@ -6,6 +6,17 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 // NOTE: THIS AUTO IS ONLY FOR THE POSITION CLOSEST TO THE DEPOT
 
+<<<<<<< HEAD
+=======
+
+
+
+/*
+>>>>>>> b8c084d4f73b8b98b5eb5a880ca7c9ee8c7fc39a
+>>>>>>> d0e3923112c461bd993a41a4569e774d5714fe6a
+=======
+>>>>>>> 078deb2c21e450cecddb9fb357373b4ab30d8a12
+>>>>>>> 66396390c60a4972bce190cc5ede6e10f11451d4
 @Disabled
 @Autonomous(name = "SmoreBot Auto", group = "12596")
 public class SmoreBotAuto extends LinearOpMode {
@@ -69,4 +80,4 @@ public class SmoreBotAuto extends LinearOpMode {
         }
     }
 }
-
+*/

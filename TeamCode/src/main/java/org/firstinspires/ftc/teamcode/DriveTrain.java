@@ -16,6 +16,14 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
 
+<<<<<<< HEAD
+=======
+    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+    parameters.mode                = BNO055IMU.SensorMode.IMU;
+    parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+    parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+    parameters.loggingEnabled      = false;
+>>>>>>> 66396390c60a4972bce190cc5ede6e10f11451d4
     public Servo sideRoller = null;
 
     //servos
@@ -83,9 +91,9 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void targetPosition(double inches){
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
     public void target(double inches) {
@@ -117,7 +125,11 @@ public class DriveTrain extends robotPart {
     }
 
 
+<<<<<<< HEAD
     public void turnMode(){
+=======
+    public void turnMode() {
+>>>>>>> 66396390c60a4972bce190cc5ede6e10f11451d4
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -152,9 +164,9 @@ public class DriveTrain extends robotPart {
         double powerShift;
         //true for direction is forward, false for direction is backwards
         if (direction == true) {
-            powerShift = .1;
+            powerShift = .15;
         } else {
-            powerShift = -.1;
+            powerShift = -.15;
         }
         runtime.reset();
         reset();
