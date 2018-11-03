@@ -36,20 +36,16 @@ public class    Collector extends robotPart {
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
         srvCollectorR.setDirection(CRServo.Direction.REVERSE);
-<<<<<<< HEAD
         srvFlopR.setDirection(CRServo.Direction.FORWARD);
         brushSystem.setDirection(CRServo.Direction.REVERSE);
-=======
         //srvFlopR.setDirection(CRServo.Direction.REVERSE);
->>>>>>> da305ae6d0ba7c78a194da6abae36edf51bfd7d6
+
     }
 
     public void Extend(double Power){
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
     }
-<<<<<<< HEAD
-=======
 
     public void Retract(double Power){
         mtrExtendR.setPower(-Power);
@@ -60,7 +56,6 @@ public class    Collector extends robotPart {
         srvFlopL.setPower(1);
         srvFlopR.setPower(1);
     }
->>>>>>> da305ae6d0ba7c78a194da6abae36edf51bfd7d6
     public void collect(double power){
         srvCollectorL.setPower(-power);
         srvCollectorR.setPower(power);

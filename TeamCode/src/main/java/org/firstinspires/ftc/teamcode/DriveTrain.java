@@ -150,29 +150,29 @@ public class DriveTrain extends robotPart {
         reset();
     }
 
-    public void goLean(double inches, double power, double timeout, boolean direction){
+    public void goLean(double inches, double power, double timeout, boolean direction) {
         double powerShift;
         //true for direction is forward, false for direction is backwards
 
-        if (direction == true){
+        if (direction == true) {
             powerShift = .1;
-        }
-        else{
+        } else {
             powerShift = -.1;
 
-        if (direction == true) {
-            powerShift = .15;
-        } else {
-            powerShift = -.15;
+            if (direction == true) {
+                powerShift = .15;
+            } else {
+                powerShift = -.15;
+            }
+            runtime.reset();
+            reset();
+            setMode();
+            targetPosition(inches);
+            moveLean(power, powerShift);
+            timeoutExit(timeout);
+            stopMotors();
+            reset();
         }
-        runtime.reset();
-        reset();
-        setMode();
-        targetPosition(inches);
-        moveLean(power,powerShift);
-        timeoutExit(timeout);
-        stopMotors();
-        reset();
     }
     public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
