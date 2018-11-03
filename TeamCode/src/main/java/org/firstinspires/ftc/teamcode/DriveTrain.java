@@ -20,7 +20,7 @@ public class DriveTrain extends robotPart {
 
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
-    double     DRIVE_GEAR_REDUCTION    = 0.5 ;
+    double     DRIVE_GEAR_REDUCTION    = 1 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI);
 
@@ -49,7 +49,7 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-        srvRoller.setPosition(-1);
+        //srvRoller.setPosition(-1);
 
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -79,28 +79,23 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void targetPosition(double inches){
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
     }
-
-
-
     public void move(double power){
         mtrFL.setPower(power);
         mtrFR.setPower(power);
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
-
     public void moveLean(double power, double shift){
         mtrFL.setPower(power + shift);
         mtrBL.setPower(power + shift);
         mtrFR.setPower(power - shift);
         mtrBR.setPower(power - shift);
     }
-
     public void Tank(double leftPower, double rightPower) {
         mtrFL.setPower(leftPower);
         mtrBL.setPower(leftPower);

@@ -15,7 +15,7 @@ public class    Collector extends robotPart {
     public CRServo srvCollectorR;
     public CRServo srvFlopL;
     public CRServo srvFlopR;
-    public Servo brushSystem;
+    public CRServo brushSystem;
 
 
     public DcMotor mtrExtendL;
@@ -28,13 +28,14 @@ public class    Collector extends robotPart {
         srvCollectorR = ahwmap.crservo.get("srvCollectorR");
         srvFlopL = ahwmap.crservo.get("srvFlopL");
         srvFlopR = ahwmap.crservo.get("srvFlopR");
-        brushSystem = ahwmap.servo.get("brush");
+        brushSystem = ahwmap.crservo.get("brush");
 
         mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
         srvCollectorR.setDirection(CRServo.Direction.REVERSE);
-        srvFlopR.setDirection(CRServo.Direction.REVERSE);
+        srvFlopR.setDirection(CRServo.Direction.FORWARD);
+        brushSystem.setDirection(CRServo.Direction.REVERSE);
     }
 
     public void Extend(double Power){

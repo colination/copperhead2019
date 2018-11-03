@@ -87,12 +87,16 @@ public class gyroTestAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             robot.driveTrain.gyroInches(12.0);
             telemetry.addLine("test 1");
             telemetry.update();
             sleep(200);
-            robot.driveTrain.Tank(.2 + correction, .2);
+            robot.driveTrain.Tank(.4 + correction, .4);
             telemetry.addLine("test 2");
             telemetry.update();
             sleep(200);
@@ -105,14 +109,14 @@ public class gyroTestAuto extends LinearOpMode {
             telemetry.addLine("test 4");
             telemetry.update();
             sleep(200);
-            telemetry.addLine().addData("turnAngle", getAngle());
+            telemetry.addData("turnAngle", getAngle());
             telemetry.update();
-            rotate(90, .2);
+            rotate(90, .25);
             telemetry.update();
             robot.driveTrain.stopMotors();
 
 
-            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
+            telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
             //telemetry.addLine().addData("Robot Angle", getAngle());
@@ -154,7 +158,7 @@ public class gyroTestAuto extends LinearOpMode {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -177,14 +181,14 @@ public class gyroTestAuto extends LinearOpMode {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .10;
+        double correction, angle, gain = .01;
 
         angle = getAngle();
 
         if (angle == 0)
             correction = 0;             // no adjustment.
         else
-            correction = -angle;        // reverse sign of angle for correction.
+            correction = angle;        // reverse sign of angle for correction.
 
         correction = correction * gain;
 
@@ -202,6 +206,7 @@ public class gyroTestAuto extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
         telemetry.addLine().addData("Robot Angle", getAngle());
+        degrees *= -1;
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
