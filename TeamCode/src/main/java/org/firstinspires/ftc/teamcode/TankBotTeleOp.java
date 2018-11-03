@@ -23,16 +23,16 @@ public class TankBotTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        double leftPower  = (-gamepad1.left_stick_y) * Math.abs(-gamepad1.left_stick_y);
-        double rightPower = (-gamepad1.right_stick_y) * Math.abs(-gamepad1.right_stick_y);
+        double leftPower  = (-gamepad1.left_stick_y); //* Math.abs(-gamepad1.left_stick_y);
+        double rightPower = (-gamepad1.right_stick_y); //* Math.abs(-gamepad1.right_stick_y);
         double Lift = 0;
         double extend = - gamepad2.right_stick_y;
-        double flop = -gamepad2.left_stick_y;
+        double flop = 0;
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
 
-        if (gamepad2.y) {
+        if (gamepad1.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
             robot.liftAndHook.servoDepositR.setPosition(.85);
@@ -61,12 +61,14 @@ public class TankBotTeleOp extends OpMode {
             }
         }
         // Make the brush move
+
         if (gamepad2.a) {
-            robot.collector.brushSystem.setPosition(.33);
+            robot.collector.brushSystem.setPower(1);
         }
-        if (gamepad2.y) {
-            robot.collector.brushSystem.setPosition(.66);
+        if (gamepad2.b) {
+            robot.collector.brushSystem.setPower(0);
         }
+
 
         // Lift with right trigger up, left trigger down
         if (gamepad1.right_trigger > 0.1) {
@@ -80,7 +82,6 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-
         // Extending motors with right joystick
         if (Math.abs(extend) > 0.1) {
             extend = extend;
@@ -91,8 +92,8 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Flopping out collector with left Joystick
-        if (Math.abs(flop) > 0.1) {
-            flop = flop;
+        if (Math.abs(gamepad2.left_stick_y) > 0.1) {
+            flop = gamepad2.left_stick_y;
         }
         else {
             flop = 0;
@@ -124,13 +125,14 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Set corresponding power to motors
-        robot.driveTrain.Tank(rightPower , leftPower); // Tank Drive
+        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
         robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
         robot.collector.mtrExtendR.setPower(extend/2);
         robot.collector.srvFlopL.setPower(flop); // Collector flop out
         robot.collector.srvFlopR.setPower(flop);
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
+        robot.collector.brushSystem.setPower(0);
         /*
         if (gamepad1.y) {
             // move to 0 degrees.
@@ -171,6 +173,7 @@ public class TankBotTeleOp extends OpMode {
         telemetry.addData("liftLTicks", robot.liftAndHook.mtrLiftL.getCurrentPosition());
         telemetry.addData("liftRTicks", robot.liftAndHook.mtrLiftR.getCurrentPosition());
         telemetry.update();
+
     }
 }
 
