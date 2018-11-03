@@ -125,7 +125,7 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Set corresponding power to motors
-        robot.driveTrain.Tank(rightPower , leftPower); // Tank Drive
+        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
         robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
         robot.collector.mtrExtendR.setPower(extend/2);
         robot.collector.srvFlopL.setPower(flop); // Collector flop out
