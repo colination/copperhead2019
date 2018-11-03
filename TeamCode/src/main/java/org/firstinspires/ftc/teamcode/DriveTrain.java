@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,6 +15,8 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
+    public Servo sideRoller = null;
+
 
     //servos
     public Servo srvRoller = null;
@@ -47,6 +50,13 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        //Imu
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode                = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled      = false;
+
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
         //srvRoller.setPosition(-1);
@@ -79,10 +89,17 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void targetPosition(double inches){
+
         mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
+    }
+    public void target(double inches) {
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
     }
     public void move(double power){
         mtrFL.setPower(power);
@@ -102,7 +119,7 @@ public class DriveTrain extends robotPart {
         mtrFR.setPower(rightPower);
         mtrBR.setPower(rightPower);
     }
-    public void turnMode(){
+    public void turnMode() {
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -136,11 +153,17 @@ public class DriveTrain extends robotPart {
     public void goLean(double inches, double power, double timeout, boolean direction){
         double powerShift;
         //true for direction is forward, false for direction is backwards
+
         if (direction == true){
             powerShift = .1;
         }
         else{
             powerShift = -.1;
+
+        if (direction == true) {
+            powerShift = .15;
+        } else {
+            powerShift = -.15;
         }
         runtime.reset();
         reset();
@@ -151,10 +174,15 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
+    public void setSideRoller(double Position) {
+        srvRoller.setPosition(Position);
 
-    public void gyroInches(double inches){
+        }
+
+    public void gyroInches(double inches) {
         reset();
         setMode();
         targetPosition(inches);
+
     }
 }
