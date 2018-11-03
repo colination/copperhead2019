@@ -18,16 +18,6 @@ public class DriveTrain extends robotPart {
     public Servo sideRoller = null;
 
 
-<<<<<<< HEAD
-//    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//    parameters.mode                = BNO055IMU.SensorMode.IMU;
-//    parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-//    parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-//    parameters.loggingEnabled      = false;
-    public Servo sideRoller = null;
-
-=======
->>>>>>> dbbecc50fc2b54a3c83b3c6f84bd17180219dcae
     //servos
     public Servo srvRoller = null;
 
@@ -69,20 +59,7 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-<<<<<<< HEAD
-        srvRoller.setPosition(0);
-
-
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
-
-
-=======
         //srvRoller.setPosition(-1);
->>>>>>> dbbecc50fc2b54a3c83b3c6f84bd17180219dcae
 
         //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
