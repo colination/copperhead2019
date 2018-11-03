@@ -37,9 +37,14 @@ public class    Collector extends robotPart {
         //srvFlopR.setDirection(CRServo.Direction.REVERSE);
     }
 
-    public void extend(double Power){
+    public void Extend(double Power){
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
+    }
+
+    public void Retract(double Power){
+        mtrExtendR.setPower(-Power);
+        mtrExtendL.setPower(-Power);
     }
 
     public void angle(double Power){
