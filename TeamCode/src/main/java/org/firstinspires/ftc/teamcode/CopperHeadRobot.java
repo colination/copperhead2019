@@ -14,7 +14,11 @@ public class CopperHeadRobot {
         driveTrain.init(ahwmap, myTelemetry);
         liftAndHook.init(ahwmap, myTelemetry);
         collector.init(ahwmap, myTelemetry);
+<<<<<<< HEAD
       //  gyro.init(ahwmap, myTelemetry);
+=======
+        //gyro.init(ahwmap, myTelemetry);
+>>>>>>> 646b7a70591a81216aab4aed544bbadfef6685c3
     }
     public void markerAndPark(double power){
         driveTrain.goLean(12,power,6,true);
