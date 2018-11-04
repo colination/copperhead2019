@@ -62,10 +62,10 @@ public class TankBotTeleOp extends OpMode {
         }
         // Make the brush move
         if (gamepad2.a) {
-            robot.collector.brushSystem.setPosition(.33);
+            robot.collector.brushSystem.setPower(1);
         }
-        if (gamepad2.y) {
-            robot.collector.brushSystem.setPosition(.66);
+        if (gamepad2.b) {
+            robot.collector.brushSystem.setPower(0);
         }
 
         // Lift with right trigger up, left trigger down
@@ -99,23 +99,23 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Right trigger to rotate intake, left trigger spits out
-        if (gamepad2.right_trigger > 0.1) {
+        //if (gamepad2.right_trigger > 0.1) {
             robot.collector.srvCollectorR.setDirection(CRServo.Direction.FORWARD);
             robot.collector.srvCollectorL.setDirection(CRServo.Direction.REVERSE);
             robot.collector.srvCollectorL.setPower(1.0);
             robot.collector.srvCollectorR.setPower(1.0);
-        }
-        else if (gamepad2.left_trigger> 0.1) {
-            robot.collector.srvCollectorR.setDirection(CRServo.Direction.REVERSE);
-            robot.collector.srvCollectorL.setDirection(CRServo.Direction.FORWARD);
-            robot.collector.srvCollectorL.setPower(1.0);
-            robot.collector.srvCollectorR.setPower(1.0);
-        }
-        else
-        {
-            robot.collector.srvCollectorL.setPower(0);
-            robot.collector.srvCollectorR.setPower(0);
-        }
+        //}
+//        else if (gamepad2.left_trigger> 0.1) {
+//            robot.collector.srvCollectorR.setDirection(CRServo.Direction.REVERSE);
+//            robot.collector.srvCollectorL.setDirection(CRServo.Direction.FORWARD);
+//            robot.collector.srvCollectorL.setPower(1.0);
+//            robot.collector.srvCollectorR.setPower(1.0);
+//        }
+//        else
+//        {
+//            robot.collector.srvCollectorL.setPower(0);
+//            robot.collector.srvCollectorR.setPower(0);
+//        }
 
         //50% speed for depositing control
         while (gamepad1.left_bumper) {

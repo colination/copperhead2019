@@ -20,11 +20,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 @Autonomous(name="Gyro Test Auto", group="12596")
 
 public class gyroTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+    private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
+
     DigitalChannel          touch;
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
@@ -85,46 +94,46 @@ public class gyroTestAuto extends LinearOpMode {
 
         while (opModeIsActive())
         {
-            // Use gyro to drive in a straight line.
-            correction = checkDirection();
-
-            robot.driveTrain.gyroInches(12.0);
-            telemetry.addLine("test 1");
-            telemetry.update();
-            sleep(200);
-            robot.driveTrain.Tank(.2 + correction, .2);
-            telemetry.addLine("test 2");
-            telemetry.update();
-            sleep(200);
-            robot.driveTrain.stopMotors();
-            telemetry.addLine("test 3");
-            telemetry.update();
-            sleep(200);
-            robot.driveTrain.turnMode();
-            sleep(200);
-            telemetry.addLine("test 4");
-            telemetry.update();
-            sleep(200);
-            telemetry.addLine().addData("turnAngle", getAngle());
-            telemetry.update();
-            rotate(90, .2);
-            telemetry.update();
-            robot.driveTrain.stopMotors();
-
-
-            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
-            telemetry.addLine().addData("2 global heading", globalAngle);
-            telemetry.addLine().addData("3 correction", correction);
-            //telemetry.addLine().addData("Robot Angle", getAngle());
-            telemetry.update();
-            //robot.driveTrain.mtrFL.setPower(-power + correction);
-            //robot.driveTrain.mtrBL.setPower(-power + correction);
-            //robot.driveTrain.mtrFR.setPower(-power);
-            //robot.driveTrain.mtrBR.setPower(-power);
-
-            // We record the sensor values because we will test them in more than
-            // one place with time passing between those places. See the lesson on
-            // Timing Considerations to know why.
+//            // Use gyro to drive in a straight line.
+//            correction = checkDirection();
+//
+//            robot.driveTrain.gyroInches(12.0);
+//            telemetry.addLine("test 1");
+//            telemetry.update();
+//            sleep(200);
+//            robot.driveTrain.Tank(.2 + correction, .2);
+//            telemetry.addLine("test 2");
+//            telemetry.update();
+//            sleep(200);
+//            robot.driveTrain.stopMotors();
+//            telemetry.addLine("test 3");
+//            telemetry.update();
+//            sleep(200);
+//            robot.driveTrain.turnMode();
+//            sleep(200);
+//            telemetry.addLine("test 4");
+//            telemetry.update();
+//            sleep(200);
+//            telemetry.addLine().addData("turnAngle", getAngle());
+//            telemetry.update();
+//            rotate(90, .2);
+//            telemetry.update();
+//            robot.driveTrain.stopMotors();
+//
+//
+//            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
+//            telemetry.addLine().addData("2 global heading", globalAngle);
+//            telemetry.addLine().addData("3 correction", correction);
+//            //telemetry.addLine().addData("Robot Angle", getAngle());
+//            telemetry.update();
+//            //robot.driveTrain.mtrFL.setPower(-power + correction);
+//            //robot.driveTrain.mtrBL.setPower(-power + correction);
+//            //robot.driveTrain.mtrFR.setPower(-power);
+//            //robot.driveTrain.mtrBR.setPower(-power);
+//
+//            // We record the sensor values because we will test them in more than
+//            // one place with time passing between those places. See the lesson on
+//            // Timing Considerations to know why.
         }
 
         // turn the motors off.
