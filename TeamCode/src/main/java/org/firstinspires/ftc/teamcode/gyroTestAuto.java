@@ -38,7 +38,7 @@ public class gyroTestAuto extends LinearOpMode {
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
     double globalAngle, power = .30, correction;
-    boolean                 aButton, bButton, touched;
+
 
      // called when init button is  pressed.
     @Override
