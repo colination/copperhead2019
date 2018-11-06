@@ -23,7 +23,7 @@ public class DriveTrain extends robotPart {
 
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
-    double     DRIVE_GEAR_REDUCTION    = 1 ;
+    double     DRIVE_GEAR_REDUCTION    = .5 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI);
 
@@ -78,7 +78,7 @@ public class DriveTrain extends robotPart {
     }
     public void setMode(){
         mtrFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        mtrFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        mtrFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
@@ -90,16 +90,14 @@ public class DriveTrain extends robotPart {
     }
     public void targetPosition(double inches){
 
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
-        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
-        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * 2 * COUNTS_PER_INCH)));
-    }
-    public void target(double inches) {
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (-inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+    }
+    public int target(double inches) {
+         return (int)(inches * COUNTS_PER_INCH);
+
     }
     public void move(double power){
         mtrFL.setPower(power);
@@ -174,15 +172,53 @@ public class DriveTrain extends robotPart {
             reset();
         }
     }
+    public double encoderAvg() {
+        return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;
+    }
     public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
 
         }
-
-    public void gyroInches(double inches) {
+    public void gyroInches(double inches, double power) {
         reset();
-        setMode();
-        targetPosition(inches);
-
+        mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        int distance = target(inches);
+        if (distance > 0) {
+            while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
+                    (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
+                Tank(power, power);
+            }
+        } else {
+            while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
+                    (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
+                Tank(-power, -power);
+            }
+        }
+        stopMotors();
+    }
+    public void PInches(double inches, double power) {
+        reset();
+        mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        int distance = target(inches);
+        if (distance > 0) {
+            while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
+                    (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
+                Tank( (power *(Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
+                        (power *(Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))) );
+            }
+        } else {
+            while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
+                    (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
+                Tank((-power *(Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
+                        (-power *(Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
+            }
+        }
+        stopMotors();
     }
 }

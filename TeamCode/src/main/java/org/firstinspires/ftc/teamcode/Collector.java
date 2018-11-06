@@ -17,8 +17,6 @@ public class    Collector extends robotPart {
     public CRServo srvFlopL;
     public CRServo srvFlopR;
     public CRServo brushSystem;
-
-
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
     public ElapsedTime runtime = new ElapsedTime();
@@ -89,5 +87,24 @@ public class    Collector extends robotPart {
             angle(-1);
         }
         stop();
+    }
+    public void park() {
+        runtime.reset();
+        while (runtime.seconds() < 1.0) {
+            mtrExtendR.setPower(.5);
+            mtrExtendL.setPower(.5);
+        }
+        mtrExtendR.setPower(0);
+        mtrExtendL.setPower(0);
+        while (runtime.seconds() < 4.0) {
+            srvFlopR.setPower(.5);
+            srvFlopR.setPower(.5);
+        }
+        srvFlopR.setPower(0);
+        srvFlopR.setPower(0);
+        while (runtime.seconds() < 7.0) {
+            mtrExtendR.setPower(.5);
+            mtrExtendL.setPower(.5);
+        }
     }
 }

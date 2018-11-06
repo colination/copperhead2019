@@ -16,5 +16,4 @@ public abstract class robotPart {
         privateTelemetry = myTelemetry;
         privateTelemetry.update();
     }
-
 }

@@ -19,6 +19,9 @@ public class TankBotTeleOp extends OpMode {
         robot.init(hardwareMap,telemetry);
         telemetry.addData("Hello","Driver");
         telemetry.update();
+        robot.liftAndHook.reset();
+        robot.liftAndHook.mtrLiftR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.liftAndHook.mtrLiftL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -26,7 +29,7 @@ public class TankBotTeleOp extends OpMode {
         double leftPower  = (-gamepad1.left_stick_y); //* Math.abs(-gamepad1.left_stick_y);
         double rightPower = (-gamepad1.right_stick_y); //* Math.abs(-gamepad1.right_stick_y);
         double Lift = 0;
-        double extend = - gamepad2.right_stick_y;
+        double extend = gamepad2.right_stick_y;
         double flop = 0;
 
         //color sorted teleop, use once color sensors are wired
@@ -35,7 +38,7 @@ public class TankBotTeleOp extends OpMode {
         if (gamepad1.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
-            robot.liftAndHook.servoDepositR.setPosition(.85);
+            robot.liftAndHook.servoDepositR.setPosition(.89);
         }
 
         // Left side deposit
@@ -53,10 +56,10 @@ public class TankBotTeleOp extends OpMode {
         if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0)  {
             if (gamepad1.a) {
                 if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
-                    robot.liftAndHook.servoDepositR.setPosition(.15);
+                    robot.liftAndHook.servoDepositR.setPosition(.9);
                 }
                 else {
-                    robot.liftAndHook.servoDepositR.setPosition(.40); // Deposit Gold mineral
+                    robot.liftAndHook.servoDepositR.setPosition(.33); // Deposit Gold mineral
                 }
             }
         }
@@ -120,8 +123,8 @@ public class TankBotTeleOp extends OpMode {
 
         //50% speed for depositing control
         while (gamepad1.left_bumper) {
-            leftPower  = leftPower / 2 ;
-            rightPower = rightPower / 2 ;
+            leftPower  = (-gamepad1.left_stick_y) / 2 ;
+            rightPower = (-gamepad1.right_stick_y) / 2 ;
         }
 
         // Set corresponding power to motors
@@ -132,7 +135,6 @@ public class TankBotTeleOp extends OpMode {
         robot.collector.srvFlopR.setPower(flop);
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
-        robot.collector.brushSystem.setPower(0);
         /*
         if (gamepad1.y) {
             // move to 0 degrees.
