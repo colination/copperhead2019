@@ -94,46 +94,46 @@ public class gyroTestAuto extends LinearOpMode {
 
         while (opModeIsActive())
         {
-//            // Use gyro to drive in a straight line.
-//            correction = checkDirection();
-//
-//            robot.driveTrain.gyroInches(12.0);
-//            telemetry.addLine("test 1");
-//            telemetry.update();
-//            sleep(200);
-//            robot.driveTrain.Tank(.2 + correction, .2);
-//            telemetry.addLine("test 2");
-//            telemetry.update();
-//            sleep(200);
-//            robot.driveTrain.stopMotors();
-//            telemetry.addLine("test 3");
-//            telemetry.update();
-//            sleep(200);
-//            robot.driveTrain.turnMode();
-//            sleep(200);
-//            telemetry.addLine("test 4");
-//            telemetry.update();
-//            sleep(200);
-//            telemetry.addLine().addData("turnAngle", getAngle());
-//            telemetry.update();
-//            rotate(90, .2);
-//            telemetry.update();
-//            robot.driveTrain.stopMotors();
-//
-//
-//            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
-//            telemetry.addLine().addData("2 global heading", globalAngle);
-//            telemetry.addLine().addData("3 correction", correction);
-//            //telemetry.addLine().addData("Robot Angle", getAngle());
-//            telemetry.update();
-//            //robot.driveTrain.mtrFL.setPower(-power + correction);
-//            //robot.driveTrain.mtrBL.setPower(-power + correction);
-//            //robot.driveTrain.mtrFR.setPower(-power);
-//            //robot.driveTrain.mtrBR.setPower(-power);
-//
-//            // We record the sensor values because we will test them in more than
-//            // one place with time passing between those places. See the lesson on
-//            // Timing Considerations to know why.
+            // Use gyro to drive in a straight line.
+            correction = checkDirection();
+
+            robot.driveTrain.gyroInches(12.0);
+            telemetry.addLine("test 1");
+            telemetry.update();
+            sleep(200);
+            robot.driveTrain.Tank(.2 + correction, .2);
+            telemetry.addLine("test 2");
+            telemetry.update();
+            sleep(200);
+            robot.driveTrain.stopMotors();
+            telemetry.addLine("test 3");
+            telemetry.update();
+            sleep(200);
+            robot.driveTrain.turnMode();
+            sleep(200);
+            telemetry.addLine("test 4");
+            telemetry.update();
+            sleep(200);
+            telemetry.addLine().addData("turnAngle", getAngle());
+            telemetry.update();
+            rotate(90, .2);
+            telemetry.update();
+            robot.driveTrain.stopMotors();
+
+
+            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
+            telemetry.addLine().addData("2 global heading", globalAngle);
+            telemetry.addLine().addData("3 correction", correction);
+            //telemetry.addLine().addData("Robot Angle", getAngle());
+            telemetry.update();
+            //robot.driveTrain.mtrFL.setPower(-power + correction);
+            //robot.driveTrain.mtrBL.setPower(-power + correction);
+            //robot.driveTrain.mtrFR.setPower(-power);
+            //robot.driveTrain.mtrBR.setPower(-power);
+
+            // We record the sensor values because we will test them in more than
+            // one place with time passing between those places. See the lesson on
+            // Timing Considerations to know why.
         }
 
         // turn the motors off.

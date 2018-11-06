@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
@@ -22,22 +23,72 @@ public class inchesTestAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-
         robot.init(hardwareMap,telemetry);
+        robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
         telemetry.update();
         boolean finished = false;
         waitForStart();
-        while (opModeIsActive() && finished == false){
+        if (opModeIsActive() && finished == false){
             robot.liftAndHook.goInches(4,.8,6);
-           // robot.driveTrain.goInches(-3,.2,6);
-//            robot.driveTrain.goInches(12,.5,6);
-//            //robot.driveTrain.goInches(24.0, .2, 6);
-//            robot.driveTrain.stopMotors();
+            robot.driveTrain.goInches(-2,.2,4);
+            robot.driveTrain.setSideRoller(1);
+            robot.liftAndHook.goInches(-4, .8, 6);
+            rotate(90, .25);
+            robot.driveTrain.goInches(20,.5,12);
+            robot.driveTrain.stopMotors();
             finished = true;
         }
-
     }
 
+    public void rotate(int degrees, double power)
+    {
+        double  leftPower, rightPower;
+
+        // restart imu movement tracking.
+        robot.driveTrain.resetAngle();
+        telemetry.addLine().addData("Robot Angle", robot.driveTrain.getAngle());
+
+        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+        // clockwise (right).
+
+        if (degrees < 0)
+        {   // turn right.
+            leftPower = -power;
+            rightPower = power;
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            leftPower = power;
+            rightPower = -power;
+        }
+        else return;
+
+        // set power to rotate.
+        robot.driveTrain.mtrFL.setPower(leftPower);
+        robot.driveTrain.mtrBL.setPower(leftPower);
+        robot.driveTrain.mtrFR.setPower(rightPower);
+        robot.driveTrain.mtrBR.setPower(rightPower);
+
+        // rotate until turn is completed.
+        if (degrees < 0)
+        {
+            // On right turn we have to get off zero first.
+            while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
+
+            while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
+        }
+        else    // left turn.
+            while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
+
+        // turn the motors off.
+        robot.driveTrain.stopMotors();
+
+        // wait for rotation to stop.
+        sleep(1000);
+
+        // reset angle tracking on new heading.
+        robot.driveTrain.resetAngle();
+    }
 }
