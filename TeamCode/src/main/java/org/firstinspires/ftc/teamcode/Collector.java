@@ -11,12 +11,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    Collector extends robotPart {
+
     public CRServo srvCollectorL;
     public CRServo srvCollectorR;
     public CRServo srvFlopL;
     public CRServo srvFlopR;
     public CRServo brushSystem;
-
     public DcMotor mtrExtendL;
     public DcMotor mtrExtendR;
     public ElapsedTime runtime = new ElapsedTime();
@@ -34,12 +34,20 @@ public class    Collector extends robotPart {
         mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
         mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
         srvCollectorR.setDirection(CRServo.Direction.REVERSE);
+        srvFlopR.setDirection(CRServo.Direction.FORWARD);
+        brushSystem.setDirection(CRServo.Direction.REVERSE);
         //srvFlopR.setDirection(CRServo.Direction.REVERSE);
+
     }
 
-    public void extend(double Power){
+    public void Extend(double Power){
         mtrExtendR.setPower(Power);
         mtrExtendL.setPower(Power);
+    }
+
+    public void Retract(double Power){
+        mtrExtendR.setPower(-Power);
+        mtrExtendL.setPower(-Power);
     }
 
     public void angle(double Power){
@@ -50,17 +58,6 @@ public class    Collector extends robotPart {
         srvCollectorL.setPower(-power);
         srvCollectorR.setPower(power);
     }
-
-    public void Extend(double power){
-        mtrExtendR.setPower(power);
-        mtrExtendL.setPower(power);
-    }
-
-    public void Retract(double power){
-        mtrExtendR.setPower(-power);
-        mtrExtendL.setPower(-power);
-    }
-
     public void stop(){
         mtrExtendL.setPower(0);
         mtrExtendR.setPower(0);
@@ -90,5 +87,24 @@ public class    Collector extends robotPart {
             angle(-1);
         }
         stop();
+    }
+    public void park() {
+        runtime.reset();
+        while (runtime.seconds() < 1.0) {
+            mtrExtendR.setPower(.5);
+            mtrExtendL.setPower(.5);
+        }
+        mtrExtendR.setPower(0);
+        mtrExtendL.setPower(0);
+        while (runtime.seconds() < 4.0) {
+            srvFlopR.setPower(.5);
+            srvFlopR.setPower(.5);
+        }
+        srvFlopR.setPower(0);
+        srvFlopR.setPower(0);
+        while (runtime.seconds() < 7.0) {
+            mtrExtendR.setPower(.5);
+            mtrExtendL.setPower(.5);
+        }
     }
 }
