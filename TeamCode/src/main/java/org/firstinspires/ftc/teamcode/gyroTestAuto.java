@@ -20,18 +20,27 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 @Autonomous(name="Gyro Test Auto", group="12596")
 
 public class gyroTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+    private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
+
     DigitalChannel          touch;
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
     double globalAngle, power = .30, correction;
-    boolean                 aButton, bButton, touched;
 
-    // called when init button is  pressed.
+
+     // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
@@ -82,11 +91,13 @@ public class gyroTestAuto extends LinearOpMode {
         sleep(1000);
 
         // drive until end of period.
+        boolean finished = false;
 
-        while (opModeIsActive())
+        while (opModeIsActive() && finished == false)
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+
             //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -96,9 +107,10 @@ public class gyroTestAuto extends LinearOpMode {
             //idle();
 
             // Go forward to exit hook
-            robot.collector.park();
-            sleep(2000);
-            robot.driveTrain.gyroInches(12.0, .3);
+
+            //robot.collector.park();
+            //sleep(2000);
+            robot.driveTrain.gyroInches(17.0, .3);
             //robot.driveTrain.PInches(1.0, .25);
             //encoderDrive(.2,.2,1.0, .5);
             sleep(2000);
@@ -127,9 +139,15 @@ public class gyroTestAuto extends LinearOpMode {
             robot.driveTrain.stopMotors();
 
 
+
             //telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             //telemetry.addLine().addData("2 global heading", globalAngle);
             //telemetry.addLine().addData("3 correction", correction);
+
+
+            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
+            telemetry.addLine().addData("2 global heading", globalAngle);
+            telemetry.addLine().addData("3 correction", correction);
             //telemetry.addLine().addData("Robot Angle", getAngle());
             //telemetry.update();
             //robot.driveTrain.mtrFL.setPower(-power + correction);
@@ -140,6 +158,7 @@ public class gyroTestAuto extends LinearOpMode {
             // We record the sensor values because we will test them in more than
             // one place with time passing between those places. See the lesson on
             // Timing Considerations to know why.
+            finished = true;
         }
 
         // turn the motors off.
@@ -169,7 +188,7 @@ public class gyroTestAuto extends LinearOpMode {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -192,14 +211,14 @@ public class gyroTestAuto extends LinearOpMode {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .01;
+        double correction, angle, gain = .10;
 
         angle = getAngle();
 
         if (angle == 0)
             correction = 0;             // no adjustment.
         else
-            correction = angle;        // reverse sign of angle for correction.
+            correction = -angle;        // reverse sign of angle for correction.
 
         correction = correction * gain;
 
@@ -210,7 +229,7 @@ public class gyroTestAuto extends LinearOpMode {
      * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
      * @param degrees Degrees to turn, + is left - is right
      */
-    private void rotate(int degrees, double power)
+    public void rotate(int degrees, double power)
     {
         robot.driveTrain.turnMode();
         double  leftPower, rightPower;
@@ -218,7 +237,6 @@ public class gyroTestAuto extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
         telemetry.addLine().addData("Robot Angle", getAngle());
-        degrees *= -1;
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
