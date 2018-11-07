@@ -33,21 +33,19 @@ public class inchesTestAuto extends LinearOpMode {
         waitForStart();
         if (opModeIsActive() && finished == false){
             robot.liftAndHook.goInches(12,.8,6);
-<<<<<<< HEAD
+
             robot.driveTrain.goInches(-4,.2,4);
             robot.driveTrain.setSideRoller(1);
             robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
             // rotate(90, .25);
             // robot.driveTrain.goInches(20,.5,12);
             robot.driveTrain.stopMotors();
-=======
             robot.driveTrain.goInches(-8,.5,4);
             //robot.driveTrain.setSideRoller(1);
             robot.liftAndHook.goInches(-12, .8, 6);
 //            rotate(90, .25);
 //            robot.driveTrain.goInches(20,.5,12);
 //            robot.driveTrain.stopMotors();
->>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
             finished = true;
         }
     }

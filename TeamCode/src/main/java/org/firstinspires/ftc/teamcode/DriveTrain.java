@@ -9,10 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-<<<<<<< HEAD
-=======
 
->>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -36,12 +33,6 @@ public class DriveTrain extends robotPart {
 
     //servos
     public Servo srvRoller = null;
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
     double     DRIVE_GEAR_REDUCTION    = 0.5 ;
@@ -73,16 +64,14 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-<<<<<<< HEAD
+
 
         srvRoller.setPosition(0.4);
 
         srvRoller.setPosition(0);
 
-=======
-        srvRoller.setPosition(0.4);
->>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
 
+        srvRoller.setPosition(0.4);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                = BNO055IMU.SensorMode.IMU;
@@ -255,7 +244,7 @@ public class DriveTrain extends robotPart {
         correction = correction * gain;
 
         return correction;
-<<<<<<< HEAD
+
     }
 
     /*public void rotate(int degrees, double power)
@@ -307,7 +296,7 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }*/
-=======
+
 
 
 //    public void rotate(int degrees, double power){
@@ -356,5 +345,4 @@ public class DriveTrain extends robotPart {
 //        resetAngle();
 //    }
 }
->>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
-}
+
