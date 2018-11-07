@@ -49,6 +49,12 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.servoDepositL.setPosition(0);
             robot.liftAndHook.servoDepositR.setPosition(.88);
         }
+        if (Math.abs(gamepad1.left_stick_y) > .1) {
+            leftPower = leftPower;
+        }
+        if (Math.abs(gamepad1.right_stick_y) > .1) {
+            rightPower = rightPower;
+        }
 
         // Left side deposit
         if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
