@@ -164,17 +164,10 @@ public class inchesTestAuto extends LinearOpMode {
         }
 <<<<<<< HEAD
 }*/
-=======
-}
->>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
+
 
         // reset angle tracking on new heading.
         robot.driveTrain.resetAngle();
     }
-<<<<<<< HEAD
+
 }
-=======
-
-
-
->>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
