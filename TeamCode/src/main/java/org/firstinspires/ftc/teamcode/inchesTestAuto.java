@@ -13,7 +13,6 @@ import java.util.List;
 @Autonomous(name = "Inch Test", group = "12596")
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
-<<<<<<< HEAD
 
     //private TestCV detector;
         //detector = new TestCV();
@@ -25,7 +24,7 @@ public class inchesTestAuto extends LinearOpMode {
         //detector.ratioScorer.weight = 5;
         //detector.ratioScorer.perfectRatio = 1.0;
         //detector.enable();
-=======
+
     public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     public static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     public static final String LABEL_SILVER_MINERAL = "Silver Mineral";
@@ -88,40 +87,13 @@ public class inchesTestAuto extends LinearOpMode {
 
     public void rotate(int degrees, double power)
     {
-        double  leftPower, rightPower;
->>>>>>> 69159988f1070be542823483c6dcc3ec1fcc260c
-
-
         //private final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
         //private final String LABEL_GOLD_MINERAL = "Gold Mineral";
         //private final String LABEL_SILVER_MINERAL = "Silver Mineral";
         //private final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
         //private VuforiaLocalizer vuforia;
         //private TFObjectDetector tfod;
-
-        @Override
-        public void runOpMode() throws InterruptedException {
-            robot.init(hardwareMap, telemetry);
-            robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
-            telemetry.update();
-            boolean finished = false;
-            waitForStart();
-            if (opModeIsActive() && finished == false) {
-                robot.liftAndHook.goInches(12, .8, 6);
-                robot.driveTrain.goInches(-4, .2, 4);
-                robot.driveTrain.setSideRoller(1);
-                robot.liftAndHook.goInches(-12, .8, 6);
-                //rotate(90, .25);
-                // robot.driveTrain.goInches(20, .5, 12);
-                robot.driveTrain.stopMotors();
-                finished = true;
-            }
-
-        }
-        public void rotate ( int degrees, double power) {
-            double leftPower, rightPower;
+        double leftPower, rightPower;
 
             // restart imu movement tracking.
             robot.driveTrain.resetAngle();
@@ -168,8 +140,8 @@ public class inchesTestAuto extends LinearOpMode {
 }
 
         // reset angle tracking on new heading.
-        robot.driveTrain.resetAngle();
-    }
+
+
 
 
 
