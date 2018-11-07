@@ -9,10 +9,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+import static android.os.SystemClock.sleep;
 
 public class DriveTrain extends robotPart {
     //motors
@@ -31,6 +37,11 @@ public class DriveTrain extends robotPart {
     //servos
     public Servo srvRoller = null;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
     double     DRIVE_GEAR_REDUCTION    = 0.5 ;
@@ -62,11 +73,15 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
+<<<<<<< HEAD
 
         srvRoller.setPosition(0.4);
 
         srvRoller.setPosition(0);
 
+=======
+        srvRoller.setPosition(0.4);
+>>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -240,6 +255,7 @@ public class DriveTrain extends robotPart {
         correction = correction * gain;
 
         return correction;
+<<<<<<< HEAD
     }
 
     /*public void rotate(int degrees, double power)
@@ -291,4 +307,54 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }*/
+=======
+
+
+//    public void rotate(int degrees, double power){
+//            double leftPower = 0, rightPower = 0;
+//
+//            // restart imu movement tracking.
+//            resetAngle();
+//            privateTelemetry.addLine().addData("Robot Angle", getAngle());
+//
+//            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+//            // clockwise (right).
+//
+//            if (degrees < 0) {   // turn right.
+//                leftPower = -power;
+//                rightPower = power;
+//            } else if (degrees > 0) {   // turn left.
+//                leftPower = power;
+//                rightPower = -power;
+//            }
+//
+//
+//        // set power to rotate.
+//        mtrFL.setPower(leftPower);
+//        mtrBL.setPower(leftPower);
+//        mtrFR.setPower(rightPower);
+//        mtrBR.setPower(rightPower);
+//
+//        // rotate until turn is completed.
+//        if (degrees < 0)
+//        {
+//            // On right turn we have to get off zero first.
+//            while (getAngle() == 0) {}
+//
+//            while (getAngle() > degrees) {}
+//        }
+//        else    // left turn.
+//            while (getAngle() < degrees) {}
+//
+//        // turn the motors off.
+//        stopMotors();
+//
+//        // wait for rotation to stop.
+//        sleep(1000);
+//
+//        // reset angle tracking on new heading.
+//        resetAngle();
+//    }
+}
+>>>>>>> d1efc57b75f31e385c1841bdecc9de468559dd9f
 }
