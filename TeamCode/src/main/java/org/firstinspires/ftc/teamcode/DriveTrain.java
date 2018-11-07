@@ -9,12 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-<<<<<<< HEAD
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-=======
->>>>>>> 850493e801bbe3e69068ea5036f2780d19a40b77
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class DriveTrain extends robotPart {
@@ -26,17 +23,13 @@ public class DriveTrain extends robotPart {
     DigitalChannel touch;
     BNO055IMU               imu;
     Orientation lastAngles = new Orientation();
-    double globalAngle, power = .30, correction;
+    double globalAngle, correction;
 
 
     public Servo sideRoller = null;
 
     //servos
     public Servo srvRoller = null;
-
-    BNO055IMU               imu;
-    Orientation             lastAngles = new Orientation();
-    double globalAngle, power = .30, correction;
 
     public ElapsedTime runtime = new ElapsedTime();
     double     COUNTS_PER_MOTOR_REV    = 1120 ;
@@ -69,11 +62,11 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
-<<<<<<< HEAD
+
         srvRoller.setPosition(0.4);
-=======
+
         srvRoller.setPosition(0);
->>>>>>> 850493e801bbe3e69068ea5036f2780d19a40b77
+
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -202,7 +195,7 @@ public class DriveTrain extends robotPart {
         targetPosition(inches);
 
     }
-<<<<<<< HEAD
+
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -231,8 +224,7 @@ public class DriveTrain extends robotPart {
 
         return globalAngle;
     }
-    public double checkDirection()
-    {
+    public double checkDirection() {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
@@ -248,15 +240,15 @@ public class DriveTrain extends robotPart {
         correction = correction * gain;
 
         return correction;
-=======
+    }
 
-    public void rotate(int degrees, double power)
+    /*public void rotate(int degrees, double power)
     {
         double  leftPower, rightPower;
 
         // restart imu movement tracking.
         resetAngle();
-        telemetry.addLine().addData("Robot Angle", getAngle());
+        //telemetry.addLine().addData("Robot Angle", getAngle());
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
@@ -283,12 +275,12 @@ public class DriveTrain extends robotPart {
         if (degrees < 0)
         {
             // On right turn we have to get off zero first.
-            while (opModeIsActive() && getAngle() == 0) {}
+            while (getAngle() == 0) {}
 
-            while (opModeIsActive() && getAngle() > degrees) {}
+            while (getAngle() > degrees) {}
         }
         else    // left turn.
-            while (opModeIsActive() && getAngle() < degrees) {}
+            while (getAngle() < degrees) {}
 
         // turn the motors off.
         stopMotors();
@@ -298,6 +290,5 @@ public class DriveTrain extends robotPart {
 
         // reset angle tracking on new heading.
         resetAngle();
->>>>>>> 850493e801bbe3e69068ea5036f2780d19a40b77
-    }
+    }*/
 }

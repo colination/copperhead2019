@@ -4,15 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-import java.util.List;
 
 @Autonomous(name = "Inch Test", group = "12596")
-public class inchesTestAuto extends LinearOpMode {
+public class craterNoHookAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -31,12 +27,9 @@ public class inchesTestAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
-            robot.liftAndHook.goInches(12,.8,6);
-            robot.driveTrain.goInches(-4,.2,4);
             robot.driveTrain.setSideRoller(1);
-            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
-            // rotate(90, .25);
-            // robot.driveTrain.goInches(20,.5,12);
+            rotate(90, .25);
+            robot.driveTrain.goInches(18,.5,12); // <<< AUTO FOR CRATER NO HOOK NO VUFORIA
             robot.driveTrain.stopMotors();
             finished = true;
         }
