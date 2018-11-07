@@ -140,10 +140,18 @@ public class inchesTestAuto extends LinearOpMode {
                 // On right turn we have to get off zero first.
                 while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
 
+<<<<<<< HEAD
                 while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
             }
             else    // left turn.
                 while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
+=======
+                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
+                }
+            } else    // left turn.
+                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {
+                }
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
 
             // turn the motors off.
             robot.driveTrain.stopMotors();
@@ -154,9 +162,19 @@ public class inchesTestAuto extends LinearOpMode {
             // reset angle tracking on new heading.
             robot.driveTrain.resetAngle();
         }
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
 
         // reset angle tracking on new heading.
         robot.driveTrain.resetAngle();
     }
+<<<<<<< HEAD
 }
+=======
+
+
+
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306

@@ -69,6 +69,7 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
+<<<<<<< HEAD
 
         srvRoller.setPosition(0.4);
 
@@ -78,6 +79,8 @@ public class DriveTrain extends robotPart {
 
         srvRoller.setPosition(0.4);
 
+=======
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
         srvRoller.setPosition(0.4);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -221,9 +224,13 @@ public class DriveTrain extends robotPart {
 
     public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
-
     }
 
+<<<<<<< HEAD
+    }
+
+=======
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
     public void gyroInches(double inches, double power) {
         reset();
 
@@ -260,6 +267,7 @@ public class DriveTrain extends robotPart {
                 Tank((power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
                         (power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
             }
+<<<<<<< HEAD
         } else {
             while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
                     (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
@@ -278,6 +286,18 @@ public class DriveTrain extends robotPart {
     }
 
     public void resetAngle() {
+=======
+            public void gyroInches ( double inches){
+                    reset();
+                    setMode();
+                    targetPosition(inches);
+
+    }
+
+
+    public void resetAngle()
+    {
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         globalAngle = 0;
@@ -323,7 +343,7 @@ public class DriveTrain extends robotPart {
         return correction;
     }
 
-    /*public void rotate(int degrees, double power)
+    public void rotate(int degrees, double power)
     {
         double  leftPower, rightPower;
 
@@ -372,6 +392,7 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
+<<<<<<< HEAD
 
 
 
@@ -425,3 +446,9 @@ public class DriveTrain extends robotPart {
 
 
 
+=======
+    
+}
+
+
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
