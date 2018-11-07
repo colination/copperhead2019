@@ -32,10 +32,16 @@ public class TankBotTeleOp extends OpMode {
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
 
-        if (gamepad2.y) {
+        if (gamepad1.y) {
             // move to 0 degrees.
             robot.liftAndHook.servoDepositL.setPosition(0);
             robot.liftAndHook.servoDepositR.setPosition(.85);
+        }
+        if (Math.abs(gamepad1.left_stick_y) > .1) {
+            leftPower = leftPower;
+        }
+        if (Math.abs(gamepad1.right_stick_y) > .1) {
+            rightPower = rightPower;
         }
 
         // Left side deposit
