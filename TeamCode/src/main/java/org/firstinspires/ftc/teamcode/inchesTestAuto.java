@@ -150,7 +150,6 @@ public class inchesTestAuto extends LinearOpMode {
                 while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {
                 }
 
-<<<<<<< HEAD
                 while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
                 }
             } else    // left turn.
@@ -167,10 +166,10 @@ public class inchesTestAuto extends LinearOpMode {
             robot.driveTrain.resetAngle();
         }
 }
-=======
+
         // reset angle tracking on new heading.
         robot.driveTrain.resetAngle();
     }
 
-    }
->>>>>>> 69159988f1070be542823483c6dcc3ec1fcc260c
+
+
