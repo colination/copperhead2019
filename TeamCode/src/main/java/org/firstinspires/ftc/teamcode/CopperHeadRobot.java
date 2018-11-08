@@ -23,7 +23,7 @@ public class CopperHeadRobot {
     public void markerAndPark(double power){
         driveTrain.setSideRoller(1);
         driveTrain.goLean(12,power,6,true);
-        collector.depositMarker();
+        //collector.depositMarker();
         driveTrain.goLean(-60,power,24,false);
     }
 

@@ -66,6 +66,7 @@ public class DriveTrain extends robotPart {
 
 
         //Imu
+        imu = ahwmap.get(BNO055IMU.class, "imu");
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -277,7 +278,7 @@ public class DriveTrain extends robotPart {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -358,7 +359,7 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
-    
+
 }
 
 
