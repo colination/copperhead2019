@@ -17,6 +17,7 @@ import static android.os.SystemClock.sleep;
 @Autonomous(name = "Inch Test", group = "12596")
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
+<<<<<<< HEAD
 
 
     //private TestCV detector;
@@ -29,6 +30,20 @@ public class inchesTestAuto extends LinearOpMode {
     //detector.ratioScorer.weight = 5;
     //detector.ratioScorer.perfectRatio = 1.0;
     //detector.enable();
+=======
+
+    //private TestCV detector;
+
+        //detector = new TestCV();
+        //detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
+        //detector.useDefaults();
+        //detector.downscale = 0.4; // How much to downscale the input frames
+        //detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.maxAreaScorer.weight = 0.005;
+        //detector.ratioScorer.weight = 5;
+        //detector.ratioScorer.perfectRatio = 1.0;
+        //detector.enable();
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
 
     public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     public static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -44,11 +59,14 @@ public class inchesTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
+<<<<<<< HEAD
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled      = false;
+=======
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
@@ -56,11 +74,19 @@ public class inchesTestAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false) {
+<<<<<<< HEAD
             robot.liftAndHook.goInches(11, .8, 6);
             robot.driveTrain.goInches(-2, .2, 4);
             robot.driveTrain.setSideRoller(1);
             robot.liftAndHook.goInches(-11, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
             robot.driveTrain.rotate(-90, .25);
+=======
+//            robot.liftAndHook.goInches(12, .8, 6);
+//            robot.driveTrain.goInches(-4, .2, 4);
+//            robot.driveTrain.setSideRoller(1);
+//            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
+            robot.driveTrain.rotate(90, .25);
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
             // robot.driveTrain.goInches(20,.5,12);
             robot.driveTrain.stopMotors();
             finished = true;
@@ -91,7 +117,74 @@ public class inchesTestAuto extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
+<<<<<<< HEAD
 }
+=======
+    public void rotate(int degrees, double power) {
+        double leftPower, rightPower;
+
+        /*public void rotate ( int degrees, double power) {
+            double leftPower, rightPower;
+>>>>>>> d0aad962f1dec2721eb3a0526a1fb1cde61029a2
+
+            // restart imu movement tracking.
+            robot.driveTrain.resetAngle();
+            telemetry.addLine().addData("Robot Angle", robot.driveTrain.getAngle());
+
+            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+            // clockwise (right).
+
+            if (degrees < 0) {   // turn right.
+                leftPower = -power;
+                rightPower = power;
+            }
+            else if (degrees > 0) {   // turn left.
+                leftPower = power;
+                rightPower = -power;
+            }
+            else return;
+
+            // set power to rotate.
+            robot.driveTrain.mtrFL.setPower(leftPower);
+            robot.driveTrain.mtrBL.setPower(leftPower);
+            robot.driveTrain.mtrFR.setPower(rightPower);
+            robot.driveTrain.mtrBR.setPower(rightPower);
+
+            // rotate until turn is completed.
+            if (degrees < 0) {
+                // On right turn we have to get off zero first.
+                while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
+
+<<<<<<< HEAD
+                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
+            }
+            else    // left turn.
+                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
+=======
+                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
+                }
+            } else    // left turn.
+                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {
+                }
+>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
+
+            // turn the motors off.
+            robot.driveTrain.stopMotors();
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
 
 
+<<<<<<< HEAD
 
+=======
+            // reset angle tracking on new heading.
+            robot.driveTrain.resetAngle();
+        }
+<<<<<<< HEAD
+}*/
+
+
+        // reset angle tracking on new heading.
+        robot.driveTrain.resetAngle();
+    }
+}
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293

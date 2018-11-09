@@ -13,6 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import java.util.List;
+
 import static android.os.SystemClock.sleep;
 
 public class DriveTrain extends robotPart {
@@ -24,7 +26,7 @@ public class DriveTrain extends robotPart {
     public Servo sideRoller = null;
 
     DigitalChannel touch;
-    BNO055IMU               imu;
+    BNO055IMU imu;
     Orientation lastAngles = new Orientation();
     double globalAngle, correction;
 
@@ -36,16 +38,16 @@ public class DriveTrain extends robotPart {
     //double globalAngle, power = .30, correction;
 
     public ElapsedTime runtime = new ElapsedTime();
-    double     COUNTS_PER_MOTOR_REV    = 1120 ;
-    double     DRIVE_GEAR_REDUCTION    = .5 ;
-    double     WHEEL_DIAMETER_INCHES   = 4.0 ;
-    double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI);
+    double COUNTS_PER_MOTOR_REV = 1120;
+    double DRIVE_GEAR_REDUCTION = .5;
+    double WHEEL_DIAMETER_INCHES = 4.0;
+    double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
 
     //sensors
 
 
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry){
+    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
         //Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
@@ -70,14 +72,23 @@ public class DriveTrain extends robotPart {
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
+
+        srvRoller.setPosition(0.4);
+
+        srvRoller.setPosition(0.4);
+
+        srvRoller.setPosition(0);
+
+        srvRoller.setPosition(0.4);
+
         srvRoller.setPosition(0.4);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
-
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+        imu = ahwmap.get(BNO055IMU.class, "imu");
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -90,25 +101,28 @@ public class DriveTrain extends robotPart {
         stopMotors();
     }
 
-    public void stopMotors(){
+    public void stopMotors() {
         mtrFL.setPower(0);
         mtrBL.setPower(0);
         mtrFR.setPower(0);
         mtrBR.setPower(0);
     }
-    public void setMode(){
+
+    public void setMode() {
         mtrFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
     public void reset() {
         mtrFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-    public void targetPosition(double inches){
+
+    public void targetPosition(double inches) {
         mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
         mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
@@ -119,14 +133,14 @@ public class DriveTrain extends robotPart {
         return (int) (inches * COUNTS_PER_INCH);
     }
 
-    public void move(double power){
+    public void move(double power) {
         mtrFL.setPower(power);
         mtrFR.setPower(power);
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
 
-    public void moveLean(double power, double shift){
+    public void moveLean(double power, double shift) {
         mtrFL.setPower(power + shift);
         mtrBL.setPower(power + shift);
         mtrFR.setPower(power - shift);
@@ -147,20 +161,20 @@ public class DriveTrain extends robotPart {
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void timeoutExit(double seconds){
+    public void timeoutExit(double seconds) {
         runtime.reset();
-        while (runtime.seconds() < seconds && (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())){
+        while (runtime.seconds() < seconds && (mtrBR.isBusy() && mtrBL.isBusy() && mtrFR.isBusy() && mtrFL.isBusy())) {
             privateTelemetry.addData("Path1", "Running to target position");
-            privateTelemetry.addData("Path2","Running at:",
+            privateTelemetry.addData("Path2", "Running at:",
                     mtrBL.getCurrentPosition(),
                     mtrBR.getCurrentPosition(),
                     mtrFL.getCurrentPosition(),
                     mtrFR.getCurrentPosition());
-                    privateTelemetry.update();
+            privateTelemetry.update();
         }
     }
 
-    public void goInches(double inches, double speed, double timeout){
+    public void goInches(double inches, double speed, double timeout) {
         runtime.reset();
         reset();
         setMode();
@@ -203,9 +217,11 @@ public class DriveTrain extends robotPart {
             }
         }
     }
+
     public double encoderAvg() {
         return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;
     }
+
     public void setSideRoller(double Position) {
         srvRoller.setPosition(Position);
     }
@@ -233,34 +249,38 @@ public class DriveTrain extends robotPart {
         stopMotors();
     }
 
-    public void PInches(double inches, double power){
-            reset();
-            mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            int distance = target(inches);
-            if (distance > 0) {
-                while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
-                        (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
-                    Tank((power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
-                            (power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
-                    }
-                } else {
-                    while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
-                            (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
-                        Tank((-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
-                                (-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
-                    }
-                }
-                stopMotors();
+    public void PInches(double inches, double power) {
+        reset();
+        mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        int distance = target(inches);
+        if (distance > 0) {
+            while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
+                    (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
+                Tank((power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
+                        (power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
             }
-            public void gyroInches ( double inches){
-                    reset();
-                    setMode();
-                    targetPosition(inches);
+
+        } else {
+            while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
+                    (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
+                Tank((-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
+                        (-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
+            }
+        }
+        stopMotors();
+    }
+
+    public void gyroInches(double inches) {
+        reset();
+        setMode();
+        targetPosition(inches);
 
     }
+
+
 
 
     public void resetAngle()
@@ -269,8 +289,8 @@ public class DriveTrain extends robotPart {
 
         globalAngle = 0;
     }
-    public double getAngle()
-    {
+
+    public double getAngle() {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
@@ -291,6 +311,7 @@ public class DriveTrain extends robotPart {
 
         return globalAngle;
     }
+
     public double checkDirection() {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
@@ -307,7 +328,6 @@ public class DriveTrain extends robotPart {
         correction = correction * gain;
 
         return correction;
-
     }
 
     public void rotate(int degrees, double power)
@@ -359,7 +379,56 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
+<<<<<<< HEAD
 
 }
 
 
+=======
+//    public void rotate(int degrees, double power){
+//            double leftPower = 0, rightPower = 0;
+//
+//            // restart imu movement tracking.
+//            resetAngle();
+//            privateTelemetry.addLine().addData("Robot Angle", getAngle());
+//
+//            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+//            // clockwise (right).
+//
+//            if (degrees < 0) {   // turn right.
+//                leftPower = -power;
+//                rightPower = power;
+//            } else if (degrees > 0) {   // turn left.
+//                leftPower = power;
+//                rightPower = -power;
+//            }
+//
+//
+//        // set power to rotate.
+//        mtrFL.setPower(leftPower);
+//        mtrBL.setPower(leftPower);
+//        mtrFR.setPower(rightPower);
+//        mtrBR.setPower(rightPower);
+//
+//        // rotate until turn is completed.
+//        if (degrees < 0)
+//        {
+//            // On right turn we have to get off zero first.
+//            while (getAngle() == 0) {}
+//
+//            while (getAngle() > degrees) {}
+//        }
+//        else    // left turn.
+//            while (getAngle() < degrees) {}
+//
+//        // turn the motors off.
+//        stopMotors();
+//
+//        // wait for rotation to stop.
+//        sleep(1000);
+//
+//        // reset angle tracking on new heading.
+//        resetAngle();
+//    }*/
+}
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
