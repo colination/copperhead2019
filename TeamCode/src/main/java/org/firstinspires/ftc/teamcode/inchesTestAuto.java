@@ -14,14 +14,10 @@ import java.util.List;
 
 import static android.os.SystemClock.sleep;
 
-<<<<<<< HEAD
-@Autonomous(name = "Inch Test!23", group = "12596")
-=======
 @Autonomous(name = "Inch Test", group = "12596")
->>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
-<<<<<<< HEAD
+
 
 
     //private TestCV detector;
@@ -34,7 +30,7 @@ public class inchesTestAuto extends LinearOpMode {
     //detector.ratioScorer.weight = 5;
     //detector.ratioScorer.perfectRatio = 1.0;
     //detector.enable();
-=======
+
 
     //private TestCV detector;
 
@@ -47,7 +43,6 @@ public class inchesTestAuto extends LinearOpMode {
         //detector.ratioScorer.weight = 5;
         //detector.ratioScorer.perfectRatio = 1.0;
         //detector.enable();
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
 
     public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     public static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -63,22 +58,17 @@ public class inchesTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
-<<<<<<< HEAD
         while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
         {
             sleep(50);
             idle();
         }
-=======
-<<<<<<< HEAD
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled      = false;
-=======
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
->>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
+
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
@@ -89,7 +79,7 @@ public class inchesTestAuto extends LinearOpMode {
         int turn = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-<<<<<<< HEAD
+
 //            if (tfod != null) {
 //                tfod.activate();
 //            }
@@ -137,22 +127,11 @@ public class inchesTestAuto extends LinearOpMode {
             robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
             robot.driveTrain.rotate(45, .25);
             robot.driveTrain.goInches(32,.5,12);
-=======
-<<<<<<< HEAD
-            robot.liftAndHook.goInches(11, .8, 6);
-            robot.driveTrain.goInches(-2, .2, 4);
-            robot.driveTrain.setSideRoller(1);
-            robot.liftAndHook.goInches(-11, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
-            robot.driveTrain.rotate(-90, .25);
-=======
 //            robot.liftAndHook.goInches(12, .8, 6);
 //            robot.driveTrain.goInches(-4, .2, 4);
 //            robot.driveTrain.setSideRoller(1);
 //            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
             robot.driveTrain.rotate(90, .25);
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
-            // robot.driveTrain.goInches(20,.5,12);
->>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
             robot.driveTrain.stopMotors();
             finished = true;
         }
@@ -184,12 +163,6 @@ public class inchesTestAuto extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-}
-=======
     public void rotate(int degrees, double power) {
         double leftPower, rightPower;
 
@@ -256,6 +229,4 @@ public class inchesTestAuto extends LinearOpMode {
         // reset angle tracking on new heading.
         robot.driveTrain.resetAngle();
     }
->>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
 }
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293

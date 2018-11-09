@@ -7,11 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-<<<<<<< HEAD
+
 @Autonomous(name = "Marker Depot", group = "12596")
-=======
-@Autonomous(name = "DepotMarker", group = "12596")
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
 public class depositMarkerTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
