@@ -42,7 +42,7 @@ public class depositFix extends OpMode {
         }
         //silver
         if(gamepad2.a) {
-            robot.liftAndHook.servoDepositR.setPosition(.9 + position);
+            robot.liftAndHook.servoDepositR.setPosition(0 + position);
             robot.liftAndHook.servoDepositL.setPosition(.66 + position);
         }
         // gold

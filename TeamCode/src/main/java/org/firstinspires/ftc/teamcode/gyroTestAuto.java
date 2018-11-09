@@ -97,14 +97,17 @@ public class gyroTestAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
-            robot.liftAndHook.goInches(11.5, .8, 6);
-            sleep(2000);
-            robot.driveTrain.goInches(-2, .2, 4);
-            sleep(2000);
+            robot.liftAndHook.goInches(11.5, .5, 6);
+            robot.driveTrain.goInches(-1, .2, 4);
             robot.driveTrain.setSideRoller(.4);
-            robot.liftAndHook.goInches(-11.5, .8, 6);
-            sleep(2000);
-            robot.driveTrain.goInches(15, .5, 6);
+            robot.liftAndHook.goInches(-11.5, .5, 6);
+            telemetry.addLine().addData("turning", getAngle());
+
+            rotate(-95, .25);
+            telemetry.addLine().addData("turnt", getAngle());
+
+            sleep(250);
+            robot.driveTrain.goInches(21, .5, 6);
             robot.driveTrain.stopMotors();
 
 

@@ -27,10 +27,8 @@ public class depotNoHookAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
-            robot.driveTrain.setSideRoller(1);
-            robot.driveTrain.goInches(40, .5, 12);
-            robot.liftAndHook.goInches(24, .25, 8);
-            robot.liftAndHook.servoDepositL.setPosition(.66);
+            robot.driveTrain.setSideRoller(.4);
+            robot.driveTrain.goInches(21, .5, 6);
             robot.driveTrain.stopMotors();
             finished = true;
         }
