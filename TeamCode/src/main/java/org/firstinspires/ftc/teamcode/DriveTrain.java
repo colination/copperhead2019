@@ -68,6 +68,7 @@ public class DriveTrain extends robotPart {
 
 
         //Imu
+        imu = ahwmap.get(BNO055IMU.class, "imu");
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -380,6 +381,12 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
+<<<<<<< HEAD
+
+}
+
+
+=======
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
 //
@@ -426,3 +433,4 @@ public class DriveTrain extends robotPart {
 //        resetAngle();
 //    }*/
 }
+>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293

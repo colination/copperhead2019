@@ -48,6 +48,9 @@ public class LiftAndHook extends robotPart {
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
+
+        mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void stop(){
@@ -96,5 +99,6 @@ public class LiftAndHook extends robotPart {
        targetPosition(inches);
        move(power);
        timeoutExit(timeout);
+       stop();
     }
 }

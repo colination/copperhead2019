@@ -97,7 +97,13 @@ public class gyroTestAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            robot.liftAndHook.goInches(11.5, .5, 6);
+            robot.driveTrain.goInches(-1, .2, 4);
+            robot.driveTrain.setSideRoller(.4);
+            robot.liftAndHook.goInches(-11.5, .5, 6);
+            telemetry.addLine().addData("turning", getAngle());
 
+<<<<<<< HEAD
             //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -136,6 +142,13 @@ public class gyroTestAuto extends LinearOpMode {
             // park
             //robot.collector.park();
             //rotate(90, .25);
+=======
+            rotate(-95, .25);
+            telemetry.addLine().addData("turnt", getAngle());
+
+            sleep(250);
+            robot.driveTrain.goInches(21, .5, 6);
+>>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
             robot.driveTrain.stopMotors();
 
 
@@ -145,7 +158,11 @@ public class gyroTestAuto extends LinearOpMode {
             //telemetry.addLine().addData("3 correction", correction);
 
 
+<<<<<<< HEAD
             telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
+=======
+            telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
+>>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
             //telemetry.addLine().addData("Robot Angle", getAngle());
@@ -188,7 +205,11 @@ public class gyroTestAuto extends LinearOpMode {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+<<<<<<< HEAD
         double deltaAngle = angles.secondAngle - lastAngles.secondAngle;
+=======
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+>>>>>>> 46a96b7a5bbf877f00c39cb33db3e4585e8cb965
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -241,15 +262,15 @@ public class gyroTestAuto extends LinearOpMode {
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0)
+        if (degrees > 0)
         {   // turn right.
-            leftPower = -power;
-            rightPower = power;
-        }
-        else if (degrees > 0)
-        {   // turn left.
             leftPower = power;
             rightPower = -power;
+        }
+        else if (degrees < 0)
+        {   // turn left.
+            leftPower = -power;
+            rightPower = power;
         }
         else return;
 
@@ -265,10 +286,24 @@ public class gyroTestAuto extends LinearOpMode {
             // On right turn we have to get off zero first.
             while (opModeIsActive() && getAngle() == 0) {}
 
-            while (opModeIsActive() && getAngle() > degrees) {}
+            while (opModeIsActive() && getAngle() > degrees) {
+                robot.driveTrain.mtrFL.setPower(leftPower);
+                robot.driveTrain.mtrBL.setPower(leftPower);
+                robot.driveTrain.mtrFR.setPower(rightPower);
+                robot.driveTrain.mtrBR.setPower(rightPower);
+                telemetry.addData("degrees", getAngle());
+                telemetry.update();
+            }
         }
         else    // left turn.
-            while (opModeIsActive() && getAngle() < degrees) {}
+            while (opModeIsActive() && getAngle() < degrees) {
+            robot.driveTrain.mtrFL.setPower(leftPower);
+                robot.driveTrain.mtrBL.setPower(leftPower);
+                robot.driveTrain.mtrFR.setPower(rightPower);
+                robot.driveTrain.mtrBR.setPower(rightPower);
+                telemetry.addData("degrees", getAngle());
+                telemetry.update();
+        }
 
         // turn the motors off.
         robot.driveTrain.stopMotors();
