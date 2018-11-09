@@ -110,29 +110,29 @@ public class gyroTestAuto extends LinearOpMode {
 
             //robot.collector.park();
             //sleep(2000);
-            robot.driveTrain.gyroInches(17.0, .3);
+            //robot.driveTrain.gyroInches(17.0, .3);
             //robot.driveTrain.PInches(1.0, .25);
             //encoderDrive(.2,.2,1.0, .5);
-            sleep(2000);
+            //sleep(2000);
             //robot.driveTrain.stopMotors();
             // rotate towards minerals
-            //rotate(-90, .25);
-            sleep(2000);
+            rotate(-90, .25);
+            //sleep(2000);
             // Drive into minerals
             //robot.driveTrain.gyroInches(6.0, .3);
             //robot.driveTrain.PInches(6.0, .3);
             //encoderDrive(.3,.3,6.0, 1.0);
             //robot.driveTrain.stopMotors();
-            sleep(2000);
+            //sleep(2000);
             // Angle towards wall
             //rotate(45, .25);
-            sleep(2000);
+            //sleep(2000);
             // Drive to wall
             //robot.driveTrain.gyroInches(-6.0, .3);
             //robot.driveTrain.PInches(-6.0, .3);
             //encoderDrive(.3,.3,-6.0, 1.0);
             //robot.driveTrain.stopMotors();
-            sleep(2000);
+            //sleep(2000);
             // park
             //robot.collector.park();
             //rotate(90, .25);
@@ -145,7 +145,7 @@ public class gyroTestAuto extends LinearOpMode {
             //telemetry.addLine().addData("3 correction", correction);
 
 
-            telemetry.addLine().addData("1 imu heading", lastAngles.thirdAngle);
+            telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
             //telemetry.addLine().addData("Robot Angle", getAngle());
@@ -188,7 +188,7 @@ public class gyroTestAuto extends LinearOpMode {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+        double deltaAngle = angles.secondAngle - lastAngles.secondAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;

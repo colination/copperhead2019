@@ -10,7 +10,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
-@Autonomous(name = "Inch Test", group = "12596")
+import static android.os.SystemClock.sleep;
+
+@Autonomous(name = "Inch Test!23", group = "12596")
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
 
@@ -37,22 +39,74 @@ public class inchesTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
+        while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+        }
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
+        telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
+
         telemetry.update();
         boolean finished = false;
+        boolean scanning = false;
+        int turn = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-//            robot.liftAndHook.goInches(12, .8, 6);
-//            robot.driveTrain.goInches(-4, .2, 4);
+//            if (tfod != null) {
+//                tfod.activate();
+//            }
+//            if (tfod != null && scanning == false) {
+//                // getUpdatedRecognitions() will return null if no new information is available since
+//                // the last time that call was made.
+//                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+//                if (updatedRecognitions != null) {
+//                    telemetry.addData("# Object Detected", updatedRecognitions.size());
+//                    if (updatedRecognitions.size() == 3) {
+//                        int goldMineralX = -1;
+//                        int silverMineral1X = -1;
+//                        int silverMineral2X = -1;
+//                        for (Recognition recognition : updatedRecognitions) {
+//                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+//                                goldMineralX = (int) recognition.getLeft();
+//                            } else if (silverMineral1X == -1) {
+//                                silverMineral1X = (int) recognition.getLeft();
+//                            } else {
+//                                silverMineral2X = (int) recognition.getLeft();
+//                            }
+//                        }
+//                        if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
+//                            if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+//                                telemetry.addData("Gold Mineral Position", "Left");
+//                                scanning = true;
+//                            } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+//                                telemetry.addData("Gold Mineral Position", "Right");
+//                                turn = 90;
+//                                scanning = true;
+//                            } else {
+//                                telemetry.addData("Gold Mineral Position", "Center");
+//                                scanning = true;
+//                            }
+//                        }
+//                    }
+//                    telemetry.update();
+//                }
+//            }
+//            robot.driveTrain.rotate(turn,.3);
+
+            robot.liftAndHook.goInches(12, .8, 6);
+            robot.driveTrain.goInches(-4, .2, 4);
 //            robot.driveTrain.setSideRoller(1);
-//            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
-            robot.driveTrain.rotate(90, .25);
-            // robot.driveTrain.goInches(20,.5,12);
+            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
+            robot.driveTrain.rotate(45, .25);
+            robot.driveTrain.goInches(32,.5,12);
             robot.driveTrain.stopMotors();
             finished = true;
         }
+//        if (tfod != null) {
+//            tfod.shutdown();
+//        }
     }
 
 
@@ -77,70 +131,5 @@ public class inchesTestAuto extends LinearOpMode {
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
-    }
-
-    public void rotate(int degrees, double power) {
-        double leftPower, rightPower;
-
-        /*public void rotate ( int degrees, double power) {
-            double leftPower, rightPower;
->>>>>>> d0aad962f1dec2721eb3a0526a1fb1cde61029a2
-
-            // restart imu movement tracking.
-            robot.driveTrain.resetAngle();
-            telemetry.addLine().addData("Robot Angle", robot.driveTrain.getAngle());
-
-            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-            // clockwise (right).
-
-            if (degrees < 0) {   // turn right.
-                leftPower = -power;
-                rightPower = power;
-            }
-            else if (degrees > 0) {   // turn left.
-                leftPower = power;
-                rightPower = -power;
-            }
-            else return;
-
-            // set power to rotate.
-            robot.driveTrain.mtrFL.setPower(leftPower);
-            robot.driveTrain.mtrBL.setPower(leftPower);
-            robot.driveTrain.mtrFR.setPower(rightPower);
-            robot.driveTrain.mtrBR.setPower(rightPower);
-
-            // rotate until turn is completed.
-            if (degrees < 0) {
-                // On right turn we have to get off zero first.
-                while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
-
-<<<<<<< HEAD
-                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
-            }
-            else    // left turn.
-                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
-=======
-                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
-                }
-            } else    // left turn.
-                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {
-                }
->>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
-
-            // turn the motors off.
-            robot.driveTrain.stopMotors();
-
-            // wait for rotation to stop.
-            sleep(1000);
-
-            // reset angle tracking on new heading.
-            robot.driveTrain.resetAngle();
-        }
-<<<<<<< HEAD
-}*/
-
-
-        // reset angle tracking on new heading.
-        robot.driveTrain.resetAngle();
     }
 }
