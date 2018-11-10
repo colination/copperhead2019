@@ -1,3 +1,11 @@
+// Simple autonomous program that drives bot forward until end of period
+// or touch sensor is hit. If touched, backs up a bit and turns 90 degrees
+// right and keeps going. Demonstrates obstacle avoidance and use of the
+// REV Hub's built in IMU in place of a gyro. Also uses gamepad1 buttons to
+// simulate touch sensor press and supports left as well as right turn.
+//
+// Also uses IMU to drive in a straight line when not avoiding an obstacle.
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -13,8 +21,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-@Autonomous(name = "depotHook", group = "12596")
-public class depotHookAuto extends LinearOpMode {
+@Autonomous(name="Gyro Hook Test Auto", group="12596")
+
+public class gyroHookDepotAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -23,13 +32,13 @@ public class depotHookAuto extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
-    DigitalChannel touch;
-    BNO055IMU imu;
-    Orientation lastAngles = new Orientation();
+    DigitalChannel          touch;
+    BNO055IMU               imu;
+    Orientation             lastAngles = new Orientation();
     double globalAngle, power = .30, correction;
 
 
-    // called when init button is  pressed.
+     // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
@@ -86,23 +95,66 @@ public class depotHookAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
-            robot.liftAndHook.goInches(11.5, .8, 6);
-            sleep(2000);
-            robot.driveTrain.goInches(-2, .2, 4);
-            sleep(2000);
-            robot.driveTrain.setSideRoller(.4);
-            robot.liftAndHook.goInches(-11.5, .8, 6);
-            sleep(2000);
-            rotate(-90, .25);
-            robot.driveTrain.stopMotors();
+            robot.liftAndHook.goInches(11.5, .8, 5); // move up to lower down to ground
+            robot.driveTrain.goInches(-.75, .2, 2); // move off latch
+            robot.driveTrain.setSideRoller(.4); // move the side roller down
+            robot.liftAndHook.goInches(-11.5, .8, 4);// move the lift back down
+            telemetry.addLine().addData("turning", getAngle());
 
+            rotate(-120, .25); // rotate towards right mineral
 
+            // rotate(-88, .25); // (?) rotate towards middle mineral
+
+            // rotate(-58, .25); // (??) rotate towards left mineral
+            telemetry.addLine().addData("turnt", getAngle());
+
+            sleep(250);
+            robot.driveTrain.goInches(25, .4, 6); // run into the right mineral and go a little farther
+            rotate(35, .25); // rotate to have collector face depot
+            robot.driveTrain.goInches(15, .5, 6); // move into depot
+            // robot.collector.(method to push marker out)
+            robot.driveTrain.goInches(-60, .5, 10); // move backwards from depot to park
+            robot.driveTrain.stopMotors(); // stop the motors
+
+            //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            //robot.collector.park();
+            //sleep(2000);
+            //robot.driveTrain.gyroInches(17.0, .3);
+            //robot.driveTrain.PInches(1.0, .25);
+            //encoderDrive(.2,.2,1.0, .5);
+            //sleep(2000);
+            //robot.driveTrain.stopMotors();
+            // rotate towards minerals
+            //rotate(-90, .25);
+            //sleep(2000);
+            // Drive into minerals
+            //robot.driveTrain.gyroInches(6.0, .3);
+            //robot.driveTrain.PInches(6.0, .3);
+            //encoderDrive(.3,.3,6.0, 1.0);
+            //robot.driveTrain.stopMotors();
+            //sleep(2000);
+            // Angle towards wall
+            //rotate(45, .25);
+            //sleep(2000);
+            // Drive to wall
+            //robot.driveTrain.gyroInches(-6.0, .3);
+            //robot.driveTrain.PInches(-6.0, .3);
+            //encoderDrive(.3,.3,-6.0, 1.0);
+            //robot.driveTrain.stopMotors();
+            //sleep(2000);
+            // park
+            //robot.collector.park();
 
             //telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             //telemetry.addLine().addData("2 global heading", globalAngle);
             //telemetry.addLine().addData("3 correction", correction);
 
 
+            telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
             telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
@@ -234,13 +286,13 @@ public class depotHookAuto extends LinearOpMode {
         }
         else    // left turn.
             while (opModeIsActive() && getAngle() < degrees) {
-                robot.driveTrain.mtrFL.setPower(leftPower);
+            robot.driveTrain.mtrFL.setPower(leftPower);
                 robot.driveTrain.mtrBL.setPower(leftPower);
                 robot.driveTrain.mtrFR.setPower(rightPower);
                 robot.driveTrain.mtrBR.setPower(rightPower);
                 telemetry.addData("degrees", getAngle());
                 telemetry.update();
-            }
+        }
 
         // turn the motors off.
         robot.driveTrain.stopMotors();

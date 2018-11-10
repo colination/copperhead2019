@@ -76,7 +76,7 @@ public class inchesTestAuto extends LinearOpMode {
         telemetry.update();
         boolean finished = false;
         boolean scanning = false;
-        int turn = 0;
+        int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
 
@@ -105,13 +105,15 @@ public class inchesTestAuto extends LinearOpMode {
 //                        if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
 //                            if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
 //                                telemetry.addData("Gold Mineral Position", "Left");
+//                                position = 1;
 //                                scanning = true;
 //                            } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
 //                                telemetry.addData("Gold Mineral Position", "Right");
-//                                turn = 90;
+//                                position = 3;
 //                                scanning = true;
 //                            } else {
 //                                telemetry.addData("Gold Mineral Position", "Center");
+//                                position = 2;
 //                                scanning = true;
 //                            }
 //                        }
@@ -119,20 +121,51 @@ public class inchesTestAuto extends LinearOpMode {
 //                    telemetry.update();
 //                }
 //            }
+//            sleep(2000);
+//            telemetry.addData("Position", position);
+//            telemetry.update();
 //            robot.driveTrain.rotate(turn,.3);
 
             robot.liftAndHook.goInches(12, .8, 6);
             robot.driveTrain.goInches(-4, .2, 4);
-//            robot.driveTrain.setSideRoller(1);
-            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
-            robot.driveTrain.rotate(45, .25);
-            robot.driveTrain.goInches(32,.5,12);
-//            robot.liftAndHook.goInches(12, .8, 6);
-//            robot.driveTrain.goInches(-4, .2, 4);
-//            robot.driveTrain.setSideRoller(1);
-//            robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR CRATER UNHOOK NO VUFORIA
-            robot.driveTrain.rotate(90, .25);
-            robot.driveTrain.stopMotors();
+            robot.driveTrain.setSideRoller(1);
+            robot.liftAndHook.goInches(-12, .8, 6);
+            //robot.driveTrain.rotate(45, .25);
+            //robot.driveTrain.goInches(32,.5,12);
+            //robot.liftAndHook.goInches(12, .8, 6);
+           // robot.driveTrain.goInches(-4, .2, 4);
+           // robot.driveTrain.setSideRoller(1);
+            //robot.liftAndHook.goInches(-12, .8, 6);
+            //robot.driveTrain.rotate(90, .25);
+            //robot.driveTrain.stopMotors();
+
+//            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+//            robot.driveTrain.goInches(-.75, .2, 2); // move off latch
+//            robot.driveTrain.setSideRoller(.4); // move the side roller down
+//            robot.liftAndHook.goInches( 11.5, .8, 4); // move the lift back down
+
+            // robot.driveTrain.rotate(-120, .25); // rotate towards right mineral
+            //Left Position
+//            if (position == 1){
+//                robot.driveTrain.rotate(-58,.25);
+//                robot.driveTrain.goInches(26,.5,12);
+//            }
+//
+//            //Center
+//            if (position == 2){
+//                robot.driveTrain.rotate(-88,.25);
+//                robot.driveTrain.goInches(21,.5,12);}
+//
+//            //Right
+//            if (position == 3){
+//                robot.driveTrain.rotate(-120,.25);
+//                robot.driveTrain.goInches(23,.5,12);}
+
+            // robot.driveTrain.rotate(-58, .25); // (??) rotate towards left mineral
+
+//            sleep(250);
+//            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+//            robot.driveTrain.stopMotors(); // stop the motors
             finished = true;
         }
 //        if (tfod != null) {
@@ -163,70 +196,70 @@ public class inchesTestAuto extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
-    public void rotate(int degrees, double power) {
-        double leftPower, rightPower;
-
-        /*public void rotate ( int degrees, double power) {
-            double leftPower, rightPower;
->>>>>>> d0aad962f1dec2721eb3a0526a1fb1cde61029a2
-
-            // restart imu movement tracking.
-            robot.driveTrain.resetAngle();
-            telemetry.addLine().addData("Robot Angle", robot.driveTrain.getAngle());
-
-            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-            // clockwise (right).
-
-            if (degrees < 0) {   // turn right.
-                leftPower = -power;
-                rightPower = power;
-            }
-            else if (degrees > 0) {   // turn left.
-                leftPower = power;
-                rightPower = -power;
-            }
-            else return;
-
-            // set power to rotate.
-            robot.driveTrain.mtrFL.setPower(leftPower);
-            robot.driveTrain.mtrBL.setPower(leftPower);
-            robot.driveTrain.mtrFR.setPower(rightPower);
-            robot.driveTrain.mtrBR.setPower(rightPower);
-
-            // rotate until turn is completed.
-            if (degrees < 0) {
-                // On right turn we have to get off zero first.
-                while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
-
-<<<<<<< HEAD
-                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
-            }
-            else    // left turn.
-                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
-=======
-                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
-                }
-            } else    // left turn.
-                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {
-                }
->>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
-
-            // turn the motors off.
-            robot.driveTrain.stopMotors();
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
-
-
-<<<<<<< HEAD
-
-=======
-            // reset angle tracking on new heading.
-            robot.driveTrain.resetAngle();
-        }
-<<<<<<< HEAD
-}*/
-
-
-        // reset angle tracking on new heading.
-        robot.driveTrain.resetAngle();
-    }
+//    public void rotate(int degrees, double power) {
+//        double leftPower, rightPower;
+//
+//        /*public void rotate ( int degrees, double power) {
+//            double leftPower, rightPower;
+//>>>>>>> d0aad962f1dec2721eb3a0526a1fb1cde61029a2
+//
+//            // restart imu movement tracking.
+//            robot.driveTrain.resetAngle();
+//            telemetry.addLine().addData("Robot Angle", robot.driveTrain.getAngle());
+//
+//            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+//            // clockwise (right).
+//
+//            if (degrees < 0) {   // turn right.
+//                leftPower = -power;
+//                rightPower = power;
+//            }
+//            else if (degrees > 0) {   // turn left.
+//                leftPower = power;
+//                rightPower = -power;
+//            }
+//            else return;
+//
+//            // set power to rotate.
+//            robot.driveTrain.mtrFL.setPower(leftPower);
+//            robot.driveTrain.mtrBL.setPower(leftPower);
+//            robot.driveTrain.mtrFR.setPower(rightPower);
+//            robot.driveTrain.mtrBR.setPower(rightPower);
+//
+//            // rotate until turn is completed.
+//            if (degrees < 0) {
+//                // On right turn we have to get off zero first.
+//                while (opModeIsActive() && robot.driveTrain.getAngle() == 0) {}
+//
+//<<<<<<< HEAD
+//                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {}
+//            }
+//            else    // left turn.
+//                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {}
+//=======
+//                while (opModeIsActive() && robot.driveTrain.getAngle() > degrees) {
+//                }
+//            } else    // left turn.
+//                while (opModeIsActive() && robot.driveTrain.getAngle() < degrees) {
+//                }
+//>>>>>>> 832887b6f747ca24ab7d74bf80bfbbd26583e306
+//
+//            // turn the motors off.
+//            robot.driveTrain.stopMotors();
+//>>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
+//
+//
+//<<<<<<< HEAD
+//
+//=======
+//            // reset angle tracking on new heading.
+//            robot.driveTrain.resetAngle();
+//        }
+//<<<<<<< HEAD
+//}*/
+//
+//
+//        // reset angle tracking on new heading.
+//        robot.driveTrain.resetAngle();
+//    }
 }

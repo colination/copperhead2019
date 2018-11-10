@@ -381,12 +381,10 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
-<<<<<<< HEAD
 
 }
 
 
-=======
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
 //
@@ -432,5 +430,4 @@ public class DriveTrain extends robotPart {
 //        // reset angle tracking on new heading.
 //        resetAngle();
 //    }*/
-}
->>>>>>> 91b16c4f952570441ac88f78c7a535a06446e293
+
