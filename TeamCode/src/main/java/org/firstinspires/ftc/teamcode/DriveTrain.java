@@ -13,6 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import java.util.List;
+
 import static android.os.SystemClock.sleep;
 
 public class DriveTrain extends robotPart {
@@ -86,6 +88,8 @@ public class DriveTrain extends robotPart {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled = false;
+        imu = ahwmap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 
 
         //Servos
@@ -224,7 +228,10 @@ public class DriveTrain extends robotPart {
         srvRoller.setPosition(Position);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void gyroInches(double inches, double power) {
         reset();
 
@@ -279,6 +286,12 @@ public class DriveTrain extends robotPart {
 
     }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -293,7 +306,7 @@ public class DriveTrain extends robotPart {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -374,6 +387,12 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
+<<<<<<< HEAD
+=======
+
+}
+
+>>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
 
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
@@ -420,6 +439,9 @@ public class DriveTrain extends robotPart {
 //        // reset angle tracking on new heading.
 //        resetAngle();
 //    }*/
+<<<<<<< HEAD
 }
 
+=======
+>>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
 
