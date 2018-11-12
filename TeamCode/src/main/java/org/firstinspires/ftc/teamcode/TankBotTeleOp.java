@@ -42,7 +42,7 @@ public class TankBotTeleOp extends OpMode {
 
         //color sorted teleop, use once color sensors are wired
         // Sets deposits straight up
-        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
+
 
         if (gamepad1.y) {
             // move to 0 degrees.
@@ -161,8 +161,13 @@ public class TankBotTeleOp extends OpMode {
             robot.collector.srvCollectorL.setPower(0);
             robot.collector.srvCollectorR.setPower(0);
         }
+        if (gamepad1.left_trigger > 0.1) {
+            leftPower = leftPower/2;
+            rightPower = rightPower/2;
+        }
 
         // Set corresponding power to motors
+        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
         robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
         robot.collector.mtrExtendR.setPower(extend/2);
         robot.collector.srvFlopL.setPower(flop); // Collector flop out

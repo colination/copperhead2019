@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-@Autonomous(name = "Inch Test", group = "12596")
+@Autonomous(name = "DepotNoHookAuto", group = "12596")
 public class depotNoHookAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
@@ -27,10 +27,11 @@ public class depotNoHookAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
-            robot.driveTrain.setSideRoller(1);
-            robot.driveTrain.goInches(40, .5, 12);
-            robot.liftAndHook.goInches(24, .25, 8);
-            robot.liftAndHook.servoDepositL.setPosition(.66);
+            //robot.driveTrain.setSideRoller(1);
+            //robot.driveTrain.goInches(40, .5, 12);
+            //robot.liftAndHook.goInches(24, .25, 8);
+            //robot.liftAndHook.servoDepositL.setPosition(.66);
+            rotate(90, .25);
             robot.driveTrain.stopMotors();
             finished = true;
         }
