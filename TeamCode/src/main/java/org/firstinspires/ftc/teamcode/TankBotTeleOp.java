@@ -130,6 +130,10 @@ public class TankBotTeleOp extends OpMode {
         {
             robot.collector.mtrIntake.setPower(0);
         }
+        if (Math.abs(gamepad2.left_stick_y) > 0){
+            robot.collector.srvFlopL.setPower(-gamepad2.left_stick_y);
+        }
+
 
         // Set corresponding power to motors
         robot.liftAndHook.mtrLiftR.setPower(Lift);

@@ -14,7 +14,7 @@ public class    Collector extends robotPart {
 
     //public CRServo srvCollectorL;
     //public CRServo srvCollectorR;
-    //public CRServo srvFlopL;
+    public CRServo srvFlopL;
     //public CRServo srvFlopR;
 //    public CRServo brushSystem;
 //    public DcMotor mtrExtendL;
@@ -27,7 +27,7 @@ public class    Collector extends robotPart {
 
 //        srvCollectorL = ahwmap.crservo.get("srvCollectorL");
 //        srvCollectorR = ahwmap.crservo.get("srvCollectorR");
-//        srvFlopL = ahwmap.crservo.get("srvFlopL");
+        srvFlopL = ahwmap.crservo.get("srvFlopL");
 //        srvFlopR = ahwmap.crservo.get("srvFlopR");
 //        brushSystem = ahwmap.crservo.get("brush");
 //        mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");

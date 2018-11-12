@@ -21,6 +21,7 @@ public class craterNoHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addLine().addData("goes straight",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -30,8 +31,7 @@ public class craterNoHookAuto extends LinearOpMode {
         waitForStart();
         if (opModeIsActive() && finished == false){
             robot.driveTrain.setSideRoller(1);
-            rotate(90, .25);
-            robot.driveTrain.goInches(18,.5,12); // <<< AUTO FOR CRATER NO HOOK NO VUFORIA
+            robot.driveTrain.goInches(21,.5,12); // <<< AUTO FOR CRATER NO HOOK NO VUFORIA
             robot.driveTrain.stopMotors();
             finished = true;
         }

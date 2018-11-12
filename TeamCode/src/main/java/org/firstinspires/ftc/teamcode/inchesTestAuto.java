@@ -58,6 +58,7 @@ public class inchesTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
+        telemetry.addLine().addData("DOES NOT WORK DO NOT USE",robot.driveTrain.mtrBL.getCurrentPosition());
         while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
         {
             sleep(50);
@@ -125,11 +126,10 @@ public class inchesTestAuto extends LinearOpMode {
 //            telemetry.addData("Position", position);
 //            telemetry.update();
 //            robot.driveTrain.rotate(turn,.3);
-
-            robot.liftAndHook.goInches(12, .8, 6);
-            robot.driveTrain.goInches(-4, .2, 4);
-            robot.driveTrain.setSideRoller(1);
             robot.liftAndHook.goInches(-12, .8, 6);
+            robot.driveTrain.goInches(-2, .2, 4);
+            robot.driveTrain.setSideRoller(1);
+            robot.liftAndHook.goInches(12, .8, 6);
             //robot.driveTrain.rotate(45, .25);
             //robot.driveTrain.goInches(32,.5,12);
             //robot.liftAndHook.goInches(12, .8, 6);
@@ -155,17 +155,17 @@ public class inchesTestAuto extends LinearOpMode {
 //            if (position == 2){
 //                robot.driveTrain.rotate(-88,.25);
 //                robot.driveTrain.goInches(21,.5,12);}
-//
+//g
 //            //Right
 //            if (position == 3){
 //                robot.driveTrain.rotate(-120,.25);
 //                robot.driveTrain.goInches(23,.5,12);}
 
-            // robot.driveTrain.rotate(-58, .25); // (??) rotate towards left mineral
+            robot.driveTrain.rotate(-98, .25); // (??) rotate towards left mineral
 
 //            sleep(250);
-//            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
-//            robot.driveTrain.stopMotors(); // stop the motors
+            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+            robot.driveTrain.stopMotors(); // stop the motors
             finished = true;
         }
 //        if (tfod != null) {

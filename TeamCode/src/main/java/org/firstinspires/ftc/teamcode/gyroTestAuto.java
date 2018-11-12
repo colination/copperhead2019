@@ -44,6 +44,7 @@ public class gyroTestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
+        telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
 
         //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -97,20 +98,20 @@ public class gyroTestAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
-            robot.liftAndHook.goInches(11.5, .8, 4); // move up to lower down to ground
-            robot.driveTrain.goInches(-.75, .2, 2); // move off latch
+            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+            robot.driveTrain.goInches(-1, .2, 2); // move off latch
             robot.driveTrain.setSideRoller(.4); // move the side roller down
-            robot.liftAndHook.goInches(-11.5, .8, 4);// move the lift back down
+            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
             telemetry.addLine().addData("turning", getAngle());
 
             //rotate(-120, .25); // rotate towards right mineral
 
-            //rotate(-88, .25); // (?) rotate towards middle mineral
+            rotate(-88, .25); // (?) rotate towards middle mineral
 
-            rotate(-58, .25); // (??) rotate towards left mineral
+            // rotate(-58, .25); // (??) rotate towards left mineral
             telemetry.addLine().addData("turnt", getAngle());
 
-            sleep(250);
+            //sleep(250);
             robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
             robot.driveTrain.stopMotors(); // stop the motors
 
