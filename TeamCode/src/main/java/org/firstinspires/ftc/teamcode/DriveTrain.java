@@ -142,6 +142,16 @@ public class DriveTrain extends robotPart {
         mtrBR.setPower(power);
     }
 
+    public  void strafe(double power) {
+        //right is positive, left is negative
+        mtrFL.setPower(power);
+        mtrBR.setPower(power);
+        mtrFR.setPower(-power);
+        mtrBL.setPower(-power);
+    }
+
+
+
     public void moveLean(double power, double shift) {
         mtrFL.setPower(power + shift);
         mtrBL.setPower(power + shift);
@@ -228,10 +238,6 @@ public class DriveTrain extends robotPart {
         srvRoller.setPosition(Position);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void gyroInches(double inches, double power) {
         reset();
 
@@ -286,12 +292,7 @@ public class DriveTrain extends robotPart {
 
     }
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -337,6 +338,8 @@ public class DriveTrain extends robotPart {
 
         return correction;
     }
+
+
 
     public void rotate(int degrees, double power)
     {
@@ -387,61 +390,4 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
-<<<<<<< HEAD
-=======
-
 }
-
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
-
-//    public void rotate(int degrees, double power){
-//            double leftPower = 0, rightPower = 0;
-//
-//            // restart imu movement tracking.
-//            resetAngle();
-//            privateTelemetry.addLine().addData("Robot Angle", getAngle());
-//
-//            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-//            // clockwise (right).
-//
-//            if (degrees < 0) {   // turn right.
-//                leftPower = -power;
-//                rightPower = power;
-//            } else if (degrees > 0) {   // turn left.
-//                leftPower = power;
-//                rightPower = -power;
-//            }
-//
-//
-//        // set power to rotate.
-//        mtrFL.setPower(leftPower);
-//        mtrBL.setPower(leftPower);
-//        mtrFR.setPower(rightPower);
-//        mtrBR.setPower(rightPower);
-//
-//        // rotate until turn is completed.
-//        if (degrees < 0)
-//        {
-//            // On right turn we have to get off zero first.
-//            while (getAngle() == 0) {}
-//
-//            while (getAngle() > degrees) {}
-//        }
-//        else    // left turn.
-//            while (getAngle() < degrees) {}
-//
-//        // turn the motors off.
-//        stopMotors();
-//
-//        // wait for rotation to stop.
-//        sleep(1000);
-//
-//        // reset angle tracking on new heading.
-//        resetAngle();
-//    }*/
-<<<<<<< HEAD
-}
-
-=======
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
-
