@@ -33,8 +33,7 @@ public class TankBotTeleOp extends OpMode {
         double leftPower  = (-gamepad1.left_stick_y);
         double rightPower = (-gamepad1.right_stick_y);
         double Lift = 0;
-        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+        double flop = gamepad2.left_stick_y;
 
         // sets drive train half power
         if (gamepad1.right_trigger > 0.1) {
@@ -42,16 +41,10 @@ public class TankBotTeleOp extends OpMode {
             rightPower = rightPower / 2;
         }
 
-        // Sets deposits straight up
-<<<<<<< HEAD
-
-
-        if (gamepad1.y) {
-=======
+        /* Sets deposits straight up
         if (gamepad2.y) {
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(0);
+            robot.liftAndHook.servoDepositL.setPosition(.5);
             robot.liftAndHook.servoDepositR.setPosition(.88);
         }
 
@@ -64,7 +57,7 @@ public class TankBotTeleOp extends OpMode {
         }
 
 
-        // Left side deposit
+         Left side deposit
         if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
             if (gamepad2.a) {
                 if (robot.liftAndHook.sensorColorL.blue() > 70) {
@@ -86,39 +79,11 @@ public class TankBotTeleOp extends OpMode {
                     robot.liftAndHook.servoDepositR.setPosition(.33); // Deposit Gold mineral
                 }
             }
-        }
-
-        /* Background change to help drivers know what's in the box
-        if ((robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0) && (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0)) {
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.green(250));
-                }
-            });
-        } else if ((robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0)){
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.red(250));
-                }
-            });
-        } else if ((robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0)) {
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.blue(250));
-                }
-            });
-        }
-        else {
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.rgb(150, 150, 150));
-                }
-            });
-        } */
+        }*/
 
         // Lift with right trigger up, left trigger down
         if (Math.abs(gamepad2.right_stick_y) > 0.1) {
-            Lift = -gamepad2.right_stick_y;
+            Lift = gamepad2.right_stick_y;
         }
         else {
             robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -146,17 +111,11 @@ public class TankBotTeleOp extends OpMode {
 
 
         // Set corresponding power to motors
-<<<<<<< HEAD
+
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-        robot.collector.mtrExtendL.setPower(extend/2); // Collector extension
-        robot.collector.mtrExtendR.setPower(extend/2);
         robot.collector.srvFlopL.setPower(flop); // Collector flop out
-        robot.collector.srvFlopR.setPower(flop);
-=======
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
-        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
 
 
         //Telemetry
