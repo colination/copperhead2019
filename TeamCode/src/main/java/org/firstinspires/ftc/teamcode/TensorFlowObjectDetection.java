@@ -148,7 +148,6 @@ public class TensorFlowObjectDetection extends LinearOpMode {
                 }
             }
         }
-
         if (tfod != null) {
             tfod.shutdown();
         }

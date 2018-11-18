@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -21,7 +22,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
 
 @Autonomous(name="Gyro Test Auto", group="12596")
 
@@ -33,6 +37,8 @@ public class gyroTestAuto extends LinearOpMode {
     private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
+    private int mineralAngle;
+    private int mineralDistance;
 
     DigitalChannel          touch;
     BNO055IMU               imu;
@@ -82,8 +88,19 @@ public class gyroTestAuto extends LinearOpMode {
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         telemetry.update();
 
-        // wait for start button.
+        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+        // first.
+        initVuforia();
 
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
+
+        /** Wait for the game to begin */
+        telemetry.addData(">", "Press Play to start tracking");
+        telemetry.update();
         waitForStart();
 
         //telemetry.addData("Mode", "running");
@@ -97,72 +114,31 @@ public class gyroTestAuto extends LinearOpMode {
         while (opModeIsActive() && finished == false)
         {
             // Use gyro to drive in a straight line.
-            correction = checkDirection();
-            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
-            robot.driveTrain.goInches(-1, .2, 2); // move off latch
-            robot.driveTrain.setSideRoller(.4); // move the side roller down
-            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
+            checkPosition();
+            sleep(1000);
+//            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+//            robot.driveTrain.goInches(-1, .2, 2); // move off latch
+//            robot.driveTrain.setSideRoller(.4); // move the side roller down
+//            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
             telemetry.addLine().addData("turning", getAngle());
 
             //rotate(-120, .25); // rotate towards right mineral
 
-            rotate(-88, .25); // (?) rotate towards middle mineral
+            //middle angle = -88
+
+//            rotate(mineralAngle, .25); // (?) rotate towards middle mineral
 
             // rotate(-58, .25); // (??) rotate towards left mineral
             telemetry.addLine().addData("turnt", getAngle());
 
             //sleep(250);
-            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+//            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
             robot.driveTrain.stopMotors(); // stop the motors
-
-            //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            //robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-            //robot.collector.park();
-            //sleep(2000);
-            //robot.driveTrain.gyroInches(17.0, .3);
-            //robot.driveTrain.PInches(1.0, .25);
-            //encoderDrive(.2,.2,1.0, .5);
-            //sleep(2000);
-            //robot.driveTrain.stopMotors();
-            // rotate towards minerals
-            //rotate(-90, .25);
-            //sleep(2000);
-            // Drive into minerals
-            //robot.driveTrain.gyroInches(6.0, .3);
-            //robot.driveTrain.PInches(6.0, .3);
-            //encoderDrive(.3,.3,6.0, 1.0);
-            //robot.driveTrain.stopMotors();
-            //sleep(2000);
-            // Angle towards wall
-            //rotate(45, .25);
-            //sleep(2000);
-            // Drive to wall
-            //robot.driveTrain.gyroInches(-6.0, .3);
-            //robot.driveTrain.PInches(-6.0, .3);
-            //encoderDrive(.3,.3,-6.0, 1.0);
-            //robot.driveTrain.stopMotors();
-            //sleep(2000);
-            // park
-            //robot.collector.park();
-
-            //telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
-            //telemetry.addLine().addData("2 global heading", globalAngle);
-            //telemetry.addLine().addData("3 correction", correction);
-
 
             telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
             telemetry.addLine().addData("1 imu heading", lastAngles.firstAngle);
             telemetry.addLine().addData("2 global heading", globalAngle);
             telemetry.addLine().addData("3 correction", correction);
-            //telemetry.addLine().addData("Robot Angle", getAngle());
-            //telemetry.update();
-            //robot.driveTrain.mtrFL.setPower(-power + correction);
-            //robot.driveTrain.mtrBL.setPower(-power + correction);
-            //robot.driveTrain.mtrFR.setPower(-power);
-            //robot.driveTrain.mtrBR.setPower(-power);
 
             // We record the sensor values because we will test them in more than
             // one place with time passing between those places. See the lesson on
@@ -302,90 +278,117 @@ public class gyroTestAuto extends LinearOpMode {
         // reset angle tracking on new heading.
         resetAngle();
     }
-    public void encoderDrive(double Lspeed, double Rspeed, double Inches, double rampup) throws InterruptedException {
+    /*
+     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+     * web site at https://developer.vuforia.com/license-manager.
+     *
+     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+     * random data. As an example, here is a example of a fragment of a valid key:
+     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+     * Once you've obtained a license key, copy the string from the Vuforia web site
+     * and paste it in to your code on the next line, between the double quotes.
+     */
+    //private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
 
-        //double     COUNTS_PER_MOTOR_REV    = 560 ;    //Set for NevRest 20 drive. For 40's change to 1120. For 60's 1680
-        //double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is the ratio between the motor axle and the wheel
-        //double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-        //double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-        //(WHEEL_DIAMETER_INCHES * 3.1415);
-        //initialise some variables for the subroutine
-        int newLeftTarget;
-        int newRightTarget;
-        // reset the timeout time and start motion.
-        robot.driveTrain.runtime.reset();
-        robot.driveTrain.reset();
-        // Ensure that the opmode is still active
-        while (opModeIsActive()) {
-            // Determine new target position, and pass to motor controller we only do this in case the encoders are not totally zero'd
-            newLeftTarget = (robot.driveTrain.mtrFL.getCurrentPosition() + robot.driveTrain.mtrBL.getCurrentPosition()) / 2 + (int) (Inches * robot.driveTrain.COUNTS_PER_INCH);
-            newRightTarget = (robot.driveTrain.mtrFR.getCurrentPosition() + robot.driveTrain.mtrBR.getCurrentPosition()) / 2 + (int) (Inches * robot.driveTrain.COUNTS_PER_INCH);
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    //private VuforiaLocalizer vuforia;
 
-            // set run mode
-            robot.driveTrain.mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.driveTrain.mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.driveTrain.mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.driveTrain.mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
+     * Detection engine.
+     */
+    //private TFObjectDetector tfod;
 
-            // keep looping while we are still active, and there is time left, and neither set of motors have reached the target
-            while ((Math.abs(robot.driveTrain.mtrFL.getCurrentPosition() + robot.driveTrain.mtrBL.getCurrentPosition()) / 2 < newLeftTarget &&
-                    Math.abs(robot.driveTrain.mtrFR.getCurrentPosition() + robot.driveTrain.mtrBR.getCurrentPosition()) / 2 < newRightTarget)) {
-                double rem = (Math.abs(robot.driveTrain.mtrFL.getCurrentPosition()) + Math.abs(robot.driveTrain.mtrBL.getCurrentPosition()) + Math.abs(robot.driveTrain.mtrFR.getCurrentPosition()) + Math.abs(robot.driveTrain.mtrBR.getCurrentPosition())) / 4;
-                double NLspeed;
-                double NRspeed;
-                //To Avoid spinning the wheels, this will "Slowly" ramp the motors up over
-                //the amount of time you set for this SubRun
-                double R = robot.driveTrain.runtime.seconds();
-                if (R < rampup) {
-                    double ramp = R / rampup;
-                    NLspeed = Lspeed * ramp;
-                    NRspeed = Rspeed * ramp;
-                }
-                //Keep running until you are about two rotations out
-                else if (rem > (2000)) {
-                    NLspeed = Lspeed;
-                    NRspeed = Rspeed;
-                }
-                //start slowing down as you get close to the target
-                else if (rem > (200) && (Lspeed * .2) > .1 && (Rspeed * .2) > .1) {
-                    NLspeed = Lspeed * (rem / 1000);
-                    NRspeed = Rspeed * (rem / 1000);
-                }
-                //minimum speed
-                else {
-                    NLspeed = Lspeed * .2;
-                    NRspeed = Rspeed * .2;
+    boolean finished = false;
 
-                }
-                //Pass the seed values to the motors
-                robot.driveTrain.mtrFL.setPower(NLspeed);
-                robot.driveTrain.mtrBL.setPower(NLspeed);
-                robot.driveTrain.mtrFR.setPower(NRspeed);
-                robot.driveTrain.mtrBR.setPower(NRspeed);
+    public void checkPosition() {
+
+        if (opModeIsActive()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (tfod != null) {
+                tfod.activate();
             }
-            // Stop all motion;
-            //Note: This is outside our while statement, this will only activate once the time, or distance has been met
-            robot.driveTrain.mtrFL.setPower(0);
-            robot.driveTrain.mtrFR.setPower(0);
-            robot.driveTrain.mtrBL.setPower(0);
-            robot.driveTrain.mtrBR.setPower(0);
-            // show the driver how close they got to the last target
-            telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-            telemetry.addData("Path2", "Running at %7d :%7d", robot.driveTrain.mtrFL.getCurrentPosition(), robot.driveTrain.mtrFR.getCurrentPosition());
-            telemetry.update();
-            //setting resetC as a way to check the current encoder values easily
-            //double resetC = ((Math.abs(robot.driveTrain.mtrFL.getCurrentPosition()) + Math.abs(robot.driveTrain.mtrBL.getCurrentPosition())+ Math.abs(robot.driveTrain.mtrFR.getCurrentPosition())+Math.abs(robot.driveTrain.mtrBR.getCurrentPosition())));
-            //Get the motor encoder resets in motion
-            //robot.driveTrain.mtrFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //robot.driveTrain.mtrFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //robot.driveTrain.mtrBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //robot.driveTrain.mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //keep waiting while the reset is running
-            //while (Math.abs(resetC) > 0){
-            //    resetC =  ((Math.abs(robot.driveTrain.mtrFL.getCurrentPosition()) + Math.abs(robot.driveTrain.mtrBL.getCurrentPosition())+ Math.abs(robot.driveTrain.mtrFR.getCurrentPosition())+Math.abs(robot.driveTrain.mtrBR.getCurrentPosition())));
-            //    idle();
-            //}
-            //sleep(1000);   // optional pause after each move
+
+            while (opModeIsActive()) {
+                if (tfod != null && finished == false) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() == 2) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int otherMineral = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    otherMineral = (int) recognition.getLeft();
+                                }
+                            }
+
+                            if (goldMineralX  == -1) {
+                                telemetry.addData("Gold Mineral Position", "Left");
+                                telemetry.addData("sadf",123);
+                                finished = true;
+                            } else if (goldMineralX > silverMineral1X && goldMineralX > otherMineral) {
+                                telemetry.addData("Gold Mineral Position", "right");
+                                telemetry.addData("sadf",123);
+                                finished = true;
+                            } else {
+                                telemetry.addData("Gold Mineral Position", "Center");
+                                mineralAngle = -88;
+                                finished = true;
+                                telemetry.addData("sadf",123);
+                            }
+
+                        }
+                        telemetry.update();
+                    }
+                }
+            }
+        }
+
+        if (tfod != null) {
+            tfod.shutdown();
         }
     }
+
+    /**
+     * Initialize the Vuforia localization engine.
+     */
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters vparameters = new VuforiaLocalizer.Parameters();
+
+        vparameters.vuforiaLicenseKey = VUFORIA_KEY;
+        vparameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(vparameters);
+
+        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+    }
+
+    /**
+     * Initialize the Tensor Flow Object Detection engine.
+     */
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+    }
+
 }
