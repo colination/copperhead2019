@@ -20,6 +20,8 @@ public class LiftAndHook extends robotPart {
     //Servos
 //    public Servo servoDepositR;
 //    public Servo servoDepositL;
+
+    public  Servo srvShift;
 //    //Variables and other useful stuff
     double encoders = 1120;
     double gearReduction = 1;
@@ -41,6 +43,7 @@ public class LiftAndHook extends robotPart {
         mtrLiftL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrLiftR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        srvShift = ahwmap.servo.get("srvShift");
 //        servoDepositR = ahwmap.servo.get("servoDepositR");
 //        servoDepositL = ahwmap.servo.get("servoDepositL");
 //

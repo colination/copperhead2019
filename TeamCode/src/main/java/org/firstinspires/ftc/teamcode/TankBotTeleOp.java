@@ -58,7 +58,7 @@ public class TankBotTeleOp extends OpMode {
 
 
          Left side deposit
-        if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
+        if (robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
             if (gamepad2.a) {
                 if (robot.liftAndHook.sensorColorL.blue() > 70) {
                     robot.liftAndHook.servoDepositL.setPosition(.63); // Deposit silver
@@ -91,19 +91,19 @@ public class TankBotTeleOp extends OpMode {
         }
 
         // Right trigger to rotate intake, left trigger spits out
-        if (gamepad2.right_trigger > 0.1) {
-            robot.collector.mtrIntake.setPower(-gamepad2.right_trigger);
-        }
-        else if (gamepad2.left_trigger > 0.1) {
-            robot.collector.mtrIntake.setPower(gamepad2.left_trigger);
-        }
-        else
-        {
-            robot.collector.mtrIntake.setPower(0);
-        }
-        if (Math.abs(gamepad2.left_stick_y) > 0){
-            robot.collector.srvFlopL.setPower(-gamepad2.left_stick_y);
-        }
+//        if (gamepad2.right_trigger > 0.1) {
+//            robot.collector.mtrIntake.setPower(-gamepad2.right_trigger);
+//        }
+//        else if (gamepad2.left_trigger > 0.1) {
+//            robot.collector.mtrIntake.setPower(gamepad2.left_trigger);
+//        }
+//        else
+//        {
+//            robot.collector.mtrIntake.setPower(0);
+//        }
+//        if (Math.abs(gamepad2.left_stick_y) > 0){
+//            robot.collector.srvFlopL.setPower(-gamepad2.left_stick_y);
+//        }
         if (gamepad1.left_trigger > 0.1) {
             leftPower = leftPower/2;
             rightPower = rightPower/2;
@@ -113,18 +113,18 @@ public class TankBotTeleOp extends OpMode {
         // Set corresponding power to motors
 
         robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-        robot.collector.srvFlopL.setPower(flop); // Collector flop out
+        //robot.collector.srvFlopL.setPower(flop); // Collector flop out
         robot.liftAndHook.mtrLiftR.setPower(Lift);
         robot.liftAndHook.mtrLiftL.setPower(Lift);
 
 
         //Telemetry
         telemetry.addData("rightDistance (cm)",
-                String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM)));
+                String.format(Locale.US, "%.02f", robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM)));
         telemetry.addData("leftDistance (cm)",
-                String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM)));
-        telemetry.addData("rightBlue ", robot.liftAndHook.sensorColorR.blue());
-        telemetry.addData("leftBlue ", robot.liftAndHook.sensorColorL.blue());
+                String.format(Locale.US, "%.02f", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM)));
+        telemetry.addData("rightBlue ", robot.collector.sensorColorR.blue());
+        telemetry.addData("leftBlue ", robot.collector.sensorColorL.blue());
         telemetry.update();
     }
 }
