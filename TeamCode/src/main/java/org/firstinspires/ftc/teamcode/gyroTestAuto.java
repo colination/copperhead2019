@@ -37,8 +37,9 @@ public class gyroTestAuto extends LinearOpMode {
     private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
-    private int mineralAngle;
+    private int mineralAngle = 0;
     private int mineralDistance;
+    boolean finished = false;
 
     DigitalChannel          touch;
     BNO055IMU               imu;
@@ -51,11 +52,6 @@ public class gyroTestAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
         telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
-
-        //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //robot.driveTrain.mtrBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //robot.driveTrain.mtrBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -103,36 +99,27 @@ public class gyroTestAuto extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        //telemetry.addData("Mode", "running");
-        //telemetry.update();
-
-        sleep(1000);
-
-        // drive until end of period.
-        boolean finished = false;
-
-        while (opModeIsActive() && finished == false)
-        {
+        if (opModeIsActive()) {
             // Use gyro to drive in a straight line.
             checkPosition();
-            sleep(1000);
-//            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
-//            robot.driveTrain.goInches(-1, .2, 2); // move off latch
-//            robot.driveTrain.setSideRoller(.4); // move the side roller down
-//            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
+            while (mineralAngle == 0) {
+            idle();
+        }
+
+            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+            robot.driveTrain.goInches(-1.5, .2, 2); // move off latch
+            robot.driveTrain.setSideRoller(.4); // move the side roller down
+            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
             telemetry.addLine().addData("turning", getAngle());
+            //-120 degrees= right mineral
+            //-88 degrees = middle angle
+            //-58 degrees = left mineral
+            rotate(mineralAngle, .25); // (?) rotate towards middle mineral
 
-            //rotate(-120, .25); // rotate towards right mineral
-
-            //middle angle = -88
-
-//            rotate(mineralAngle, .25); // (?) rotate towards middle mineral
-
-            // rotate(-58, .25); // (??) rotate towards left mineral
             telemetry.addLine().addData("turnt", getAngle());
 
             //sleep(250);
-//            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
             robot.driveTrain.stopMotors(); // stop the motors
 
             telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
@@ -143,7 +130,6 @@ public class gyroTestAuto extends LinearOpMode {
             // We record the sensor values because we will test them in more than
             // one place with time passing between those places. See the lesson on
             // Timing Considerations to know why.
-            finished = true;
         }
 
         // turn the motors off.
@@ -304,17 +290,14 @@ public class gyroTestAuto extends LinearOpMode {
      */
     //private TFObjectDetector tfod;
 
-    boolean finished = false;
 
     public void checkPosition() {
-
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
             }
-
-            while (opModeIsActive()) {
+            while (finished == false) {
                 if (tfod != null && finished == false) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -326,7 +309,7 @@ public class gyroTestAuto extends LinearOpMode {
                             int silverMineral1X = -1;
                             int otherMineral = -1;
                             for (Recognition recognition : updatedRecognitions) {
-                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL) && recognition.getBottom() > 380) {
                                     goldMineralX = (int) recognition.getLeft();
                                 } else if (silverMineral1X == -1) {
                                     silverMineral1X = (int) recognition.getLeft();
@@ -336,27 +319,27 @@ public class gyroTestAuto extends LinearOpMode {
                             }
 
                             if (goldMineralX  == -1) {
+                                telemetry.addData("Gold Mineral Position", "Right");
+                                telemetry.addData("sadf",123);
+                                mineralAngle = -102;
+                                finished = true;
+                            } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                finished = true;
-                            } else if (goldMineralX > silverMineral1X && goldMineralX > otherMineral) {
-                                telemetry.addData("Gold Mineral Position", "right");
-                                telemetry.addData("sadf",123);
+                                mineralAngle = -40;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = -88;
+                                mineralAngle = -70;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
-
                         }
                         telemetry.update();
                     }
                 }
             }
         }
-
         if (tfod != null) {
             tfod.shutdown();
         }
@@ -369,13 +352,13 @@ public class gyroTestAuto extends LinearOpMode {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
-        VuforiaLocalizer.Parameters vparameters = new VuforiaLocalizer.Parameters();
+        VuforiaLocalizer.Parameters vParameters = new VuforiaLocalizer.Parameters();
 
-        vparameters.vuforiaLicenseKey = VUFORIA_KEY;
-        vparameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+        vParameters.vuforiaLicenseKey = VUFORIA_KEY;
+        vParameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
 
         //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(vparameters);
+        vuforia = ClassFactory.getInstance().createVuforia(vParameters);
 
         // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
     }

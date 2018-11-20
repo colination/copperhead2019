@@ -111,12 +111,14 @@ public class TensorFlow2Mineral extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      if (updatedRecognitions.size() == 2) {
+                      if (updatedRecognitions.size() >= 2) {
                         int goldMineralX = -1;
                         int silverMineral1X = -1;
                         int otherMineral = -1;
                         for (Recognition recognition : updatedRecognitions) {
-                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            telemetry.addData("height", recognition.getImageHeight());
+                            //telemetry.addData("coord", recognition.getBottom());
+                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL) && recognition.getBottom() > 380) {
                             goldMineralX = (int) recognition.getLeft();
                           } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
@@ -126,11 +128,11 @@ public class TensorFlow2Mineral extends LinearOpMode {
                         }
 
                           if (goldMineralX  == -1) {
-                            telemetry.addData("Gold Mineral Position", "Left");
+                            telemetry.addData("Gold Mineral Position", "Right");
                             telemetry.addData("sadf",123);
                             finished = true;
-                          } else if (goldMineralX > silverMineral1X && goldMineralX > otherMineral) {
-                            telemetry.addData("Gold Mineral Position", "right");
+                          } else if (goldMineralX < silverMineral1X) {
+                            telemetry.addData("Gold Mineral Position", "left");
                             telemetry.addData("sadf",123);
                             finished = true;
                           } else {
