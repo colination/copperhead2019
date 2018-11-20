@@ -106,20 +106,24 @@ public class gyroTestAuto extends LinearOpMode {
             idle();
         }
 
-            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
-            robot.driveTrain.goInches(-1.5, .2, 2); // move off latch
-            robot.driveTrain.setSideRoller(.4); // move the side roller down
-            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
-            telemetry.addLine().addData("turning", getAngle());
+//            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+//            robot.driveTrain.goInches(-1.5, .2, 2); // move off latch
+//            robot.driveTrain.setSideRoller(.4); // move the side roller down
+//            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
+//            telemetry.addLine().addData("turning", getAngle());
             //-120 degrees= right mineral
             //-88 degrees = middle angle
             //-58 degrees = left mineral
-            rotate(mineralAngle, .25); // (?) rotate towards middle mineral
+            //rotate(mineralAngle, .25); // (?) rotate towards middle mineral
 
             telemetry.addLine().addData("turnt", getAngle());
 
             //sleep(250);
             robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+            robot.driveTrain.goInches(-10,.4,4);
+            //robot.driveTrain.rotate(-mineralAngle + 25,.25);
+            robot.driveTrain.rotate(95,.25);
+            robot.driveTrain.goLean(42,.7,8,true);
             robot.driveTrain.stopMotors(); // stop the motors
 
             telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
