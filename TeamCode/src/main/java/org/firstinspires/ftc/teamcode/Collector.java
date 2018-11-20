@@ -24,7 +24,7 @@ public class    Collector extends robotPart {
 //    public CRServo brushSystem;
 //    public DcMotor mtrExtendL;
 //    public DcMotor mtrExtendR;
-   // public DcMotor mtrIntake;
+    public DcMotor mtrIntake;
 
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
@@ -48,8 +48,8 @@ public class    Collector extends robotPart {
 //        srvFlopR.setDirection(CRServo.Direction.FORWARD);
         //brushSystem.setDirection(CRServo.Direction.REVERSE);
         //srvFlopR.setDirection(CRServo.Direction.REVERSE);
-//        mtrIntake = ahwmap.dcMotor.get("mtrIntake");
-//        mtrIntake.setDirection(DcMotor.Direction.REVERSE);
+        mtrIntake = ahwmap.dcMotor.get("mtrIntake");
+        mtrIntake.setDirection(DcMotor.Direction.REVERSE);
         servoDepositR = ahwmap.servo.get("servoDepositR");
         servoDepositL = ahwmap.servo.get("servoDepositL");
 
