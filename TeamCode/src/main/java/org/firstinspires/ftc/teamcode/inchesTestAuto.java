@@ -72,7 +72,7 @@ public class inchesTestAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap, telemetry);
+        robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("DOES NOT WORK DO NOT USE",robot.driveTrain.mtrBL.getCurrentPosition());
         while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
         {

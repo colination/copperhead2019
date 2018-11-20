@@ -41,7 +41,7 @@ public class gyroHookDepotAuto extends LinearOpMode {
      // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap, telemetry);
+        robot.init(hardwareMap, telemetry, true);
 
         //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //robot.driveTrain.mtrFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -21,7 +21,7 @@ public class craterNoHookAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addLine().addData("goes straight",robot.driveTrain.mtrBL.getCurrentPosition());
-        robot.init(hardwareMap,telemetry);
+        robot.init(hardwareMap,telemetry,true);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());

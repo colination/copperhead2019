@@ -19,7 +19,7 @@ public class depotNoHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap,telemetry);
+        robot.init(hardwareMap,telemetry,true);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());

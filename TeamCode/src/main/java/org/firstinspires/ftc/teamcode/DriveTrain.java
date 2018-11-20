@@ -47,7 +47,7 @@ public class DriveTrain extends robotPart {
     //sensors
 
 
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
+    public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enableIMU) {
         super.init(ahwmap, myTelemetry);
         //Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
@@ -67,8 +67,6 @@ public class DriveTrain extends robotPart {
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-        //Imu
-        imu = ahwmap.get(BNO055IMU.class, "imu");
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -83,14 +81,18 @@ public class DriveTrain extends robotPart {
 
         srvRoller.setPosition(0.4);
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-        imu = ahwmap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
 
+        //Imu
+        imu = ahwmap.get(BNO055IMU.class, "imu");
+        if (enableIMU) {
+            BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+            parameters.mode = BNO055IMU.SensorMode.IMU;
+            parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+            parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+            parameters.loggingEnabled = false;
+            imu = ahwmap.get(BNO055IMU.class, "imu");
+            imu.initialize(parameters);
+        }
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");

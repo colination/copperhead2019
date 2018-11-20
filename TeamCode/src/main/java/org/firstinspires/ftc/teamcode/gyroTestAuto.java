@@ -49,7 +49,7 @@ public class gyroTestAuto extends LinearOpMode {
      // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap, telemetry);
+        robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
 
         //robot.driveTrain.mtrFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

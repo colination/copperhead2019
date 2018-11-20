@@ -20,7 +20,7 @@ public class TankBotTeleOp extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     @Override
     public void init() {
-        robot.init(hardwareMap,telemetry);
+        robot.init(hardwareMap,telemetry,false);
         telemetry.addData("Hello","Driver");
         telemetry.update();
         robot.liftAndHook.reset();
