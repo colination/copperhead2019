@@ -204,10 +204,6 @@ public class DriveTrain extends robotPart {
         //true for direction is forward, false for direction is backwards
 
 
-        if (direction == true) {
-            powerShift = .1;
-        } else {
-            powerShift = -.1;
 
             if (direction == true) {
                 powerShift = .15;
@@ -222,15 +218,8 @@ public class DriveTrain extends robotPart {
             timeoutExit(timeout);
             stopMotors();
             reset();
-
-            if (direction == true) {
-                powerShift = .15;
-            } else {
-                powerShift = -.15;
-
-            }
         }
-    }
+
 
     public double encoderAvg() {
         return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;

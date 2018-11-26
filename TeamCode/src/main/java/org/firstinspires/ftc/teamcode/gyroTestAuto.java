@@ -95,7 +95,9 @@ public class gyroTestAuto extends LinearOpMode {
         }
 
         /** Wait for the game to begin */
+
         telemetry.addData(">", "Press Play to start tracking");
+        telemetry.addData("abc","123");
         telemetry.update();
         waitForStart();
 //test
@@ -119,11 +121,12 @@ public class gyroTestAuto extends LinearOpMode {
             telemetry.addLine().addData("turnt", getAngle());
 
             //sleep(250);
-            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
-            robot.driveTrain.goInches(-10,.4,4);
+            robot.driveTrain.goInches(25, .4, 3); // run into the assigned mineral and park
+            robot.driveTrain.goInches(-10,.4,3);
             //robot.driveTrain.rotate(-mineralAngle + 25,.25);
-            robot.driveTrain.rotate(95,.25);
-            robot.driveTrain.goLean(42,.7,8,true);
+            rotate(95,.25);
+            robot.driveTrain.goInches(42,.25,7);
+            //robot.driveTrain.goLean(42,.7,8,true);
             robot.collector.mtrIntake.setPower(-1);
             robot.driveTrain.stopMotors(); // stop the motors
 

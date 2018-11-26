@@ -21,10 +21,6 @@ public class    Collector extends robotPart {
 
     public Servo servoDepositR;
     public Servo servoDepositL;
-//    public CRServo brushSystem;
-//    public DcMotor mtrExtendL;
-//    public DcMotor mtrExtendR;
-    public DcMotor mtrIntake;
 
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
@@ -38,23 +34,16 @@ public class    Collector extends robotPart {
 
         srvCollectorL = ahwmap.crservo.get("srvCollectorL");
         srvCollectorR = ahwmap.crservo.get("srvCollectorR");
+
         srvFlopL = ahwmap.servo.get("srvFlopL");
         srvFlopR = ahwmap.servo.get("srvFlopR");
-//        brushSystem = ahwmap.crservo.get("brush");
-//        mtrExtendL = ahwmap.dcMotor.get("mtrExtenderL");
-//        mtrExtendR = ahwmap.dcMotor.get("mtrExtenderR");
-//        mtrExtendR.setDirection(DcMotorSimple.Direction.REVERSE);
-//        srvCollectorR.setDirection(CRServo.Direction.REVERSE);
-//        srvFlopR.setDirection(CRServo.Direction.FORWARD);
-        //brushSystem.setDirection(CRServo.Direction.REVERSE);
-        //srvFlopR.setDirection(CRServo.Direction.REVERSE);
-        mtrIntake = ahwmap.dcMotor.get("mtrIntake");
-        mtrIntake.setDirection(DcMotor.Direction.REVERSE);
+
         servoDepositR = ahwmap.servo.get("servoDepositR");
         servoDepositL = ahwmap.servo.get("servoDepositL");
 
         sensorColorR = ahwmap.colorSensor.get("sensorColorR");
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
+
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
 
