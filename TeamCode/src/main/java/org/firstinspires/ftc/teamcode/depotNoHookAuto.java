@@ -19,6 +19,7 @@ public class depotNoHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addLine().addData("literally just goes straight pray to god we don't have to use this, may deposit marker in the future but doesn't now",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -26,7 +27,7 @@ public class depotNoHookAuto extends LinearOpMode {
         telemetry.update();
         boolean finished = false;
         waitForStart();
-        if (opModeIsActive() && finished == false){
+        if (opModeIsActive() && finished ==                                                                           false){
             //robot.driveTrain.setSideRoller(1);
             //robot.driveTrain.goInches(40, .5, 12);
             //robot.liftAndHook.goInches(24, .25, 8);

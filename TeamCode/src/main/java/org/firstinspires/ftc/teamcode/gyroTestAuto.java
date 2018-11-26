@@ -98,15 +98,15 @@ public class gyroTestAuto extends LinearOpMode {
         {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
-            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+            // robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
             robot.driveTrain.goInches(-1, .2, 2); // move off latch
-            robot.driveTrain.setSideRoller(.4); // move the side roller down
+            // robot.driveTrain.setSideRoller(.4); // move the side roller down
             robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
             telemetry.addLine().addData("turning", getAngle());
 
             //rotate(-120, .25); // rotate towards right mineral
 
-            rotate(-88, .25); // (?) rotate towards middle mineral
+            rotate(-86, .25); // rotate towards middle mineral
 
             // rotate(-58, .25); // (??) rotate towards left mineral
             telemetry.addLine().addData("turnt", getAngle());

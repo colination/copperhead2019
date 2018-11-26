@@ -228,10 +228,6 @@ public class DriveTrain extends robotPart {
         srvRoller.setPosition(Position);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void gyroInches(double inches, double power) {
         reset();
 
@@ -286,12 +282,6 @@ public class DriveTrain extends robotPart {
 
     }
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -387,12 +377,7 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
-<<<<<<< HEAD
-=======
-
 }
-
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
 
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
@@ -439,9 +424,5 @@ public class DriveTrain extends robotPart {
 //        // reset angle tracking on new heading.
 //        resetAngle();
 //    }*/
-<<<<<<< HEAD
-}
 
-=======
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
 

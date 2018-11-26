@@ -7,13 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-<<<<<<< HEAD
-@Autonomous(name = "CraterNoHookAuto", group = "12596")
-=======
-
 @Autonomous(name = "Crater No Hook", group = "12596")
 
->>>>>>> 293dc9fff87db8f1a3a2461bb48bb199dfa6fec7
 public class craterNoHookAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
@@ -25,7 +20,7 @@ public class craterNoHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        telemetry.addLine().addData("goes straight",robot.driveTrain.mtrBL.getCurrentPosition());
+        telemetry.addLine().addData("literally just goes straight pray to god we don't have to use this",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -35,7 +30,7 @@ public class craterNoHookAuto extends LinearOpMode {
         waitForStart();
         if (opModeIsActive() && finished == false){
             robot.driveTrain.setSideRoller(1);
-            robot.driveTrain.goInches(21,.5,12); // <<< AUTO FOR CRATER NO HOOK NO VUFORIA
+            robot.driveTrain.goInches(21,.5,12); // literally just goes straight pray to god we don't have to use this
             robot.driveTrain.stopMotors();
             finished = true;
         }
