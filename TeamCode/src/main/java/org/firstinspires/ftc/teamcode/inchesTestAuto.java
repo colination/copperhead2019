@@ -11,9 +11,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
+<<<<<<< HEAD
 import static android.os.SystemClock.sleep;
 
 @Autonomous(name = "Inch Test", group = "12596")
+=======
+
+
+import static android.os.SystemClock.sleep;
+
+@Autonomous(name = "Inch Test", group = "12596")
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
 
@@ -31,6 +40,10 @@ public class inchesTestAuto extends LinearOpMode {
     //detector.ratioScorer.weight = 5;
     //detector.ratioScorer.perfectRatio = 1.0;
     //detector.enable();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
     //detector = new TestCV();
     //detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
     //detector.useDefaults();
@@ -41,6 +54,10 @@ public class inchesTestAuto extends LinearOpMode {
     //detector.ratioScorer.perfectRatio = 1.0;
     //detector.enable();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
     //private TestCV detector;
 
         //detector = new TestCV();
@@ -52,6 +69,10 @@ public class inchesTestAuto extends LinearOpMode {
         //detector.ratioScorer.weight = 5;
         //detector.ratioScorer.perfectRatio = 1.0;
         //detector.enable();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
 
     public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     public static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -66,7 +87,7 @@ public class inchesTestAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap, telemetry);
+        robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("DOES NOT WORK DO NOT USE",robot.driveTrain.mtrBL.getCurrentPosition());
         while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
         {
@@ -205,6 +226,10 @@ public class inchesTestAuto extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
     //private final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     //private final String LABEL_GOLD_MINERAL = "Gold Mineral";
     //private final String LABEL_SILVER_MINERAL = "Silver Mineral";
@@ -263,6 +288,10 @@ public class inchesTestAuto extends LinearOpMode {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
 //    public void rotate(int degrees, double power) {
 //        double leftPower, rightPower;
 //
@@ -330,3 +359,7 @@ public class inchesTestAuto extends LinearOpMode {
 //        robot.driveTrain.resetAngle();
 //    }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696

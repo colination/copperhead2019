@@ -47,7 +47,7 @@ public class DriveTrain extends robotPart {
     //sensors
 
 
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
+    public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enableIMU) {
         super.init(ahwmap, myTelemetry);
         //Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
@@ -67,8 +67,6 @@ public class DriveTrain extends robotPart {
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-        //Imu
-        imu = ahwmap.get(BNO055IMU.class, "imu");
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -83,14 +81,18 @@ public class DriveTrain extends robotPart {
 
         srvRoller.setPosition(0.4);
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-        imu = ahwmap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
 
+        //Imu
+        imu = ahwmap.get(BNO055IMU.class, "imu");
+        if (enableIMU) {
+            BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+            parameters.mode = BNO055IMU.SensorMode.IMU;
+            parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+            parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+            parameters.loggingEnabled = false;
+            imu = ahwmap.get(BNO055IMU.class, "imu");
+            imu.initialize(parameters);
+        }
 
         //Servos
         srvRoller = ahwmap.servo.get("srvRoller");
@@ -141,6 +143,16 @@ public class DriveTrain extends robotPart {
         mtrBL.setPower(power);
         mtrBR.setPower(power);
     }
+
+    public  void strafe(double power) {
+        //right is positive, left is negative
+        mtrFL.setPower(power);
+        mtrBR.setPower(power);
+        mtrFR.setPower(-power);
+        mtrBL.setPower(-power);
+    }
+
+
 
     public void moveLean(double power, double shift) {
         mtrFL.setPower(power + shift);
@@ -282,6 +294,10 @@ public class DriveTrain extends robotPart {
 
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -327,6 +343,8 @@ public class DriveTrain extends robotPart {
 
         return correction;
     }
+
+
 
     public void rotate(int degrees, double power)
     {
@@ -378,6 +396,7 @@ public class DriveTrain extends robotPart {
         resetAngle();
     }
 }
+<<<<<<< HEAD
 
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
@@ -426,3 +445,5 @@ public class DriveTrain extends robotPart {
 //    }*/
 
 
+=======
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696

@@ -8,7 +8,7 @@ public class SmoreBotTeleOp extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     @Override
     public void init() {
-        robot.init(hardwareMap,telemetry);
+        robot.init(hardwareMap,telemetry,false);
         telemetry.addData("Hello","Driver");
         telemetry.update();
     }
@@ -53,26 +53,26 @@ public class SmoreBotTeleOp extends OpMode {
         // Sets deposits straight up
         if (gamepad1.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(0);
-            robot.liftAndHook.servoDepositR.setPosition(1);
+            robot.collector.servoDepositL.setPosition(0);
+            robot.collector.servoDepositR.setPosition(1);
         }
-            if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
+            if (robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM) < 7.0) {
                 if (gamepad1.a) {
-                    if (robot.liftAndHook.sensorColorL.blue() > 70) {
-                        robot.liftAndHook.servoDepositL.setPosition(.66);
+                    if (robot.collector.sensorColorL.blue() > 70) {
+                        robot.collector.servoDepositL.setPosition(.66);
                     } else {
-                        robot.liftAndHook.servoDepositL.setPosition(.40);
+                        robot.collector.servoDepositL.setPosition(.40);
                     }
                 }
             }
         // Right side deposit
-        if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 7.0)  {
+        if (robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM) < 7.0)  {
             if (gamepad1.a) {
-                if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
-                    robot.liftAndHook.servoDepositR.setPosition(0);
+                if (robot.collector.sensorColorR.blue() > 70) { // Deposit silver mineral
+                    robot.collector.servoDepositR.setPosition(0);
                 }
                 else {
-                    robot.liftAndHook.servoDepositR.setPosition(.40); // Deposit Gold mineral
+                    robot.collector.servoDepositR.setPosition(.40); // Deposit Gold mineral
                 }
             }
         }

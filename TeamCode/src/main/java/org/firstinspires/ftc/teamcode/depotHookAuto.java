@@ -19,8 +19,12 @@ public class depotHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+<<<<<<< HEAD
         telemetry.addLine().addData("just goes straight like gyroTestAuto. would not recommend using unless there aren't any other options",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry);
+=======
+        robot.init(hardwareMap,telemetry,true);
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());

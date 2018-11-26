@@ -19,8 +19,12 @@ public class depositMarkerTestAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+<<<<<<< HEAD
         telemetry.addLine().addData("supposed to deposit the marker -- incomplete as of 11/12/18, do not use",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry);
+=======
+        robot.init(hardwareMap,telemetry,true);
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
@@ -28,10 +32,17 @@ public class depositMarkerTestAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
+<<<<<<< HEAD
             /*robot.liftAndHook.goInches(20,.8,6);
             robot.liftAndHook.servoDepositL.setPosition(.40);
             robot.liftAndHook.servoDepositR.setPosition(.40);
             robot.liftAndHook.goInches(-20, .8, 6);*/
+=======
+            robot.liftAndHook.goInches(20,.8,6);
+            //robot.liftAndHook.servoDepositL.setPosition(.40);
+            //robot.liftAndHook.servoDepositR.setPosition(.40);
+            robot.liftAndHook.goInches(-20, .8, 6);
+>>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
             finished = true;
         }
     }

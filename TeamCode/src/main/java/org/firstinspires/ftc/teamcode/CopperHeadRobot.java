@@ -10,9 +10,9 @@ public class CopperHeadRobot {
     Collector collector = new Collector();
 
     //gyroTestAuto gyro = new gyroTestAuto();
-    public void init(HardwareMap ahwmap, Telemetry myTelemetry){
+    public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enable){
         liftAndHook.init(ahwmap, myTelemetry);
-        driveTrain.init(ahwmap, myTelemetry);
+        driveTrain.init(ahwmap, myTelemetry, enable);
         collector.init(ahwmap, myTelemetry);
 
       //  gyro.init(ahwmap, myTelemetry);

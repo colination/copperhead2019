@@ -104,10 +104,10 @@ public abstract class TrollBotAutoComponents extends LinearOpMode
         telemetry.addData("Status", "initializing in the method");    //
         telemetry.update();
         // Define and Initialize Motors
-        motorFL = hardwareMap.get(DcMotor.class, "motorFL");
-        motorFR = hardwareMap.get(DcMotor.class, "motorFR");
-        motorBL = hardwareMap.get(DcMotor.class, "motorBL");
-        motorBR = hardwareMap.get(DcMotor.class, "motorBR");
+        motorFL = hardwareMap.get(DcMotor.class, "mtrFL");
+        motorFR = hardwareMap.get(DcMotor.class, "mtrFR");
+        motorBL = hardwareMap.get(DcMotor.class, "mtrBL");
+        motorBR = hardwareMap.get(DcMotor.class, "mtrBR");
 
         motorFL.setDirection(DcMotor.Direction.REVERSE);
         motorBL.setDirection(DcMotor.Direction.REVERSE);

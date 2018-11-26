@@ -24,7 +24,7 @@ public class depositFix extends OpMode {
     double silverR = .9;
     @Override
     public void init() {
-        robot.init(hardwareMap,telemetry);
+        robot.init(hardwareMap,telemetry,false);
         telemetry.addData("Hello","Driver");
         telemetry.update();
         robot.liftAndHook.reset();
@@ -42,18 +42,18 @@ public class depositFix extends OpMode {
         }
         //silver
         if(gamepad2.a) {
-            robot.liftAndHook.servoDepositR.setPosition(0 + position);
-            robot.liftAndHook.servoDepositL.setPosition(.66 + position);
+            robot.collector.servoDepositR.setPosition(0 + position);
+            robot.collector.servoDepositL.setPosition(.66 + position);
         }
         // gold
         if (gamepad2.b) {
-            robot.liftAndHook.servoDepositR.setPosition(.33 + position);
-            robot.liftAndHook.servoDepositL.setPosition(.40 + position);
+            robot.collector.servoDepositR.setPosition(.33 + position);
+            robot.collector.servoDepositL.setPosition(.40 + position);
         }
         //upright
         if (gamepad2.y) {
-            robot.liftAndHook.servoDepositR.setPosition(.88 + position);
-            robot.liftAndHook.servoDepositL.setPosition(0 + position);
+            robot.collector.servoDepositR.setPosition(.88 + position);
+            robot.collector.servoDepositL.setPosition(0 + position);
         }
         if (gamepad2.x) {
             position = 0;
