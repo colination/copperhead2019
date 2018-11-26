@@ -18,8 +18,8 @@ public class LiftAndHook extends robotPart {
     public DcMotor mtrLiftR;
     public DcMotor mtrLiftL;
     //Servos
-//    public Servo servoDepositR;
-//    public Servo servoDepositL;
+    public Servo servoDepositR;
+    public Servo servoDepositL;
 
     public  Servo srvShift;
 //    //Variables and other useful stuff
@@ -29,10 +29,10 @@ public class LiftAndHook extends robotPart {
     double countsPerInch = (encoders * gearReduction)/(spoolDiameter*Math.PI);
     ElapsedTime runtime= new ElapsedTime();
     //Sensors
-//    public DistanceSensor sensorDistanceR;
-//    public DistanceSensor sensorDistanceL;
-//    public ColorSensor sensorColorR;
-//    public ColorSensor sensorColorL;
+    public DistanceSensor sensorDistanceR;
+    public DistanceSensor sensorDistanceL;
+    public ColorSensor sensorColorR;
+    public ColorSensor sensorColorL;
    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
         mtrLiftL = ahwmap.dcMotor.get("mtrLiftL");
@@ -44,13 +44,13 @@ public class LiftAndHook extends robotPart {
         mtrLiftR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         srvShift = ahwmap.servo.get("srvShift");
-//        servoDepositR = ahwmap.servo.get("servoDepositR");
-//        servoDepositL = ahwmap.servo.get("servoDepositL");
-//
-//        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
-//        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
-//        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
-//        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
+        servoDepositR = ahwmap.servo.get("servoDepositR");
+        servoDepositL = ahwmap.servo.get("servoDepositL");
+
+        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
+        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
+        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
+        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
 
         mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -7,11 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-<<<<<<< HEAD
-@Autonomous(name = "Crater No Hook", group = "12596")
-=======
 @Autonomous(name = "CraterNoHookAuto", group = "12596")
->>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
 
 public class craterNoHookAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
@@ -24,13 +20,9 @@ public class craterNoHookAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-<<<<<<< HEAD
         telemetry.addLine().addData("literally just goes straight pray to god we don't have to use this",robot.driveTrain.mtrBL.getCurrentPosition());
-        robot.init(hardwareMap,telemetry);
-=======
         telemetry.addLine().addData("goes straight",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry,true);
->>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());

@@ -294,10 +294,6 @@ public class DriveTrain extends robotPart {
 
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -396,7 +392,6 @@ public class DriveTrain extends robotPart {
         resetAngle();
     }
 }
-<<<<<<< HEAD
 
 //    public void rotate(int degrees, double power){
 //            double leftPower = 0, rightPower = 0;
@@ -445,5 +440,4 @@ public class DriveTrain extends robotPart {
 //    }*/
 
 
-=======
->>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
+
