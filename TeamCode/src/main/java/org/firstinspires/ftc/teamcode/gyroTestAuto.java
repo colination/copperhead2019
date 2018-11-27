@@ -101,7 +101,6 @@ public class gyroTestAuto extends LinearOpMode {
 //test
         if (opModeIsActive()) {
             // Use gyro to drive in a straight line.
-<<<<<<< HEAD
             correction = checkDirection();
             // robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
             robot.driveTrain.goInches(-1, .2, 2); // move off latch
@@ -112,7 +111,6 @@ public class gyroTestAuto extends LinearOpMode {
             //rotate(-120, .25); // rotate towards right mineral
 
             rotate(-86, .25); // rotate towards middle mineral
-=======
            // checkPosition();
 //            while (mineralAngle == 0) {
 //            idle();
@@ -127,7 +125,6 @@ public class gyroTestAuto extends LinearOpMode {
             //-88 degrees = middle angle
             //-58 degrees = left mineral
             //rotate(mineralAngle, .25); // (?) rotate towards middle mineral
->>>>>>> 2d86e2b11e5010f3620dad75cfbbf3157deb8696
 
             telemetry.addLine().addData("turnt", getAngle());
 
