@@ -23,7 +23,6 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
-    public Servo sideRoller = null;
 
     DigitalChannel touch;
     BNO055IMU imu;
@@ -49,38 +48,21 @@ public class DriveTrain extends robotPart {
 
     public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enableIMU) {
         super.init(ahwmap, myTelemetry);
-        //Motors
+        // Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
         mtrFR = ahwmap.dcMotor.get("mtrFR");
         mtrBL = ahwmap.dcMotor.get("mtrBL");
         mtrBR = ahwmap.dcMotor.get("mtrBR");
-
+        // Set motor directions
         mtrFL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrBL.setDirection(DcMotorSimple.Direction.FORWARD);
         mtrFR.setDirection(DcMotorSimple.Direction.REVERSE);
         mtrBR.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
+        // Set motors to not use encoders until specified
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
-
-        //Servos
-        srvRoller = ahwmap.servo.get("srvRoller");
-
-        srvRoller.setPosition(0.4);
-
-        srvRoller.setPosition(0.4);
-
-        srvRoller.setPosition(0);
-
-        srvRoller.setPosition(0.4);
-
-        srvRoller.setPosition(0.4);
-
 
         //Imu
         imu = ahwmap.get(BNO055IMU.class, "imu");
@@ -93,15 +75,6 @@ public class DriveTrain extends robotPart {
             imu = ahwmap.get(BNO055IMU.class, "imu");
             imu.initialize(parameters);
         }
-
-        //Servos
-        srvRoller = ahwmap.servo.get("srvRoller");
-        //srvRoller.setPosition(-1);
-        //mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         stopMotors();
     }
 
@@ -152,8 +125,6 @@ public class DriveTrain extends robotPart {
         mtrBL.setPower(-power);
     }
 
-
-
     public void moveLean(double power, double shift) {
         mtrFL.setPower(power + shift);
         mtrBL.setPower(power + shift);
@@ -202,13 +173,6 @@ public class DriveTrain extends robotPart {
     public void goLean(double inches, double power, double timeout, boolean direction) {
         double powerShift;
         //true for direction is forward, false for direction is backwards
-
-
-        if (direction == true) {
-            powerShift = .1;
-        } else {
-            powerShift = -.1;
-
             if (direction == true) {
                 powerShift = .15;
             } else {
@@ -222,15 +186,7 @@ public class DriveTrain extends robotPart {
             timeoutExit(timeout);
             stopMotors();
             reset();
-
-            if (direction == true) {
-                powerShift = .15;
-            } else {
-                powerShift = -.15;
-
-            }
         }
-    }
 
     public double encoderAvg() {
         return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;
@@ -242,8 +198,6 @@ public class DriveTrain extends robotPart {
 
     public void gyroInches(double inches, double power) {
         reset();
-
-
         mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

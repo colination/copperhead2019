@@ -24,9 +24,6 @@ public class TankBotTeleOp extends OpMode {
         robot.init(hardwareMap, telemetry, false); // this is false here?
         telemetry.addData("Hello", "Driver");
         telemetry.update();
-        robot.liftAndHook.reset();
-        robot.liftAndHook.mtrLiftR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.liftAndHook.mtrLiftL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -129,8 +126,9 @@ public class TankBotTeleOp extends OpMode {
             if (Math.abs(gamepad2.right_stick_y) > 0.1) {
                 Lift = -gamepad2.right_stick_y;
             } else {
-                robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             }
 
             /* Right trigger to rotate intake, left trigger spits out
@@ -152,57 +150,11 @@ public class TankBotTeleOp extends OpMode {
 
             // Set corresponding power to motors
             robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-            robot.liftAndHook.mtrLiftR.setPower(Lift);
-            robot.liftAndHook.mtrLiftL.setPower(Lift);
-            robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
+            robot.liftAndHook.mtrLift1.setPower(Lift);
+            robot.liftAndHook.mtrLift2.setPower(Lift);
+            robot.liftAndHook.mtrLift3.setPower(Lift);
 
-
-            //Telemetry
-            telemetry.addData("rightDistance (cm)",
-                    String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM)));
-            telemetry.addData("leftDistance (cm)",
-                    String.format(Locale.US, "%.02f", robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM)));
-            telemetry.addData("rightBlue ", robot.liftAndHook.sensorColorR.blue());
-            telemetry.addData("leftBlue ", robot.liftAndHook.sensorColorL.blue());
-            telemetry.update();
         }
-
-
-        // Lift with right trigger up, left trigger down
-        if (Math.abs(gamepad2.right_stick_y) > 0.1) {
-            Lift = gamepad2.right_stick_y;
-        } else {
-            robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }
-
-        // Right trigger to rotate intake, left trigger spits out
-//        if (gamepad2.right_trigger > 0.1) {
-//            robot.collector.mtrIntake.setPower(-gamepad2.right_trigger);
-//        }
-//        else if (gamepad2.left_trigger > 0.1) {
-//            robot.collector.mtrIntake.setPower(gamepad2.left_trigger);
-//        }
-//        else
-//        {
-//            robot.collector.mtrIntake.setPower(0);
-//        }
-//        if (Math.abs(gamepad2.left_stick_y) > 0){
-//            robot.collector.srvFlopL.setPower(-gamepad2.left_stick_y);
-//        }
-        if (gamepad1.left_trigger > 0.1) {
-            leftPower = leftPower / 2;
-            rightPower = rightPower / 2;
-        }
-
-
-        // Set corresponding power to motors
-
-        robot.driveTrain.Tank(rightPower, leftPower); // Tank Drive
-        //robot.collector.srvFlopL.setPower(flop); // Collector flop out
-        robot.liftAndHook.mtrLiftR.setPower(Lift);
-        robot.liftAndHook.mtrLiftL.setPower(Lift);
-
 
         //Telemetry
         telemetry.addData("rightDistance (cm)",
