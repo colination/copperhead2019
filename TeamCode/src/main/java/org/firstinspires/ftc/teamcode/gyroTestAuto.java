@@ -103,6 +103,16 @@ public class gyroTestAuto extends LinearOpMode {
 //test
         if (opModeIsActive()) {
             // Use gyro to drive in a straight line.
+            correction = checkDirection();
+            // robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
+            robot.driveTrain.goInches(-1, .2, 2); // move off latch
+            // robot.driveTrain.setSideRoller(.4); // move the side roller down
+            robot.liftAndHook.goInches(11.5, .8, 4);// move the lift back down
+            telemetry.addLine().addData("turning", getAngle());
+
+            //rotate(-120, .25); // rotate towards right mineral
+
+            rotate(-86, .25); // rotate towards middle mineral
            // checkPosition();
 //            while (mineralAngle == 0) {
 //            idle();
@@ -123,11 +133,10 @@ public class gyroTestAuto extends LinearOpMode {
             //sleep(250);
             robot.driveTrain.goInches(25, .4, 3); // run into the assigned mineral and park
             robot.driveTrain.goInches(-10,.4,3);
-            //robot.driveTrain.rotate(-mineralAngle + 25,.25);
-            rotate(95,.25);
+            robot.driveTrain.rotate(-mineralAngle + 25,.25);
+            //rotate(95,.25);
             robot.driveTrain.goInches(42,.25,7);
             //robot.driveTrain.goLean(42,.7,8,true);
-            robot.collector.mtrIntake.setPower(-1);
             robot.driveTrain.stopMotors(); // stop the motors
 
             telemetry.addLine().addData("1 imu heading", lastAngles.secondAngle);
@@ -141,7 +150,6 @@ public class gyroTestAuto extends LinearOpMode {
         }
         // turn the motors off.
         robot.driveTrain.stopMotors();
-        robot.collector.mtrIntake.setPower(0);
     }
 
     /**

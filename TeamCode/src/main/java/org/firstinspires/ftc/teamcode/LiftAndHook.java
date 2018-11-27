@@ -18,7 +18,11 @@ public class LiftAndHook extends robotPart {
     public DcMotor mtrLift1;
     public DcMotor mtrLift2;
     public DcMotor mtrLift3;
-    public  DcMotor mtrRotate;
+    public  DcMotor mtrFlop;
+
+    //Servos
+    public Servo servoDepositR;
+    public Servo servoDepositL;
 
     //Servos
     public  Servo srvShift;
@@ -30,6 +34,12 @@ public class LiftAndHook extends robotPart {
     double countsPerInch = (encoders * gearReduction)/(spoolDiameter*Math.PI);
     ElapsedTime runtime= new ElapsedTime();
 
+    //Sensors
+    public DistanceSensor sensorDistanceR;
+    public DistanceSensor sensorDistanceL;
+    public ColorSensor sensorColorR;
+    public ColorSensor sensorColorL;
+
    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
         
@@ -39,7 +49,7 @@ public class LiftAndHook extends robotPart {
         mtrLift3 = ahwmap.dcMotor.get("mtrLift3");
 
         // Rotate motor
-        mtrRotate = ahwmap.dcMotor.get("mtrRotate");
+        mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
         // Middle motor is reversed
         mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -57,6 +67,13 @@ public class LiftAndHook extends robotPart {
         mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        servoDepositR = ahwmap.servo.get("servoDepositR");
+        servoDepositL = ahwmap.servo.get("servoDepositL");
+
+        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
+        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
+        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
+        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
     }
 
     public void stop(){

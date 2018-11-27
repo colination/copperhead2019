@@ -19,6 +19,7 @@ public class depositMarkerTestAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addLine().addData("supposed to deposit the marker -- incomplete as of 11/12/18, do not use",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry,true);
         robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -27,6 +28,10 @@ public class depositMarkerTestAuto extends LinearOpMode {
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
+            /*robot.liftAndHook.goInches(20,.8,6);
+            robot.liftAndHook.servoDepositL.setPosition(.40);
+            robot.liftAndHook.servoDepositR.setPosition(.40);
+            robot.liftAndHook.goInches(-20, .8, 6);*/
             robot.liftAndHook.goInches(20,.8,6);
             //robot.liftAndHook.servoDepositL.setPosition(.40);
             //robot.liftAndHook.servoDepositR.setPosition(.40);
