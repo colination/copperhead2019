@@ -38,7 +38,7 @@ public class Autotestingangles extends LinearOpMode {
     private static final double unlatchDist = -1;
     private static final double liftDist = 17.5;
     private static final double mineralDist = 20;
-    private static final double backupDist = -10;
+    private static final double backupDist = -5;
     private static final double markerDist = -42;
     private static final double depotDist = 40;
     private static final double depotToPark = 65;
@@ -117,9 +117,9 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            robot.liftAndHook.goInches(-liftDist, .5, 3); // move up to lower down to ground
+            robot.liftAndHook.goInches(-liftDist, .5, 2); // move up to lower down to ground
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
-            robot.liftAndHook.goInches(liftDist, .5, 3);// move the lift back down
+            robot.liftAndHook.goInches(liftDist, .5, 2);// move the lift back down
 //            // Rotate towards gold  //-70 is test for middle mineral
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .4); // rotate towards right mineral
@@ -128,16 +128,15 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
             robot.driveTrain.goInches(-backupDist,.4,2);
-            rotate(80,.4);
-            //rotate(95,.25);
-            robot.driveTrain.goInches(markerDist,.25,7);
-            robot.driveTrain.goInches(2,.25,7);
+            rotate(170 - mineralAngle,.4); //80 worked
+            robot.driveTrain.goInches(markerDist,.25,5);
+            robot.driveTrain.goInches(2,.25,5);
             rotate(33, .4);
-            robot.driveTrain.goInches(-depotDist, .25, 7);
+            robot.driveTrain.goInches(-depotDist, .25, 5);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.7,5);
             while (opModeIsActive()) {
-                robot.driveTrain.move(.2);
+                robot.driveTrain.move(.3);
             }
             //robot.driveTrain.goLean(42,.7,8,true);
         }
