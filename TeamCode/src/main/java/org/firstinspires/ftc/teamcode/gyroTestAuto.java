@@ -123,29 +123,23 @@ public class gyroTestAuto extends LinearOpMode {
             robot.liftAndHook.goInches(-liftDist, .5, 3); // move up to lower down to ground
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .5, 3);// move the lift back down
-//            // Rotate towards gold  //-70 is test for middle mineral
             telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .4); // rotate towards right mineral
-//            telemetry.addLine().addData("turnt", getAngle());
-//            // Run into mineral
-            robot.driveTrain.goInches(mineralDist, .4, 2);
+            rotate(mineralAngle, .4); // rotate towards the correct mineral
+            robot.driveTrain.goInches(mineralDist, .4, 2); // move forward and hit the correct mineral
             // Path for marker
-            robot.driveTrain.goInches(backupDist,.4,2);
-            rotate(-85,.4);
-            //rotate(95,.25);
-            robot.driveTrain.goInches(markerDist,.25,7);
-            robot.driveTrain.goInches(2,.25,7);
-            rotate(33, .4);
-            robot.driveTrain.goInches(-depotDist, .25, 7);
-            rotate(7, .4);
-            robot.driveTrain.goInches(depotToPark,.7,5);
+            robot.driveTrain.goInches(backupDist,.4,2); // back up away from the mineral
+            rotate(-85,.4); // rotate to line up to the wall
+            robot.driveTrain.goInches(markerDist,.25,7); // move to hit the wall
+            robot.driveTrain.goInches(2,.25,7); // back up from wall slightly
+            rotate(33, .4); // rotate to line up with wall
+            robot.driveTrain.goInches(-depotDist, .25, 7); // move into the depot
+            rotate(7, .4); // rotate to line up with the wall again
+            robot.driveTrain.goInches(depotToPark,.7,5); // move back to park
             while (opModeIsActive()) {
-                robot.driveTrain.move(.2);
+                robot.driveTrain.move(.2); // adds a little bit more power to keep the robot from sliding off the crater
             }
-            //robot.driveTrain.goLean(42,.7,8,true);
         }
-        // turn the motors off.
-        robot.driveTrain.stopMotors();
+        robot.driveTrain.stopMotors(); // turen the motors off
     }
 
     /**
