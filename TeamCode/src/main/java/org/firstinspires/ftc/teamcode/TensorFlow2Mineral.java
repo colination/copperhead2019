@@ -118,7 +118,7 @@ public class TensorFlow2Mineral extends LinearOpMode {
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData("height", recognition.getImageHeight());
                             //telemetry.addData("coord", recognition.getBottom());
-                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL) && recognition.getBottom() > 380) {
+                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
                           } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
@@ -163,7 +163,7 @@ public class TensorFlow2Mineral extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.FRONT;
+        parameters.cameraDirection = CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);

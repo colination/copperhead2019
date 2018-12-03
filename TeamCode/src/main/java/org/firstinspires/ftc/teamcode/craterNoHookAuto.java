@@ -23,14 +23,14 @@ public class craterNoHookAuto extends LinearOpMode {
         telemetry.addLine().addData("literally just goes straight pray to god we don't have to use this",robot.driveTrain.mtrBL.getCurrentPosition());
         telemetry.addLine().addData("goes straight",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry,true);
-        robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
         telemetry.update();
         boolean finished = false;
         waitForStart();
         if (opModeIsActive() && finished == false){
-            robot.driveTrain.setSideRoller(1);
             robot.driveTrain.goInches(21,.5,12); // literally just goes straight pray to god we don't have to use this
             robot.driveTrain.stopMotors();
             finished = true;

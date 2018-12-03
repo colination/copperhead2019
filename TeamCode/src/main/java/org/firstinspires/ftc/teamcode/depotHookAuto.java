@@ -21,8 +21,9 @@ public class depotHookAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         telemetry.addLine().addData("just goes straight like gyroTestAuto. would not recommend using unless there aren't any other options",robot.driveTrain.mtrBL.getCurrentPosition());
         robot.init(hardwareMap,telemetry,true);
-        robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("ticks", robot.driveTrain.mtrBL.getCurrentPosition());
         telemetry.update();
         boolean finished = false;
@@ -30,7 +31,6 @@ public class depotHookAuto extends LinearOpMode {
         if (opModeIsActive() && finished == false){
             // robot.liftAndHook.goInches(12,.8,6); // move robot towards ground
             robot.driveTrain.goInches(-4,.2,4); // move robot off hook
-            robot.driveTrain.setSideRoller(1); // move the sideroller down
             // robot.liftAndHook.goInches(-12, .8, 6); // <<< AUTO FOR DEPOT UNHOOK NO VUFORIA
             rotate(90, .25);
             robot.driveTrain.goInches(24, .2, 8);

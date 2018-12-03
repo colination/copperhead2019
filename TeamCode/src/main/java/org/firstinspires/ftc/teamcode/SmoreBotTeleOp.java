@@ -48,8 +48,9 @@ public class SmoreBotTeleOp extends OpMode {
         robot.driveTrain.mtrFR.setPower(WeightAvg(FwdBack, -Turn));
         robot.driveTrain.mtrBR.setPower(WeightAvg(FwdBack, -Turn));
 
-        robot.liftAndHook.mtrLiftR.setPower(Lift);
-        robot.liftAndHook.mtrLiftL.setPower(Lift);
+        robot.liftAndHook.mtrLift1.setPower(Lift);
+        robot.liftAndHook.mtrLift2.setPower(Lift);
+        robot.liftAndHook.mtrLift3.setPower(Lift);
         // Sets deposits straight up
         if (gamepad1.y) {
             // move to 0 degrees.

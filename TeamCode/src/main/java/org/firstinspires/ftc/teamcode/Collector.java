@@ -16,6 +16,7 @@ public class    Collector extends robotPart {
 
     public CRServo srvCollectorL;
     public CRServo srvCollectorR;
+
     public Servo srvFlopL;
     public Servo srvFlopR;
 
@@ -26,6 +27,8 @@ public class    Collector extends robotPart {
     public DistanceSensor sensorDistanceL;
     public ColorSensor sensorColorR;
     public ColorSensor sensorColorL;
+
+    public DcMotor mtrFlop;
 
     public ElapsedTime runtime = new ElapsedTime();
 
@@ -46,6 +49,8 @@ public class    Collector extends robotPart {
 
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
+
+        mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
 
     }

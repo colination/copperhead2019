@@ -11,7 +11,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -19,17 +18,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="Gyro Test Auto", group="12596")
+@Autonomous(name="angle test", group="12596")
 
-public class gyroTestAuto extends LinearOpMode {
+public class Autotestingangles extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -39,7 +36,7 @@ public class gyroTestAuto extends LinearOpMode {
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
     private static final double unlatchDist = -1;
-    private static final double liftDist = 14.5;
+    private static final double liftDist = 17.5;
     private static final double mineralDist = 20;
     private static final double backupDist = -10;
     private static final double markerDist = -42;
@@ -128,10 +125,10 @@ public class gyroTestAuto extends LinearOpMode {
             rotate(mineralAngle, .4); // rotate towards right mineral
 //            telemetry.addLine().addData("turnt", getAngle());
 //            // Run into mineral
-            robot.driveTrain.goInches(mineralDist, .4, 2);
+            robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
-            robot.driveTrain.goInches(backupDist,.4,2);
-            rotate(-85,.4);
+            robot.driveTrain.goInches(-backupDist,.4,2);
+            rotate(80,.4);
             //rotate(95,.25);
             robot.driveTrain.goInches(markerDist,.25,7);
             robot.driveTrain.goInches(2,.25,7);
@@ -333,16 +330,16 @@ public class gyroTestAuto extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = -102;
+                                mineralAngle = 57;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = -45;
+                                mineralAngle = 107;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = -70;
+                                mineralAngle = 84;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }

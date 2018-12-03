@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,7 +31,7 @@ public class LiftAndHook extends robotPart {
 
 //  Variables and other useful stuff
     double encoders = 1120;
-    double gearReduction = .25;
+    double gearReduction = .25 * (74/34);
     double spoolDiameter = 1.5;
     double countsPerInch = (encoders * gearReduction)/(spoolDiameter*Math.PI);
     ElapsedTime runtime= new ElapsedTime();
@@ -39,6 +41,7 @@ public class LiftAndHook extends robotPart {
     public DistanceSensor sensorDistanceL;
     public ColorSensor sensorColorR;
     public ColorSensor sensorColorL;
+    public AnalogInput potentiometer;
 
    public void init(HardwareMap ahwmap, Telemetry myTelemetry) {
         super.init(ahwmap, myTelemetry);
@@ -52,7 +55,7 @@ public class LiftAndHook extends robotPart {
         mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
         // Middle motor is reversed
-        mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
+        //mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Run without encoder ticks
         mtrLift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -74,6 +77,7 @@ public class LiftAndHook extends robotPart {
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
+
     }
 
     public void stop(){

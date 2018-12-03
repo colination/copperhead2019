@@ -85,8 +85,9 @@ public class inchesTestAuto extends LinearOpMode {
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled      = false;
 
-        robot.liftAndHook.mtrLiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.liftAndHook.mtrLiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
 
         telemetry.update();
@@ -143,7 +144,6 @@ public class inchesTestAuto extends LinearOpMode {
 //            robot.driveTrain.rotate(turn,.3);
             robot.liftAndHook.goInches(-12, .8, 6);
             robot.driveTrain.goInches(-2, .2, 4);
-            robot.driveTrain.setSideRoller(1);
             robot.liftAndHook.goInches(12, .8, 6);
             //robot.driveTrain.rotate(45, .25);
             //robot.driveTrain.goInches(32,.5,12);

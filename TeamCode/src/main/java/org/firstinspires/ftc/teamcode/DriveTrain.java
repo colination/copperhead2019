@@ -29,9 +29,6 @@ public class DriveTrain extends robotPart {
     Orientation lastAngles = new Orientation();
     double globalAngle, correction;
 
-    //servos
-    public Servo srvRoller = null;
-
     //BNO055IMU               imu;
     //Orientation             lastAngles = new Orientation();
     //double globalAngle, power = .30, correction;
@@ -100,10 +97,10 @@ public class DriveTrain extends robotPart {
     }
 
     public void targetPosition(double inches) {
-        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
-        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (inches * COUNTS_PER_INCH)));
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() - (inches * COUNTS_PER_INCH)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() - (inches * COUNTS_PER_INCH)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() - (inches * COUNTS_PER_INCH)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() - (inches * COUNTS_PER_INCH)));
     }
 
     public int target(double inches) {
@@ -192,60 +189,16 @@ public class DriveTrain extends robotPart {
         return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;
     }
 
-    public void setSideRoller(double Position) {
-        srvRoller.setPosition(Position);
-    }
-
-    public void gyroInches(double inches, double power) {
-        reset();
-        mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        int distance = target(inches);
-        if (distance > 0) {
-            while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
-                    (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
-                Tank(power, power);
-            }
-        } else {
-            while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
-                    (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
-                Tank(-power, -power);
-            }
-        }
-        stopMotors();
-    }
-
     public void PInches(double inches, double power) {
-        reset();
-        mtrFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mtrBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        int distance = target(inches);
-        if (distance > 0) {
-            while ((mtrFR.getCurrentPosition() < distance) && (mtrFL.getCurrentPosition() < distance) &&
-                    (mtrBR.getCurrentPosition() < distance) && (mtrBL.getCurrentPosition() < distance)) {
-                Tank((power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
-                        (power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
-            }
-
-        } else {
-            while ((mtrFR.getCurrentPosition() > distance) && (mtrFL.getCurrentPosition() > distance) &&
-                    (mtrBR.getCurrentPosition() > distance) && (mtrBL.getCurrentPosition() > distance)) {
-                Tank((-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
-                        (-power * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
-            }
-        }
-        stopMotors();
-    }
-
-    public void gyroInches(double inches) {
         reset();
         setMode();
         targetPosition(inches);
-
+        int distance = target(inches);
+        while (mtrBL.isBusy() && mtrBR.isBusy() && mtrFL.isBusy() && mtrFR.isBusy()) {
+            Tank(.2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
+                    .2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
+            }
+        stopMotors();
     }
 
     public void resetAngle()
@@ -293,8 +246,6 @@ public class DriveTrain extends robotPart {
 
         return correction;
     }
-
-
 
     public void rotate(int degrees, double power)
     {
@@ -347,51 +298,6 @@ public class DriveTrain extends robotPart {
     }
 }
 
-//    public void rotate(int degrees, double power){
-//            double leftPower = 0, rightPower = 0;
-//
-//            // restart imu movement tracking.
-//            resetAngle();
-//            privateTelemetry.addLine().addData("Robot Angle", getAngle());
-//
-//            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-//            // clockwise (right).
-//
-//            if (degrees < 0) {   // turn right.
-//                leftPower = -power;
-//                rightPower = power;
-//            } else if (degrees > 0) {   // turn left.
-//                leftPower = power;
-//                rightPower = -power;
-//            }
-//
-//
-//        // set power to rotate.
-//        mtrFL.setPower(leftPower);
-//        mtrBL.setPower(leftPower);
-//        mtrFR.setPower(rightPower);
-//        mtrBR.setPower(rightPower);
-//
-//        // rotate until turn is completed.
-//        if (degrees < 0)
-//        {
-//            // On right turn we have to get off zero first.
-//            while (getAngle() == 0) {}
-//
-//            while (getAngle() > degrees) {}
-//        }
-//        else    // left turn.
-//            while (getAngle() < degrees) {}
-//
-//        // turn the motors off.
-//        stopMotors();
-//
-//        // wait for rotation to stop.
-//        sleep(1000);
-//
-//        // reset angle tracking on new heading.
-//        resetAngle();
-//    }*/
 
 
 

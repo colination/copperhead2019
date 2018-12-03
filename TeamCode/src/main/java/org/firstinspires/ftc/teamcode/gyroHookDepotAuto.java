@@ -97,7 +97,6 @@ public class gyroHookDepotAuto extends LinearOpMode {
             correction = checkDirection();
             robot.liftAndHook.goInches(11.5, .8, 5); // move up to lower down to ground
             robot.driveTrain.goInches(-.75, .2, 2); // move off latch
-            robot.driveTrain.setSideRoller(.4); // move the side roller down
             robot.liftAndHook.goInches(-11.5, .8, 4);// move the lift back down
             telemetry.addLine().addData("turning", getAngle());
 
