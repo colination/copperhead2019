@@ -23,6 +23,7 @@ public class TankBotTeleOp extends OpMode {
     public void init() {
         robot.init(hardwareMap, telemetry, false); // this is false here?
         telemetry.addData("Hello", "Driver");
+        telemetry.addData("Yeet","yeet");
         telemetry.update();
     }
 
@@ -85,14 +86,8 @@ public class TankBotTeleOp extends OpMode {
 
         if (gamepad2.right_trigger > 0.1) {
             robot.collector.srvFlopR.setPower(.5);
-            robot.collector.srvFlopL.setPower(.5);
-        }
-        else {
-            robot.collector.srvFlopR.setPower(0);
-            robot.collector.srvFlopL.setPower(0);
-        }
-        //
-        if (gamepad2.left_trigger > 0.1) {
+            robot.collector.srvFlopL.setPower(.5);}
+        else if (gamepad2.left_trigger > 0.1) {
             robot.collector.srvFlopR.setPower(-.5);
             robot.collector.srvFlopL.setPower(-.5);
         }
@@ -100,18 +95,32 @@ public class TankBotTeleOp extends OpMode {
             robot.collector.srvFlopR.setPower(0);
             robot.collector.srvFlopL.setPower(0);
         }
-        // Intake tubing
-        while (gamepad2.right_bumper) {
-            robot.collector.srvCollectorR.setPower(.7);
-            robot.collector.srvCollectorL.setPower(.7);
-        }
-        // Spit out tubing
-        while (gamepad2.left_bumper) {
+
+        if (gamepad2.right_bumper) {
             robot.collector.srvCollectorR.setPower(-.7);
             robot.collector.srvCollectorL.setPower(-.7);
         }
-
-
+        else {
+            robot.collector.srvCollectorR.setPower(0);
+            robot.collector.srvCollectorL.setPower(0);
+        }
+        //
+        // Intake tubing
+//        if (gamepad2.right_bumper) {
+//            robot.collector.srvCollectorR.setPower(.7);
+//            robot.collector.srvCollectorL.setPower(.7);
+//            telemetry.addData("Yeet",5);
+//        }
+//        // Spit out tubing
+//        else if (gamepad2.left_bumper) {
+//            robot.collector.srvCollectorR.setPower(-.7);
+//            robot.collector.srvCollectorL.setPower(-.7);
+//            telemetry.addData("yeet",-5);
+//        }
+//        else {
+//            robot.collector.srvCollectorR.setPower(0);
+//            robot.collector.srvCollectorL.setPower(0);
+//        }
 
         /* Right trigger to rotate intake, left trigger spits out
         if (gamepad2.right_trigger > 0.1) {

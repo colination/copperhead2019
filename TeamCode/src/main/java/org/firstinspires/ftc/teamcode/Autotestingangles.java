@@ -117,7 +117,7 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            robot.liftAndHook.goInches(-liftDist, .5, 2); // move up to lower down to ground
+            robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .5, 2);// move the lift back down
 //            // Rotate towards gold  //-70 is test for middle mineral
