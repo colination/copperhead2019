@@ -20,7 +20,7 @@ public class LiftAndHook extends robotPart {
     public DcMotor mtrLift1;
     public DcMotor mtrLift2;
     public DcMotor mtrLift3;
-    public  DcMotor mtrFlop;
+    public DcMotor mtrFlop;
 
     //Servos
     public Servo servoDepositR;
@@ -75,6 +75,7 @@ public class LiftAndHook extends robotPart {
 
         sensorColorR = ahwmap.colorSensor.get("sensorColorR");
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
+
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
 

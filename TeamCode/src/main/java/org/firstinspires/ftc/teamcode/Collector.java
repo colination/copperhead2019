@@ -17,8 +17,8 @@ public class    Collector extends robotPart {
     public CRServo srvCollectorL;
     public CRServo srvCollectorR;
 
-    public Servo srvFlopL;
-    public Servo srvFlopR;
+    public CRServo srvFlopL;
+    public CRServo srvFlopR;
 
     public Servo servoDepositR;
     public Servo servoDepositL;
@@ -36,10 +36,12 @@ public class    Collector extends robotPart {
         super.init(ahwmap, myTelemetry);
 
         srvCollectorL = ahwmap.crservo.get("srvCollectorL");
+        srvCollectorL.setDirection(CRServo.Direction.REVERSE);
         srvCollectorR = ahwmap.crservo.get("srvCollectorR");
 
-        srvFlopL = ahwmap.servo.get("srvFlopL");
-        srvFlopR = ahwmap.servo.get("srvFlopR");
+        srvFlopL = ahwmap.crservo.get("srvFlopL");
+        srvFlopL.setDirection(CRServo.Direction.REVERSE);
+        srvFlopR = ahwmap.crservo.get("srvFlopR");
 
         servoDepositR = ahwmap.servo.get("servoDepositR");
         servoDepositL = ahwmap.servo.get("servoDepositL");

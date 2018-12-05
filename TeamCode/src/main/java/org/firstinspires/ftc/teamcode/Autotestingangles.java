@@ -36,11 +36,11 @@ public class Autotestingangles extends LinearOpMode {
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
     private static final double unlatchDist = -1;
-    private static final double liftDist = 17.5;
+    private static final double liftDist = 14.5;
     private static final double mineralDist = 20;
-    private static final double backupDist = -5;
-    private static final double markerDist = -42;
-    private static final double depotDist = 40;
+    private static final double backupDist = -2;
+    private static final double markerDist = -58;
+    private static final double depotDist = 45;
     private static final double depotToPark = 65;
     private static final double craterDist = 20;
     private static final int markerTurn = 40;
@@ -128,16 +128,14 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
             robot.driveTrain.goInches(-backupDist,.4,2);
-            rotate(170 - mineralAngle,.4); //80 worked
+            rotate(180 - mineralAngle,.4); //80 worked
             robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(2,.25,5);
             rotate(33, .4);
             robot.driveTrain.goInches(-depotDist, .25, 5);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.7,5);
-            while (opModeIsActive()) {
-                robot.driveTrain.move(.3);
-            }
+            robot.driveTrain.goInches(20,.15,30);
             //robot.driveTrain.goLean(42,.7,8,true);
         }
         // turn the motors off.

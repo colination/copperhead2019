@@ -83,6 +83,36 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+        if (gamepad2.right_trigger > 0.1) {
+            robot.collector.srvFlopR.setPower(.5);
+            robot.collector.srvFlopL.setPower(.5);
+        }
+        else {
+            robot.collector.srvFlopR.setPower(0);
+            robot.collector.srvFlopL.setPower(0);
+        }
+        //
+        if (gamepad2.left_trigger > 0.1) {
+            robot.collector.srvFlopR.setPower(-.5);
+            robot.collector.srvFlopL.setPower(-.5);
+        }
+        else {
+            robot.collector.srvFlopR.setPower(0);
+            robot.collector.srvFlopL.setPower(0);
+        }
+        // Intake tubing
+        while (gamepad2.right_bumper) {
+            robot.collector.srvCollectorR.setPower(.7);
+            robot.collector.srvCollectorL.setPower(.7);
+        }
+        // Spit out tubing
+        while (gamepad2.left_bumper) {
+            robot.collector.srvCollectorR.setPower(-.7);
+            robot.collector.srvCollectorL.setPower(-.7);
+        }
+
+
+
         /* Right trigger to rotate intake, left trigger spits out
         if (gamepad2.right_trigger > 0.1) {
             robot.collector.mtrIntake.setPower(-gamepad2.right_trigger);
