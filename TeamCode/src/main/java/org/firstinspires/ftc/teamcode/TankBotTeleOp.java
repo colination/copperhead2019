@@ -84,6 +84,7 @@ public class TankBotTeleOp extends OpMode {
             robot.liftAndHook.mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+        //bumper intake
         if (gamepad2.right_trigger > 0.1) {
             robot.collector.srvFlopR.setPower(.5);
             robot.collector.srvFlopL.setPower(.5);}
@@ -97,6 +98,10 @@ public class TankBotTeleOp extends OpMode {
         }
 
         if (gamepad2.right_bumper) {
+            robot.collector.srvCollectorR.setPower(.7);
+            robot.collector.srvCollectorL.setPower(.7);
+        }
+        else if (gamepad2.left_bumper){
             robot.collector.srvCollectorR.setPower(-.7);
             robot.collector.srvCollectorL.setPower(-.7);
         }
@@ -104,7 +109,7 @@ public class TankBotTeleOp extends OpMode {
             robot.collector.srvCollectorR.setPower(0);
             robot.collector.srvCollectorL.setPower(0);
         }
-        //
+
         // Intake tubing
 //        if (gamepad2.right_bumper) {
 //            robot.collector.srvCollectorR.setPower(.7);
@@ -121,22 +126,6 @@ public class TankBotTeleOp extends OpMode {
 //            robot.collector.srvCollectorR.setPower(0);
 //            robot.collector.srvCollectorL.setPower(0);
 //        }
-
-        /* Right trigger to rotate intake, left trigger spits out
-        if (gamepad2.right_trigger > 0.1) {
-            robot.collector.mtrIntake.setPower(-gamepad2.right_trigger);
-        } else if (gamepad2.left_trigger > 0.1) {
-            robot.collector.mtrIntake.setPower(gamepad2.left_trigger);
-        } else {
-            robot.collector.mtrIntake.setPower(0);
-        }
-        if (Math.abs(gamepad2.left_stick_y) > 0) {
-            robot.collector.srvFlopL.setPower(-gamepad2.left_stick_y);
-        }
-        if (gamepad1.left_trigger > 0.1) {
-            leftPower = leftPower / 2;
-            rightPower = rightPower / 2;
-        }*/
 
         // Set corresponding power to motors
         robot.driveTrain.Tank(leftPower, rightPower); // Tank Drive

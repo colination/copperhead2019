@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="angle test", group="12596")
+@Autonomous(name="Crater No Marker", group="12596")
 
-public class Autotestingangles extends LinearOpMode {
+public class CraterNoMarker extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -38,7 +38,7 @@ public class Autotestingangles extends LinearOpMode {
     private static final double unlatchDist = -1;
     private static final double liftDist = 14.5;
     private static final double mineralDist = 20;
-    private static final double backupDist = -5;
+    private static final double backupDist = -2;
     private static final double markerDist = -58;
     private static final double depotDist = 45;
     private static final double depotToPark = 65;
@@ -127,16 +127,7 @@ public class Autotestingangles extends LinearOpMode {
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
-            robot.driveTrain.goInches(-backupDist,.4,2);
-            rotate(160 - mineralAngle,.4); //80 worked
-            robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches(2,.25,5);
-            rotate(33, .4);
-            robot.driveTrain.goInches(-depotDist, .25, 5);
-            robot.collector.markerDrop(3);
-            rotate(7, .4);
-            robot.driveTrain.goInches(depotToPark,.7,5);
-            robot.driveTrain.goInches(1,.15,30);
+            robot.driveTrain.goInches(-20,.06,30);
             //robot.driveTrain.goLean(42,.7,8,true);
         }
         // turn the motors off.
