@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="Crater No Marker", group="12596")
+@Autonomous(name="DNP", group="12596")
 
-public class CraterNoMarker extends LinearOpMode {
+public class DepotNoPark extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -127,7 +127,8 @@ public class CraterNoMarker extends LinearOpMode {
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
-            robot.driveTrain.goInches(-20,.15,30);
+            robot.driveTrain.goInches(-10,.15,30);
+            robot.collector.markerDrop(3);
             //robot.driveTrain.goLean(42,.7,8,true);
         }
         // turn the motors off.
@@ -295,8 +296,9 @@ public class CraterNoMarker extends LinearOpMode {
             if (tfod != null) {
                 tfod.activate();
             }
+            robot.collector.runtime.reset();
             while (finished == false) {
-                if (tfod != null && finished == false) {
+                if (tfod != null && finished == false && robot.collector.runtime.seconds() < 10) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -335,6 +337,10 @@ public class CraterNoMarker extends LinearOpMode {
                         }
                         telemetry.update();
                     }
+                }
+                else {
+                    mineralAngle = 80;
+                    finished = true;
                 }
             }
         }

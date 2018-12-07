@@ -1,22 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@TeleOp(name = "TankTele",group = "12596")
-public class TankBotTeleOp extends OpMode {
+@TeleOp(name = "FlickMode",group = "12596")
+public class FlickMode extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
 
     @Override
@@ -29,8 +22,8 @@ public class TankBotTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        double leftPower = (gamepad1.left_stick_y);
-        double rightPower = (gamepad1.right_stick_y);
+        double leftPower = .5;
+        double rightPower = .5;
         double Lift = 0;
         double flop = gamepad2.left_stick_y;
 
@@ -39,9 +32,12 @@ public class TankBotTeleOp extends OpMode {
             leftPower = leftPower / 2;
             rightPower = rightPower / 2;
         }
-        if (gamepad1.left_trigger > 0.1) {
-            leftPower = -rightPower;
-            rightPower = -leftPower;
+
+        if (gamepad1.right_stick_y > 0) {
+            rightPower = rightPower;
+        }
+        if (gamepad1.left_stick_y > 0) {
+            leftPower = leftPower;
         }
 
         // Sets deposits straight up
@@ -122,8 +118,6 @@ public class TankBotTeleOp extends OpMode {
 
         // Intake tubing
         robot.driveTrain.Tank(leftPower, rightPower);
-// \robot.liftAndHook.mtrLift3.setPower(Lift);
-        //robot.liftAndHook.mtrLift2.setPower(Lift);
         robot.liftAndHook.mtrFlop.setPower(flop);
 
 
