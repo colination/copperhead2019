@@ -39,6 +39,12 @@ public class FlickMode extends OpMode {
         if (gamepad1.left_stick_y > 0) {
             leftPower = leftPower;
         }
+        if (gamepad1.right_stick_y < 0) {
+            rightPower = -rightPower;
+        }
+        if (gamepad1.left_stick_y < 0) {
+            leftPower = -leftPower;
+        }
 
         // Sets deposits straight up
         if (gamepad2.y) {

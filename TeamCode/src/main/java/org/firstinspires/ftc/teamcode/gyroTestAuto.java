@@ -48,8 +48,6 @@ public class gyroTestAuto extends LinearOpMode {
     private static final double craterDist = 20;
     private static final int markerTurn = 40;
 
-
-
     private int mineralDistance;
     boolean finished = false;
 

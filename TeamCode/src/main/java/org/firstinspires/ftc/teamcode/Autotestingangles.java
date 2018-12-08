@@ -37,7 +37,7 @@ public class Autotestingangles extends LinearOpMode {
     private int mineralAngle = 0;
     private static final double unlatchDist = -1;
     private static final double liftDist = 14.5;
-    private static final double mineralDist = 20;
+    private static final double mineralDist = 24;
     private static final double backupDist = -5;
     private static final double markerDist = -58;
     private static final double depotDist = 45;
