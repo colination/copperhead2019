@@ -36,9 +36,9 @@ public class CraterNoMarker extends LinearOpMode {
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
     private static final double unlatchDist = -1;
-    private static final double liftDist = 14.5;
+    private static final double liftDist = 22.5;
     private static final double mineralDist = 20;
-    private static final double backupDist = -2;
+    private static final double backupDist = 2;
     private static final double markerDist = -58;
     private static final double depotDist = 45;
     private static final double depotToPark = 65;
@@ -120,6 +120,7 @@ public class CraterNoMarker extends LinearOpMode {
             robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
+            robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .4); // rotate towards right mineral
@@ -295,8 +296,9 @@ public class CraterNoMarker extends LinearOpMode {
             if (tfod != null) {
                 tfod.activate();
             }
-            while (finished == false) {
-                if (tfod != null && finished == false) {
+            robot.collector.runtime.reset();
+            while (finished == false && robot.collector.runtime.seconds() < 8) {
+                if (tfod != null && finished == false && robot.collector.runtime.seconds() < 5) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -335,6 +337,10 @@ public class CraterNoMarker extends LinearOpMode {
                         }
                         telemetry.update();
                     }
+                }
+                else {
+                    mineralAngle = 80;
+
                 }
             }
         }
