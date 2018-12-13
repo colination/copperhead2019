@@ -22,28 +22,28 @@ public class FlickMode extends OpMode {
 
     @Override
     public void loop() {
-        double leftPower = .5;
-        double rightPower = .5;
+        double leftPower = 0;
+        double rightPower = 0;
         double Lift = 0;
         double flop = gamepad2.left_stick_y;
 
         // sets drive train half power
         if (gamepad1.right_trigger > 0.1) {
-            leftPower = leftPower / 2;
-            rightPower = rightPower / 2;
+            leftPower = .5;
+            rightPower = .5;
         }
 
         if (gamepad1.right_stick_y > 0) {
-            rightPower = rightPower;
+            rightPower = .75;
         }
         if (gamepad1.left_stick_y > 0) {
-            leftPower = leftPower;
+            leftPower = .75;
         }
         if (gamepad1.right_stick_y < 0) {
-            rightPower = -rightPower;
+            rightPower = -.75;
         }
         if (gamepad1.left_stick_y < 0) {
-            leftPower = -leftPower;
+            leftPower = -.75;
         }
 
         // Sets deposits straight up
