@@ -198,8 +198,7 @@ public class DriveTrain extends robotPart {
         targetPosition(inches);
         int distance = target(inches);
         while (mtrBL.isBusy() && mtrBR.isBusy() && mtrFL.isBusy() && mtrFR.isBusy()) {
-            Tank(.2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))),
-                    .2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
+            move(.2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
             }
         stopMotors();
     }

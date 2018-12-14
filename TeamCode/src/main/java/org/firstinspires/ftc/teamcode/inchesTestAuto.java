@@ -142,9 +142,7 @@ public class inchesTestAuto extends LinearOpMode {
 //            telemetry.addData("Position", position);
 //            telemetry.update();
 //            robot.driveTrain.rotate(turn,.3);
-            robot.liftAndHook.goInches(-12, .8, 6);
-            robot.driveTrain.goInches(-2, .2, 4);
-            robot.liftAndHook.goInches(12, .8, 6);
+          //  robot.driveTrain.PInches(12, .4);
             //robot.driveTrain.rotate(45, .25);
             //robot.driveTrain.goInches(32,.5,12);
             //robot.liftAndHook.goInches(12, .8, 6);
@@ -176,10 +174,10 @@ public class inchesTestAuto extends LinearOpMode {
 //                robot.driveTrain.rotate(-120,.25);
 //                robot.driveTrain.goInches(23,.5,12);}
 
-            robot.driveTrain.rotate(-98, .25); // (??) rotate towards left mineral
+            //robot.driveTrain.rotate(-98, .25); // (??) rotate towards left mineral
 
 //            sleep(250);
-            robot.driveTrain.goInches(25, .4, 6); // run into the assigned mineral and park
+            robot.driveTrain.goInches(60, .4, 6); // run into the assigned mineral and park
             robot.driveTrain.stopMotors(); // stop the motors
             finished = true;
         }

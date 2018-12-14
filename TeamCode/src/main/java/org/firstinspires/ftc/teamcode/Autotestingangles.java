@@ -35,11 +35,12 @@ public class Autotestingangles extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private static final double unlatchDist = -1;
-    private static final double liftDist = 17.5;
-    private static final double mineralDist = 30;
-    private static final double backupDist = -5;
-    private static final double markerDist = -58;
+    private int wallAngle = 0;
+    private static final double unlatchDist = -2;
+    private static final double liftDist = 23;
+    private static final double mineralDist = 18;
+    private static final double backupDist = -10;
+    private static final double markerDist = -59;
     private static final double depotDist = 45;
     private static final double depotToPark = 65;
     private static final double craterDist = 20;
@@ -102,6 +103,13 @@ public class Autotestingangles extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
+        /*if (tfod != null) {
+            tfod.activate();
+        }
+        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+        telemetry.addData("# Object Detected", updatedRecognitions.size());
+        telemetry.update();*/
+
 
         /** Wait for the game to begin */
 
@@ -118,8 +126,9 @@ public class Autotestingangles extends LinearOpMode {
             }
             // Unhook
             robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-            robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
+            robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
+            robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .4); // rotate towards right mineral
@@ -128,10 +137,10 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(-mineralDist, .4, 2);
             // Path for marker
             robot.driveTrain.goInches(-backupDist,.4,2);
-            rotate(160 - mineralAngle,.4); //80 worked
+            rotate(wallAngle,.4); //80 worked
             robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches(2,.25,5);
-            rotate(33, .4);
+            robot.driveTrain.goInches(6,.25,5);
+            rotate(50, .4);
             robot.driveTrain.goInches(-depotDist, .25, 5);
             robot.collector.markerDrop(3);
             rotate(7, .4);
@@ -304,8 +313,9 @@ public class Autotestingangles extends LinearOpMode {
             if (tfod != null) {
                 tfod.activate();
             }
-            while (finished == false) {
-                if (tfod != null && finished == false) {
+            robot.collector.runtime.reset();
+            while (finished == false && robot.collector.runtime.seconds() < 8) {
+                if (tfod != null && finished == false && robot.collector.runtime.seconds() < 5) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -328,22 +338,28 @@ public class Autotestingangles extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 54;
+                                mineralAngle = 50;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 107;
+                                mineralAngle = 103;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 80;
+                                mineralAngle = 74;
+                                wallAngle = 55;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
                         }
                         telemetry.update();
                     }
+                }
+                else {
+                    mineralAngle = 74;
+                    wallAngle = 55;
+
                 }
             }
         }
