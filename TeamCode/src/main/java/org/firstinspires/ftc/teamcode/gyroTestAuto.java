@@ -56,7 +56,6 @@ public class gyroTestAuto extends LinearOpMode {
     Orientation             lastAngles = new Orientation();
     double globalAngle, power = .30, correction;
 
-
      // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
@@ -76,10 +75,9 @@ public class gyroTestAuto extends LinearOpMode {
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
+
         imu = hardwareMap.get(BNO055IMU.class, "imu");
-
         imu.initialize(parameters);
-
         telemetry.addData("Mode", "calibrating...");
         telemetry.update();
 
