@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="angle test", group="12596")
+@Autonomous(name="straight test", group="12596")
 
-public class Autotestingangles extends LinearOpMode {
+public class testStuff extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -42,7 +42,7 @@ public class Autotestingangles extends LinearOpMode {
     private static final double backupDist = -6;
     private static final double markerDist = -59;
     private static final double depotDist = 45;
-    private static final double depotToPark = 68;
+    private static final double depotToPark = 65;
     private static final double craterDist = 20;
     private static final int markerTurn = 40;
 
@@ -120,34 +120,9 @@ public class Autotestingangles extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-            checkPosition();
-            while (mineralAngle == 0) {
-                idle();
-            }
-            // Unhook
-            robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-            robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
-            robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
-            robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
-            // Rotate towards gold
-            telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .4); // rotate towards right mineral
-            telemetry.addLine().addData("turnt", getAngle());
-            // Run into mineral
-            robot.driveTrain.goInches(-mineralDist, .4, 2);
-            // Path for marker
-            robot.driveTrain.goInches(-backupDist,.4,2);
-            rotate(wallAngle,.4); //80 worked
-            //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.gyroInches(markerDist, .3, .25, 5);
-            robot.driveTrain.goInches(3,.25,5);
-            rotate(65, .4);
-            robot.driveTrain.gyroInches(-depotDist, .335, .25, 5);
-            robot.collector.markerDrop(1.5);
-            rotate(7, .4);
-            robot.driveTrain.goInches(depotToPark,.4,5);
-            robot.driveTrain.goInches(1,.15,30);
-            //robot.driveTrain.goLean(42,.7,8,true);
+            //robot.driveTrain.gyroInches(20, .4, .4 + checkDirection(), 7);
+            robot.driveTrain.PInches(12, .4);
+
         }
         // turn the motors off.
         robot.driveTrain.stopMotors();
@@ -199,7 +174,7 @@ public class Autotestingangles extends LinearOpMode {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .10;
+        double correction, angle, gain = .1;
 
         angle = getAngle();
 

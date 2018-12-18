@@ -58,9 +58,14 @@ public class    Collector extends robotPart {
     }
     public void markerDrop (double seconds) {
         runtime.reset();
+        while (runtime.seconds() < seconds/2) {
+            srvFlopL.setPower(-.1);
+            srvFlopR.setPower(-.1);
+        }
+        runtime.reset();
         while (runtime.seconds() < seconds) {
-            srvCollectorR.setPower(.7);
-            srvCollectorL.setPower(.7);
+            srvCollectorR.setPower(-.7);
+            srvCollectorL.setPower(-.7);
         }
     }
 /*

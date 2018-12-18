@@ -169,6 +169,16 @@ public class DriveTrain extends robotPart {
         stopMotors();
         reset();
     }
+    public void gyroInches(double inches, double leftSpeed, double rightSpeed,  double timeout) {
+        runtime.reset();
+        reset();
+        setMode();
+        targetPosition(inches);
+        Tank(leftSpeed, rightSpeed);
+        timeoutExit(timeout);
+        stopMotors();
+        reset();
+    }
 
     public void goLean(double inches, double power, double timeout, boolean direction) {
         double powerShift;
