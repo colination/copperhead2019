@@ -41,7 +41,7 @@ public class gyroTestAuto extends LinearOpMode {
     private static final double unlatchDist = -1;
     private static final double liftDist = 14.5;
     private static final double mineralDist = 20;
-    private static final double backupDist = -10;
+    private static final double backupDist = -4 ;
     private static final double markerDist = -42;
     private static final double depotDist = 40;
     private static final double depotToPark = 65;
