@@ -202,14 +202,19 @@ public class DriveTrain extends robotPart {
         return (mtrFR.getCurrentPosition() + mtrFL.getCurrentPosition() + mtrBR.getCurrentPosition() + mtrBL.getCurrentPosition()) / 4;
     }
 
-    public void PInches(double inches, double power) {
+    public void PInches(double inches, double power, double rampTime) {
         reset();
         setMode();
         targetPosition(inches);
         int distance = target(inches);
+        double rampSpeed = 0;
+        runtime.reset();
+        while (runtime.seconds() < rampTime) {
+            rampSpeed = 0.2 * (runtime.seconds()/rampTime);
+        }
         while (mtrBL.isBusy() && mtrBR.isBusy() && mtrFL.isBusy() && mtrFR.isBusy()) {
-            move(.2 + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
-            }
+            move(rampSpeed + ((power - .2) * (Math.abs(distance) - Math.abs(encoderAvg()) / Math.abs(distance))));
+        }
         stopMotors();
     }
 

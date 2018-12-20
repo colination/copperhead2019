@@ -133,20 +133,24 @@ public class Autotestingangles extends LinearOpMode {
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .4); // rotate towards right mineral
             telemetry.addLine().addData("turnt", getAngle());
+            sleep(250);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .4, 2);
+            sleep(250);
             // Path for marker
             robot.driveTrain.goInches(-backupDist,.4,2);
+            sleep(250);
             rotate(wallAngle,.4); //80 worked
+            sleep(250);
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.gyroInches(markerDist, .3, .25, 5);
             robot.driveTrain.goInches(3,.25,5);
-            rotate(65, .4);
+            rotate(63, .4);
             robot.driveTrain.gyroInches(-depotDist, .335, .25, 5);
-            robot.collector.markerDrop(1.5);
+            robot.collector.markerDrop(1);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
-            robot.driveTrain.goInches(1,.15,30);
+            //robot.driveTrain.goInches(1,.15,30);
             //robot.driveTrain.goLean(42,.7,8,true);
         }
         // turn the motors off.
@@ -340,11 +344,13 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 50;
+                                wallAngle = 75;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 103;
+                                wallAngle = 30;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");

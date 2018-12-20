@@ -121,7 +121,7 @@ public class testStuff extends LinearOpMode {
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
             //robot.driveTrain.gyroInches(20, .4, .4 + checkDirection(), 7);
-            robot.driveTrain.PInches(12, .4);
+            robot.driveTrain.PInches(12, .4, 1);
 
         }
         // turn the motors off.
