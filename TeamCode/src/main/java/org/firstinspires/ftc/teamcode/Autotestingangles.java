@@ -39,10 +39,10 @@ public class Autotestingangles extends LinearOpMode {
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
     private static final double mineralDist = 18;
-    private static final double backupDist = -6;
-    private static final double markerDist = -59;
+    private static final double backupDist = -8;
+    private static final double markerDist = -55;
     private static final double depotDist = 45;
-    private static final double depotToPark = 68;
+    private static final double depotToPark = 65;
     private static final double craterDist = 20;
     private static final int markerTurn = 40;
 
@@ -131,7 +131,7 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .4); // rotate towards right mineral
+            rotate(mineralAngle, .3); // rotate towards right mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
             // Run into mineral
@@ -140,15 +140,15 @@ public class Autotestingangles extends LinearOpMode {
             // Path for marker
             robot.driveTrain.goInches(-backupDist,.4,2);
             sleep(250);
-            rotate(wallAngle,.4); //80 worked
+            rotate(wallAngle,.3); //80 worked
             sleep(250);
             //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.gyroInches(markerDist, .3, .25, 5);
+            robot.driveTrain.goInches(markerDist, .25,5);
             robot.driveTrain.goInches(3,.25,5);
-            rotate(63, .4);
-            robot.driveTrain.gyroInches(-depotDist, .335, .25, 5);
+            rotate(67, .3);
+            robot.driveTrain.goInches(-depotDist, .25,5);
             robot.collector.markerDrop(1);
-            rotate(7, .4);
+            rotate(2, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             //robot.driveTrain.goInches(1,.15,30);
             //robot.driveTrain.goLean(42,.7,8,true);
@@ -349,13 +349,13 @@ public class Autotestingangles extends LinearOpMode {
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 103;
+                                mineralAngle = 95;
                                 wallAngle = 30;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 74;
-                                wallAngle = 55;
+                                mineralAngle = 68;
+                                wallAngle = 67;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -364,8 +364,8 @@ public class Autotestingangles extends LinearOpMode {
                     }
                 }
                 else {
-                    mineralAngle = 74;
-                    wallAngle = 55;
+                    mineralAngle = 68;
+                    wallAngle = 67;
 
                 }
             }
