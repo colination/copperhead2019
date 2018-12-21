@@ -140,7 +140,6 @@ public class LiftAndHook extends robotPart {
     }
     public double angleTurned(AnalogInput potatometer){
        double voltage = potatometer.getVoltage();
-       double angle = voltage/54;
-       return  angle;
+       return voltage;
     }
 }

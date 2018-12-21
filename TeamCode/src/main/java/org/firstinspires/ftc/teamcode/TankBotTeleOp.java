@@ -134,6 +134,7 @@ public class TankBotTeleOp extends OpMode {
                 String.format(Locale.US, "%.02f", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM)));
         telemetry.addData("rightBlue ", robot.collector.sensorColorR.blue());
         telemetry.addData("leftBlue ", robot.collector.sensorColorL.blue());
+        telemetry.addData("potentiometer data", robot.liftAndHook.angleTurned(robot.liftAndHook.potentiometer));
         telemetry.update();
     }
 }

@@ -177,9 +177,10 @@ public class inchesTestAuto extends LinearOpMode {
             //robot.driveTrain.rotate(-98, .25); // (??) rotate towards left mineral
 
 //            sleep(250);
-            robot.driveTrain.goInches(60, .4, 6); // run into the assigned mineral and park
+     //       robot.driveTrain.goInches(60, .4, 6); // run into the assigned mineral and park
+            telemetry.addData("potentiometer angle",robot.liftAndHook.angleTurned(robot.liftAndHook.potentiometer));
             robot.driveTrain.stopMotors(); // stop the motors
-            finished = true;
+
         }
 //        if (tfod != null) {
 //            tfod.shutdown();

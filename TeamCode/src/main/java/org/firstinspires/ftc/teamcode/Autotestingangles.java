@@ -150,11 +150,12 @@ public class Autotestingangles extends LinearOpMode {
             robot.collector.markerDrop(1);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
-            //robot.driveTrain.goInches(1,.15,30);
-            //robot.driveTrain.goLean(42,.7,8,true);
+            robot.driveTrain.goInches(1,.15,30);
+            robot.driveTrain.goLean(42,.7,8,true);
+
         }
         // turn the motors off.
-        robot.driveTrain.stopMotors();
+//        robot.driveTrain.stopMotors();
     }
 
     /**
