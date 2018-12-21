@@ -29,6 +29,7 @@ public class LiftAndHook extends robotPart {
     //Servos
     public  Servo srvShift;
 
+
 //  Variables and other useful stuff
     double encoders = 1120;
     double gearReduction = .25 * (74/34);
@@ -79,12 +80,13 @@ public class LiftAndHook extends robotPart {
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
 
-    }
+        potentiometer = ahwmap.analogInput.get("potentiometer");
 
-    public void stop(){
-       mtrLift1.setPower(0);
-       mtrLift2.setPower(0);
-       mtrLift3.setPower(0);
+   }
+    public void stop() {
+        mtrLift1.setPower(0);
+        mtrLift2.setPower(0);
+        mtrLift3.setPower(0);
     }
 
     public void reset() {
@@ -135,5 +137,10 @@ public class LiftAndHook extends robotPart {
        move(power);
        timeoutExit(timeout);
        stop();
+    }
+    public double angleTurned(AnalogInput potatometer){
+       double voltage = potatometer.getVoltage();
+       double angle = voltage/54;
+       return  angle;
     }
 }
