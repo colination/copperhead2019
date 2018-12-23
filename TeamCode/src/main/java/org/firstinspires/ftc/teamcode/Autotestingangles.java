@@ -344,8 +344,8 @@ public class Autotestingangles extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 50;
-                                wallAngle = 75;
+                                mineralAngle = 45;
+                                wallAngle = 85;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
