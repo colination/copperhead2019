@@ -56,7 +56,8 @@ public class LiftAndHook extends robotPart {
         mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
         // Middle motor is reversed
-        //mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
+        mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         // Run without encoder ticks
         mtrLift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

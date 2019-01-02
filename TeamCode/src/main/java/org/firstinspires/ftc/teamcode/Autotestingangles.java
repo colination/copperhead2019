@@ -35,16 +35,16 @@ public class Autotestingangles extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private int wallAngle = 55;
+    private int wallAngle = 62;
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
-    private static final double mineralDist = 18;
-    private static final double backupDist = -8;
-    private static final double markerDist = -50;
+    private double mineralDist = 18;
+    private double backupDist = 8;
+    private static final double markerDist = -40;
     private static final double toDepotDist = -38;
     private static final double depotToPark = 60;
     private static final double craterDist = 20;
-    private static final int markerTurn = 80;
+    private int markerTurn = 80;
 
 
 
@@ -129,28 +129,31 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
+
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .3); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
             // Run into mineral
-            robot.driveTrain.goInches(-mineralDist, .4, 2);
-            sleep(250);
+            robot.driveTrain.goInches(-mineralDist, .3, 2);
+            idle();
+            sleep(200);
             // Path for marker
-            robot.driveTrain.goInches(-backupDist,.4,2);
-            sleep(5000); //mark off where robot stops with tape
+            robot.driveTrain.goInches(backupDist,.3,2);
+            //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
             rotate(markerTurn,.3);
             robot.driveTrain.goInches(toDepotDist, .3,3);
-            sleep(25000);//remove this when done testing
-
+            robot.driveTrain.goInches(-15, .15, 5);
+            idle();
             //michael's part : robot starts perpendicular to marker
-            robot.driveTrain.goInches(4,.25,5);
+            robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(markerDist, .25,5);
+            idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
@@ -355,19 +358,22 @@ public class Autotestingangles extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 45;
-                                wallAngle = 85;
+                                mineralAngle = 49;
+                                markerTurn = 85;
+                                mineralDist = 24;
+                                backupDist = 12;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 95;
-                                wallAngle = 30;
+                                mineralAngle = 100;
+                                mineralDist = 22;
+                                markerTurn = 35;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 68;
-                                wallAngle = 67;
+                                mineralAngle = 74;
+                                markerTurn = 68;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -376,8 +382,8 @@ public class Autotestingangles extends LinearOpMode {
                     }
                 }
                 else {
-                    mineralAngle = 68;
-                    wallAngle = 67;
+                    mineralAngle = 74;
+                    markerTurn = 68;
 
                 }
             }
