@@ -29,6 +29,8 @@ public class LiftAndHook extends robotPart {
     //Servos
     public  Servo srvShift;
 
+    //Servos
+    public Servo srvPin;
 
 //  Variables and other useful stuff
     double encoders = 1120;
@@ -68,6 +70,8 @@ public class LiftAndHook extends robotPart {
 
         // Servo for ball shifter
         srvShift = ahwmap.servo.get("srvShift");
+
+        srvPin = ahwmap.servo.get("srvPin");
 
         // Zero power to hold motor position
         mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

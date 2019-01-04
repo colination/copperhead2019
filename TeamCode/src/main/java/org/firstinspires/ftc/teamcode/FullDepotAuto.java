@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="angle test", group="12596")
+@Autonomous(name="Depot Auto", group="12596")
 
-public class Autotestingangles extends LinearOpMode {
+public class FullDepotAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -35,7 +35,7 @@ public class Autotestingangles extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private int wallAngle = -62;
+    private int wallAngle = 62;
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
     private double mineralDist = 18;
@@ -61,7 +61,7 @@ public class Autotestingangles extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
-        telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
+        telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -125,13 +125,11 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-         //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-            robot.liftAndHook.csrvPin.setPower(1);
-            sleep(2000);
-            robot.liftAndHook.csrvPin.setPower(0);
+            robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
             robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
+            sleep(25000);
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .3); // rotate towards mineral
@@ -150,7 +148,6 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(toDepotDist, .3,3);
             robot.driveTrain.goInches(-15, .15, 5);
             idle();
-            sleep(25000);
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
@@ -160,7 +157,7 @@ public class Autotestingangles extends LinearOpMode {
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.srvMarker.setPosition(1);
+            robot.collector.markerDrop(1);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);
