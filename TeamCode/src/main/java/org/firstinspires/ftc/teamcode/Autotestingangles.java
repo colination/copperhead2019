@@ -125,7 +125,10 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
+         //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
+            robot.liftAndHook.csrvPin.setPower(1);
+            sleep(2000);
+            robot.liftAndHook.csrvPin.setPower(0);
             robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
@@ -157,7 +160,7 @@ public class Autotestingangles extends LinearOpMode {
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.markerDrop(1);
+            robot.collector.srvMarker.setPosition(1);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);

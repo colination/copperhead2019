@@ -22,6 +22,7 @@ public class    Collector extends robotPart {
 
     public Servo servoDepositR;
     public Servo servoDepositL;
+    public Servo srvMarker;
 
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
@@ -45,6 +46,7 @@ public class    Collector extends robotPart {
 
         servoDepositR = ahwmap.servo.get("servoDepositR");
         servoDepositL = ahwmap.servo.get("servoDepositL");
+        srvMarker = ahwmap.servo.get("srvMarker");
 
         sensorColorR = ahwmap.colorSensor.get("sensorColorR");
         sensorColorL = ahwmap.colorSensor.get("sensorColorL");
