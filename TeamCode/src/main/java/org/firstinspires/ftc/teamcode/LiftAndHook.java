@@ -39,6 +39,8 @@ public class LiftAndHook extends robotPart {
     double countsPerInch = (encoders * gearReduction)/(spoolDiameter*Math.PI);
     ElapsedTime runtime= new ElapsedTime();
 
+    double armRotate = (encoders * 7.5)/360;
+
     //Sensors
     public DistanceSensor sensorDistanceR;
     public DistanceSensor sensorDistanceL;
@@ -114,6 +116,11 @@ public class LiftAndHook extends robotPart {
        mtrLift1.setTargetPosition((int) targetPosition1);
        mtrLift2.setTargetPosition((int) targetPosition2);
        mtrLift3.setTargetPosition((int) targetPosition3);
+    }
+    public void armDegreePosition(double degrees){
+       double targetDegrees = degrees*armRotate;
+       mtrFlop.setTargetPosition((int) degrees);
+       
     }
 
     public void move(double power){
