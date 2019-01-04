@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -30,7 +31,8 @@ public class LiftAndHook extends robotPart {
     public  Servo srvShift;
 
     //Servos
-    public Servo srvPin;
+    public CRServo csrvPin;
+
 
 //  Variables and other useful stuff
     double encoders = 1120;
@@ -71,7 +73,7 @@ public class LiftAndHook extends robotPart {
         // Servo for ball shifter
         srvShift = ahwmap.servo.get("srvShift");
 
-        srvPin = ahwmap.servo.get("srvPin");
+        csrvPin = ahwmap.crservo.get("csrvPin");
 
         // Zero power to hold motor position
         mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
