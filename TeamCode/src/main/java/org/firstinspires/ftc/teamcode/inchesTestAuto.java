@@ -96,6 +96,7 @@ public class inchesTestAuto extends LinearOpMode {
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
+<<<<<<< HEAD
             robot.liftAndHook.csrvPin.setPower(-1);
             robot.liftAndHook.move(.2);
             sleep(3000);
@@ -103,6 +104,12 @@ public class inchesTestAuto extends LinearOpMode {
             sleep(2000);
             robot.liftAndHook.move(0);
             //            if (tfod != null) {
+=======
+            robot.driveTrain.srvMarker.setPosition(0);
+            sleep(2000);
+            robot.driveTrain.srvMarker.setPosition(1);
+//            if (tfod != null) {
+>>>>>>> ed6a3528d29caa7b05fdd531b338799bb1f33ddb
 //                tfod.activate();
 //            }
 //            if (tfod != null && scanning == false) {
