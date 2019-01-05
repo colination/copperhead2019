@@ -35,7 +35,7 @@ public class Autotestingangles extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private int wallAngle = -62;
+    private int wallAngle = 62;
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
     private double mineralDist = 18;
@@ -130,7 +130,7 @@ public class Autotestingangles extends LinearOpMode {
             sleep(2000);
             robot.liftAndHook.csrvPin.setPower(0);
             robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
-            robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
+            //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
             robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
@@ -150,7 +150,6 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(toDepotDist, .3,3);
             robot.driveTrain.goInches(-15, .15, 5);
             idle();
-            sleep(25000);
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
