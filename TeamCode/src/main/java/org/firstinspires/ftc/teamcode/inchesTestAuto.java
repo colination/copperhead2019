@@ -88,108 +88,33 @@ public class inchesTestAuto extends LinearOpMode {
         robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
 
+        telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
         telemetry.update();
         boolean finished = false;
         boolean scanning = false;
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-            robot.liftAndHook.csrvPin.setPower(-1);
-            robot.liftAndHook.move(.2);
-            sleep(3000);
-            robot.liftAndHook.csrvPin.setPower(0);
-            sleep(2000);
-            robot.liftAndHook.move(0);
-            //            if (tfod != null) {
-//                tfod.activate();
-//            }
-//            if (tfod != null && scanning == false) {
-//                // getUpdatedRecognitions() will return null if no new information is available since
-//                // the last time that call was made.
-//                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-//                if (updatedRecognitions != null) {
-//                    telemetry.addData("# Object Detected", updatedRecognitions.size());
-//                    if (updatedRecognitions.size() == 3) {
-//                        int goldMineralX = -1;
-//                        int silverMineral1X = -1;
-//                        int silverMineral2X = -1;
-//                        for (Recognition recognition : updatedRecognitions) {
-//                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-//                                goldMineralX = (int) recognition.getLeft();
-//                            } else if (silverMineral1X == -1) {
-//                                silverMineral1X = (int) recognition.getLeft();
-//                            } else {
-//                                silverMineral2X = (int) recognition.getLeft();
-//                            }
-//                        }
-//                        if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-//                            if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-//                                telemetry.addData("Gold Mineral Position", "Left");
-//                                position = 1;
-//                                scanning = true;
-//                            } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-//                                telemetry.addData("Gold Mineral Position", "Right");
-//                                position = 3;
-//                                scanning = true;
-//                            } else {
-//                                telemetry.addData("Gold Mineral Position", "Center");
-//                                position = 2;
-//                                scanning = true;
-//                            }
-//                        }
-//                    }
-//                    telemetry.update();
-//                }
-//            }
-//            sleep(2000);
-//            telemetry.addData("Position", position);
-//            telemetry.update();
-//            robot.driveTrain.rotate(turn,.3);
-          //  robot.driveTrain.PInches(12, .4);
-            //robot.driveTrain.rotate(45, .25);
-            //robot.driveTrain.goInches(32,.5,12);
-            //robot.liftAndHook.goInches(12, .8, 6);
-           // robot.driveTrain.goInches(-4, .2, 4);
-           // robot.driveTrain.setSideRoller(1);
-            //robot.liftAndHook.goInches(-12, .8, 6);
-            //robot.driveTrain.rotate(90, .25);
-            //robot.driveTrain.stopMotors();
-
-//            robot.liftAndHook.goInches(-11.5, .8, 4); // move up to lower down to ground
-//            robot.driveTrain.goInches(-.75, .2, 2); // move off latch
-//            robot.driveTrain.setSideRoller(.4); // move the side roller down
-//            robot.liftAndHook.goInches( 11.5, .8, 4); // move the lift back down
-
-            // robot.driveTrain.rotate(-120, .25); // rotate towards right mineral
-            //Left Position
-//            if (position == 1){
-//                robot.driveTrain.rotate(-58,.25);
-//                robot.driveTrain.goInches(26,.5,12);
-//            }
-//
-//            //Center
-//            if (position == 2){
-//                robot.driveTrain.rotate(-88,.25);
-//                robot.driveTrain.goInches(21,.5,12);}
-//g
-//            //Right
-//            if (position == 3){
-//                robot.driveTrain.rotate(-120,.25);
-//                robot.driveTrain.goInches(23,.5,12);}
-
-            //robot.driveTrain.rotate(-98, .25); // (??) rotate towards left mineral
-
-//            sleep(250);
-     //       robot.driveTrain.goInches(60, .4, 6); // run into the assigned mineral and park
-            telemetry.addData("potentiometer angle",robot.liftAndHook.angleTurned(robot.liftAndHook.potentiometer));
-            robot.driveTrain.stopMotors(); // stop the motors
-
+//            robot.liftAndHook.mtrLift1.setPower(1);
+//            robot.liftAndHook.mtrLift2.setPower(1);
+//            sleep(1000);
+//            robot.liftAndHook.csrvPin.setPower(1);
+//            sleep(3000);
+//            robot.liftAndHook.csrvPin.setPower(0);
+//            robot.liftAndHook.stop();
+//            rotate(-1, .25);
+//            robot.liftAndHook.goInches(-15, .4, 3);
+//            robot.liftAndHook.mtrLift1.setPower(-.25);
+//            robot.liftAndHook.mtrLift2.setPower(-.25);
+//            sleep(1000);
+//            robot.driveTrain.goInches(6, .2, 1);
+//            robot.liftAndHook.stop();
+//            robot.liftAndHook.goInches(10, .4, 3);
+//            robot.driveTrain.goInches(-6, .2, 1);
+//            rotate(-1, .4);
+            unhangCrater();
         }
-//        if (tfod != null) {
-//            tfod.shutdown();
-//        }
     }
 
 
@@ -271,6 +196,45 @@ public class inchesTestAuto extends LinearOpMode {
             // reset angle tracking on new heading.
             robot.driveTrain.resetAngle();
         }
+    }
+
+    private void unhangCrater () {
+        robot.liftAndHook.mtrLift1.setPower(1);
+        robot.liftAndHook.mtrLift2.setPower(1);
+        sleep(1000);
+        robot.liftAndHook.csrvPin.setPower(1);
+        sleep(3000);
+        robot.liftAndHook.csrvPin.setPower(0);
+        robot.liftAndHook.stop();
+        //rotate(-1, .25);
+        robot.liftAndHook.goInches(-15, .4, 3);
+        robot.liftAndHook.mtrLift1.setPower(-.25);
+        robot.liftAndHook.mtrLift2.setPower(-.25);
+        sleep(1000);
+        robot.driveTrain.goInches(6, .2, 1);
+        robot.liftAndHook.stop();
+        robot.liftAndHook.goInches(10, .4, 3);
+        robot.driveTrain.goInches(-6, .2, 1);
+        rotate(-3, .4);
+    }
+    private void unhangDepot () {
+        robot.liftAndHook.mtrLift1.setPower(1);
+        robot.liftAndHook.mtrLift2.setPower(1);
+        sleep(1000);
+        robot.liftAndHook.csrvPin.setPower(1);
+        sleep(3000);
+        robot.liftAndHook.csrvPin.setPower(0);
+        robot.liftAndHook.stop();
+        //rotate(-1, .25);
+        robot.liftAndHook.goInches(-15, .4, 3);
+        robot.liftAndHook.mtrLift1.setPower(-.25);
+        robot.liftAndHook.mtrLift2.setPower(-.25);
+        sleep(1000);
+        robot.driveTrain.goInches(-6, .2, 1);
+        robot.liftAndHook.stop();
+        robot.liftAndHook.goInches(10, .4, 3);
+        robot.driveTrain.goInches(4, .2, 1);
+        rotate(-1, .4);
     }
 }
 

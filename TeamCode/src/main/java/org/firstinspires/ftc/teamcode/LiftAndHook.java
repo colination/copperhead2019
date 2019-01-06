@@ -34,7 +34,7 @@ public class LiftAndHook extends robotPart {
     public CRServo csrvPin;
 
 
-//  Variables and other useful stuff
+    //  Variables and other useful stuff
     double encoders = 1120;
     double gearReduction = .25 * (74/34);
     double spoolDiameter = 1.5;
@@ -72,7 +72,6 @@ public class LiftAndHook extends robotPart {
 
         // Servo for ball shifter
         srvShift = ahwmap.servo.get("srvShift");
-
         csrvPin = ahwmap.crservo.get("csrvPin");
 
         // Zero power to hold motor position
@@ -107,17 +106,17 @@ public class LiftAndHook extends robotPart {
     public void setMode(){
        mtrLift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        mtrLift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       mtrLift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       //mtrLift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void targetPosition(double inches){
        double targetPosition1 = mtrLift1.getCurrentPosition() + (inches * countsPerInch);
        double targetPosition2 = mtrLift2.getCurrentPosition() + (inches * countsPerInch);
-       double targetPosition3 = mtrLift3.getCurrentPosition() + (inches * countsPerInch);
+       //double targetPosition3 = mtrLift3.getCurrentPosition() + (inches * countsPerInch);
 
        mtrLift1.setTargetPosition((int) targetPosition1);
        mtrLift2.setTargetPosition((int) targetPosition2);
-       mtrLift3.setTargetPosition((int) targetPosition3);
+       //mtrLift3.setTargetPosition((int) targetPosition3);
     }
     public void armDegreePosition(double degrees){
        double targetDegrees = degrees*armRotate;
@@ -128,18 +127,18 @@ public class LiftAndHook extends robotPart {
     public void move(double power){
        mtrLift1.setPower(power);
        mtrLift2.setPower(power);
-       mtrLift3.setPower(power);
+       //mtrLift3.setPower(power);
     }
 
     public void timeoutExit(double seconds){
         runtime.reset();
-        while (runtime.seconds() < seconds && (mtrLift1.isBusy() && mtrLift2.isBusy() && mtrLift3.isBusy())){
+        while (runtime.seconds() < seconds && (mtrLift1.isBusy() && mtrLift2.isBusy())){
             privateTelemetry.addData("Path1", "Running to target position");
             privateTelemetry.addData("Path2","Running at:",
                     mtrLift1.getCurrentPosition(),
                     mtrLift2.getCurrentPosition(),
-                    mtrLift3.getCurrentPosition());
-            privateTelemetry.update();
+                    //mtrLift3.getCurrentPosition());
+            privateTelemetry.update());
         }
     }
 
@@ -152,6 +151,13 @@ public class LiftAndHook extends robotPart {
        timeoutExit(timeout);
        stop();
     }
+    public void unPin (double seconds) {
+       runtime.reset();
+       while (runtime.seconds() < seconds) {
+           csrvPin.setPower(1);
+       }
+    }
+
     public double angleTurned(AnalogInput potatometer){
        double voltage = potatometer.getVoltage();
        return voltage;

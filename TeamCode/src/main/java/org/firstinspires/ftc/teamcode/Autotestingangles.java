@@ -120,20 +120,23 @@ public class Autotestingangles extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-            checkPosition();
-            while (mineralAngle == 0) {
-                idle();
-            }
+//            checkPosition();
+//            while (mineralAngle == 0) {
+//                idle();
+//            }
             // Unhook
+            unhangCrater();
+
          //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-            robot.liftAndHook.csrvPin.setPower(1);
-            sleep(2000);
-            robot.liftAndHook.csrvPin.setPower(0);
-            robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
+         //   robot.liftAndHook.csrvPin.setPower(1);
+           // sleep(2000);
+            //robot.liftAndHook.csrvPin.setPower(0);
+            //robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
-            robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
+            //robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
+            sleep(25000);
             rotate(mineralAngle, .3); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
@@ -422,6 +425,25 @@ public class Autotestingangles extends LinearOpMode {
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+    }
+    private void unhangCrater () {
+        robot.liftAndHook.mtrLift1.setPower(1);
+        robot.liftAndHook.mtrLift2.setPower(1);
+        sleep(1000);
+        robot.liftAndHook.csrvPin.setPower(1);
+        sleep(3000);
+        robot.liftAndHook.csrvPin.setPower(0);
+        robot.liftAndHook.stop();
+        //rotate(-1, .25);
+        robot.liftAndHook.goInches(-15, .4, 3);
+        robot.liftAndHook.mtrLift1.setPower(-.25);
+        robot.liftAndHook.mtrLift2.setPower(-.25);
+        sleep(1000);
+        robot.driveTrain.goInches(6, .2, 1);
+        robot.liftAndHook.stop();
+        robot.liftAndHook.goInches(10, .4, 3);
+        robot.driveTrain.goInches(-4, .2, 1);
+        rotate(-5, .4);
     }
 
 }
