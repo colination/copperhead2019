@@ -157,7 +157,7 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches(markerDist, .25,5);
+            robot.driveTrain.goInches       (markerDist, .25,5);
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
