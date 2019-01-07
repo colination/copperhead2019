@@ -18,6 +18,10 @@ import java.util.Locale;
 @TeleOp(name = "TankTele",group = "12596")
 public class TankBotTeleOp extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
+    float hsvLValues[] = {0F, 0F, 0F};
+    float hsvRValues[] = {0F, 0F, 0F};
+    final double SCALE_FACTOR = 255;
+
 
     @Override
     public void init() {
@@ -34,6 +38,15 @@ public class TankBotTeleOp extends OpMode {
         double Lift = 0;
         double flop = gamepad2.left_stick_y;
 
+        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorL.red() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorL.green() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorL.blue() * SCALE_FACTOR),
+                hsvLValues);
+        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorR.red() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorR.green() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorR.blue() * SCALE_FACTOR),
+                hsvRValues);
+
         // sets drive train half power
         if (gamepad1.right_trigger > 0.1) {
             leftPower = leftPower / 2;
@@ -47,29 +60,38 @@ public class TankBotTeleOp extends OpMode {
         // Sets deposits straight up
         if (gamepad2.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(.5);
-            robot.liftAndHook.servoDepositR.setPosition(.88);
+            robot.liftAndHook.servoDepositL.setPosition(0);
+            robot.liftAndHook.servoDepositR.setPosition(1);
         }
 
-        // Left side deposit
-        if (robot.liftAndHook.sensorDistanceL.getDistance(DistanceUnit.CM) < 12.0) {
-            if (gamepad2.a) {
-                if (robot.liftAndHook.sensorColorL.blue() > 70) {
-                    robot.liftAndHook.servoDepositL.setPosition(.63); // Deposit silver
-                } else {
-                    robot.liftAndHook.servoDepositL.setPosition(.40); // Deposit Gold
-                }
+        if (gamepad2.a) {
+            if (hsvRValues[0] > 100) {
+                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
+            } else {
+                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
-
         // Right side deposit
-        if (robot.liftAndHook.sensorDistanceR.getDistance(DistanceUnit.CM) < 12.0) {
-            if (gamepad2.a) {
-                if (robot.liftAndHook.sensorColorR.blue() > 70) { // Deposit silver mineral
-                    robot.liftAndHook.servoDepositR.setPosition(0);
-                } else {
-                    robot.liftAndHook.servoDepositR.setPosition(.33); // Deposit Gold mineral
-                }
+        if (gamepad2.a) {
+            if (hsvLValues[0] > 100) { // Deposit silver mineral
+                robot.liftAndHook.servoDepositR.setPosition(.35);
+            } else {
+                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
+            }
+        }
+        if (gamepad2.b) {
+            if (hsvLValues[0] > 100) {
+                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
+            } else {
+                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
+            }
+        }
+        // Right side deposit
+        if (gamepad2.b) {
+            if (hsvRValues[0] > 100) { // Deposit silver mineral
+                robot.liftAndHook.servoDepositR.setPosition(.35);
+            } else {
+                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
 

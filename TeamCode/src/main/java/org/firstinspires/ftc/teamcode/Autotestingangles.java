@@ -120,23 +120,22 @@ public class Autotestingangles extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-//            checkPosition();
-//            while (mineralAngle == 0) {
-//                idle();
-//            }
+            checkPosition();
+            while (mineralAngle == 0) {
+                idle();
+            }
             // Unhook
             unhangCrater();
 
          //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
          //   robot.liftAndHook.csrvPin.setPower(1);
-           // sleep(2000);
+            sleep(30000);
             //robot.liftAndHook.csrvPin.setPower(0);
             //robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
             //robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
-            sleep(25000);
             rotate(mineralAngle, .3); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
@@ -431,7 +430,7 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.mtrLift2.setPower(1);
         sleep(1000);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(3000);
+        sleep(4000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         //rotate(-1, .25);
