@@ -162,4 +162,40 @@ public class LiftAndHook extends robotPart {
        double voltage = potatometer.getVoltage();
        return voltage;
     }
+//    public void pidDrive(double P, double I, double D, double target, DcMotor motor) {
+//        double proportional, integral = 0, derivative, error, power = 0;
+//        runtime.reset();
+//        double time = runtime.milliseconds();
+//        double lastTime = 0;
+//        double lastError = 0;
+//        error = target - motor.getCurrentPosition();
+//        while (error != 0 && privateOpMode.opModeIsActive()) {
+//            proportional = error * P;
+//            integral += error * (runtime.milliseconds() - lastTime) * I;
+//            derivative = (error - lastError) / (runtime.seconds() - lastTime) * D;
+//            power = proportional + integral - derivative;
+//            move(power);
+//            lastTime = runtime.milliseconds();
+//            lastError = error;
+//
+//        }
+//    }
+
+    public void pidRotate(double P, double I, double D, double target, DcMotor motor){
+        double proportional, integral = 0, derivative, error, power = 0;
+        runtime.reset();
+        double time = runtime.milliseconds();
+        double lastTime = 0;
+        double lastError = 0;
+        error = target - motor.getCurrentPosition();
+        while(error != 0 && privateOpMode.opModeIsActive()){
+            proportional = error * P;
+            integral += error * (runtime.milliseconds() - lastTime) * I;
+            derivative = (error - lastError) / (runtime.seconds() - lastTime) * D;
+            power = proportional + integral +        derivative;
+            motor.setPower(power);
+            lastTime = runtime.milliseconds();
+            lastError =  error;
+        }
+    }
 }
