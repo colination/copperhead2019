@@ -30,10 +30,6 @@ public class DriveTrain extends robotPart {
     Orientation lastAngles = new Orientation();
     double globalAngle, correction;
 
-    //BNO055IMU               imu;
-    //Orientation             lastAngles = new Orientation();
-    //double globalAngle, power = .30, correction;
-
     public ElapsedTime runtime = new ElapsedTime();
     double COUNTS_PER_MOTOR_REV = 1120;
     double DRIVE_GEAR_REDUCTION = .5;
@@ -42,8 +38,6 @@ public class DriveTrain extends robotPart {
 
 
     //sensors
-
-
     public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enableIMU) {
         super.init(ahwmap, myTelemetry);
         srvMarker = ahwmap.servo.get("srvMarker");
@@ -63,10 +57,7 @@ public class DriveTrain extends robotPart {
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-
-
-
-        //Imu
+        //IMU
         imu = ahwmap.get(BNO055IMU.class, "imu");
         if (enableIMU) {
             BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -227,11 +218,6 @@ public class DriveTrain extends robotPart {
     }
 
     public double getAngle() {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
-        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
-        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
-
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
@@ -249,9 +235,6 @@ public class DriveTrain extends robotPart {
     }
 
     public double checkDirection() {
-        // The gain value determines how sensitive the correction is to direction changes.
-        // You will have to experiment with your robot to get small smooth direction changes
-        // to stay on a straight line.
         double correction, angle, gain = .10;
 
         angle = getAngle();
@@ -315,6 +298,25 @@ public class DriveTrain extends robotPart {
         // reset angle tracking on new heading.
         resetAngle();
     }
+
+//    public double pidDrive(double P,double I, double D, double target, DcMotor motor){
+//        double proportional, integral = 0, derivative, error, power = 0;
+//        runtime.reset();
+//        double time = runtime.milliseconds();
+//        double lastTime = 0;
+//        double lastError = 0;
+//        error = target - motor.getCurrentPosition();
+//        while(Math.abs(error) > 5 && privateOpMode.opModeIsActive()){
+//            proportional = error * P;
+//            integral += error * (runtime.milliseconds() - lastTime) * I;
+//            derivative =  (error - lastError) / (runtime.milliseconds() - lastTime) * D;
+//            power = proportional + integral + derivative;
+//            //motor.setPower(power);
+//            lastTime = runtime.milliseconds();
+//            lastError = error;
+//        }
+//        return power;
+//    }
 }
 
 
