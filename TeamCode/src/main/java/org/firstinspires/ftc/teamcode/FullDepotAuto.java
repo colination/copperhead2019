@@ -35,14 +35,14 @@ public class FullDepotAuto extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private int wallAngle = -65;
+    private int wallAngle = -70;
     private static final double unlatchDist = -2;
     private static final double liftDist = 13;
-    private double mineralDist = 20;
+    private double mineralDist = 22;
     private double backupDist = 8;
     private static final double markerDist = -50;
     private static final double toDepotDist = -33;
-    private static final double depotToPark = 60;
+    private static final double depotToPark = 70;//incr by 10
     private static final double craterDist = 20;
     private int markerTurn = 80;
     private int parkAngle = -2;
@@ -131,21 +131,21 @@ public class FullDepotAuto extends LinearOpMode {
             //sleep(25000);
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .3); // rotate towards mineral
+            rotate(mineralAngle, .35); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
             idle();
-            sleep(200);
+            sleep(300);
             // Path for marker
             robot.driveTrain.goInches(backupDist,.3,2);
             //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
-            rotate(markerTurn,.3);
+            rotate(markerTurn,.35);
             robot.driveTrain.goInches(toDepotDist, .4,3);
-            robot.driveTrain.goInches(-15, .15, 5);
+            robot.driveTrain.goInches(-10, .25, 5);
             idle();
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
@@ -159,8 +159,8 @@ public class FullDepotAuto extends LinearOpMode {
             //robot.driveTrain.goInches(-depotDist, .25,5);
             rotate(-7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
-            rotate(parkAngle, .4);
-            robot.driveTrain.goInches(10,.15,30);
+            //rotate(parkAngle, .4);
+            //robot.driveTrain.goInches(10,.15,30);
             robot.driveTrain.goInches(1,.01,30);
             sleep(25000);
 
@@ -235,7 +235,7 @@ public class FullDepotAuto extends LinearOpMode {
      * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
      * @param degrees Degrees to turn, + is left - is right
      */
-    public void rotate(int degrees, double power)
+    public void rotate(double degrees, double power)
     {
         robot.driveTrain.turnMode();
         double  leftPower, rightPower;
@@ -357,11 +357,12 @@ public class FullDepotAuto extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 49;
-                                markerTurn = 86;
-                                mineralDist = 24;
-                                backupDist = 14;
+                                mineralAngle = 52;
+                                markerTurn = 85;
+                                mineralDist = 26;
+                                backupDist = 14.5;
                                 parkAngle = 0;
+                                wallAngle = -75;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
@@ -424,44 +425,25 @@ public class FullDepotAuto extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
-    private void unhangCrater() {
+    private void unhangDepot () {
+        resetAngle();
+        //double angle = getAngle();
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
-        sleep(1000);
+        sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(3000);
+        sleep (2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
-        //rotate(-1, .25);
         robot.liftAndHook.goInches(-15, .4, 3);
+        rotate(-.8 * getAngle(), .4);
         robot.liftAndHook.mtrLift1.setPower(-.25);
         robot.liftAndHook.mtrLift2.setPower(-.25);
-        sleep(1000);
-        robot.driveTrain.goInches(6, .2, 1);
+        sleep(500);
+        robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(10, .4, 3);
-        robot.driveTrain.goInches(-6, .2, 1);
-        rotate(-1, .4);
-    }
-    private void unhangDepot () {
-        robot.liftAndHook.mtrLift1.setPower(1);
-        robot.liftAndHook.mtrLift2.setPower(1);
-        sleep(1000);
-        robot.liftAndHook.csrvPin.setPower(1);
-        sleep(4000);
-        robot.liftAndHook.csrvPin.setPower(0);
-        robot.liftAndHook.stop();
-        //rotate(-1, .25);
-
-        robot.liftAndHook.goInches(-15, .4, 3);
-        rotate(-5, .4);
-        robot.liftAndHook.mtrLift1.setPower(-.4);
-        robot.liftAndHook.mtrLift2.setPower(-.4);
-        sleep(2000);
-        robot.driveTrain.goInches(-6, .2, 1);
-        robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(10, .4, 3);
-        robot.driveTrain.goInches(4, .2, 1);
+        robot.driveTrain.goInches(2, .2, 1);
 
     }
 
