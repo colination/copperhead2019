@@ -34,8 +34,8 @@ public class FullDepotAuto extends LinearOpMode {
     private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
-    private int mineralAngle = 0;
-    private int wallAngle = -70;
+    private int mineralAngle = 0; // angle to hit mineral
+    private int wallAngle = -70; // angle for when we turn to depot from wall
     private static final double unlatchDist = -2;
     private static final double liftDist = 13;
     private double mineralDist = 22;
@@ -44,7 +44,7 @@ public class FullDepotAuto extends LinearOpMode {
     private static final double toDepotDist = -33;
     private static final double depotToPark = 70;//incr by 10
     private static final double craterDist = 20;
-    private int markerTurn = 80;
+    private int markerTurn = 80; // angle to trun to wall
     private int parkAngle = -2;
 
 
