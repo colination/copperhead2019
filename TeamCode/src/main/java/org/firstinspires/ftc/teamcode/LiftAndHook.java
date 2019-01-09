@@ -123,6 +123,11 @@ public class LiftAndHook extends robotPart {
        mtrFlop.setTargetPosition((int) degrees);
        
     }
+    public void timedRun() {
+       mtrLift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       mtrLift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
 
     public void move(double power){
        mtrLift1.setPower(power);
