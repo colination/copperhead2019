@@ -122,10 +122,10 @@ public class FullDepotAuto extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-            checkPosition();
+            /*checkPosition();
             while (mineralAngle == 0) {
                 idle();
-            }
+            }*/
             // Unhook
             unhangDepot();
             //sleep(25000);
@@ -435,7 +435,7 @@ public class FullDepotAuto extends LinearOpMode {
         sleep (2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(-15, .4, 3);
+        robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.8 * getAngle(), .4);
         robot.liftAndHook.mtrLift1.setPower(-.25);
         robot.liftAndHook.mtrLift2.setPower(-.25);
