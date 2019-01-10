@@ -45,6 +45,7 @@ public class Autotestingangles extends LinearOpMode {
     private static final double depotToPark = 60;
     private static final double craterDist = 20;
     private int markerTurn = 80;
+    private int parkAngle = -2;
 
 
 
@@ -129,7 +130,7 @@ public class Autotestingangles extends LinearOpMode {
 
          //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
          //   robot.liftAndHook.csrvPin.setPower(1);
-            sleep(30000);
+            //sleep(30000);
             //robot.liftAndHook.csrvPin.setPower(0);
             //robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
             //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
@@ -240,7 +241,7 @@ public class Autotestingangles extends LinearOpMode {
      * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
      * @param degrees Degrees to turn, + is left - is right
      */
-    public void rotate(int degrees, double power)
+    public void rotate(double degrees, double power)
     {
         robot.driveTrain.turnMode();
         double  leftPower, rightPower;
@@ -362,21 +363,25 @@ public class Autotestingangles extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 49;
+                                mineralAngle = 52;
                                 markerTurn = 85;
-                                mineralDist = 24;
-                                backupDist = 12;
+                                mineralDist = 26;
+                                backupDist = 14.5;
+                                parkAngle = 0;
+                                wallAngle = -75;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 100;
+                                mineralAngle = 107;
                                 mineralDist = 22;
+                                backupDist = 10;
                                 markerTurn = 35;
+                                parkAngle = 0;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 74;
+                                mineralAngle = 78;
                                 markerTurn = 68;
                                 finished = true;
                                 telemetry.addData("sadf",123);
@@ -386,8 +391,10 @@ public class Autotestingangles extends LinearOpMode {
                     }
                 }
                 else {
-                    mineralAngle = 74;
+                    mineralAngle = 78;
                     markerTurn = 68;
+                    finished = true;
+                    telemetry.addData("sadf",123);
 
                 }
             }
@@ -426,23 +433,26 @@ public class Autotestingangles extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
     private void unhangCrater () {
+        resetAngle();
+        //double angle = getAngle();
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
-        sleep(1000);
+        sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(4000);
+        sleep (2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
-        //rotate(-1, .25);
-        robot.liftAndHook.goInches(-15, .4, 3);
-        robot.liftAndHook.mtrLift1.setPower(-.25);
-        robot.liftAndHook.mtrLift2.setPower(-.25);
+        robot.liftAndHook.goInches(-20, .4, 3);
+        rotate(-.8 * getAngle(), .4);
         sleep(1000);
-        robot.driveTrain.goInches( 6, .2, 1);
+        robot.liftAndHook.timedRun();
+        robot.liftAndHook.mtrLift1.setPower(-.5);
+        robot.liftAndHook.mtrLift2.setPower(-.5);
+        sleep(1000);
+        robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(10, .4, 3);
-        robot.driveTrain.goInches(-4, .2, 1);
-        rotate(-5, .4);
-    }
+        robot.liftAndHook.goInches(17, .4, 3);
+        robot.driveTrain.goInches(-2.5, .2, 1);
 
+    }
 }

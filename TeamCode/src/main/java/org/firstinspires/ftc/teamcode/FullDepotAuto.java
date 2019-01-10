@@ -122,10 +122,10 @@ public class FullDepotAuto extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-            /*checkPosition();
+            checkPosition();
             while (mineralAngle == 0) {
                 idle();
-            }*/
+            }
             // Unhook
             unhangDepot();
             //sleep(25000);
@@ -155,7 +155,7 @@ public class FullDepotAuto extends LinearOpMode {
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
-            robot.driveTrain.srvMarker.setPosition(0);
+            robot.driveTrain.srvMarker.setPosition(0.4);
             //robot.driveTrain.goInches(-depotDist, .25,5);
             rotate(-7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
@@ -385,8 +385,11 @@ public class FullDepotAuto extends LinearOpMode {
                     }
                 }
                 else {
+                    telemetry.addData("Gold Mineral Position", "Center");
                     mineralAngle = 78;
                     markerTurn = 68;
+                    finished = true;
+                    telemetry.addData("sadf",123);
 
                 }
             }
@@ -437,13 +440,15 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.8 * getAngle(), .4);
-        robot.liftAndHook.mtrLift1.setPower(-.25);
-        robot.liftAndHook.mtrLift2.setPower(-.25);
-        sleep(500);
+        sleep(1000);
+        robot.liftAndHook.timedRun();
+        robot.liftAndHook.mtrLift1.setPower(-.5);
+        robot.liftAndHook.mtrLift2.setPower(-.5);
+        sleep(1000);
         robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(10, .4, 3);
-        robot.driveTrain.goInches(2, .2, 1);
+        robot.liftAndHook.goInches(17, .4, 3);
+        robot.driveTrain.goInches(2.5, .2, 1);
 
     }
 

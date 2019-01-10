@@ -53,8 +53,8 @@ public class TankBotTeleOp extends OpMode {
             rightPower = rightPower / 2;
         }
         if (gamepad1.left_trigger > 0.1) {
-            leftPower = -rightPower;
-            rightPower = -leftPower;
+            leftPower = leftPower * .75;
+            rightPower = rightPower * .75;
         }
 
         // Sets deposits straight up
@@ -144,8 +144,6 @@ public class TankBotTeleOp extends OpMode {
 
         // Intake tubing
         robot.driveTrain.Tank(leftPower, rightPower);
-// \robot.liftAndHook.mtrLift3.setPower(Lift);
-        //robot.liftAndHook.mtrLift2.setPower(Lift);
         robot.liftAndHook.mtrFlop.setPower(flop);
 
 
