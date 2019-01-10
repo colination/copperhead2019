@@ -24,7 +24,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="angle test", group="12596")
+@Autonomous(name="crater auto", group="12596")
 
 public class Autotestingangles extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
@@ -126,7 +126,7 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            unhangCrater();
+            //unhangCrater();
 
          //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
          //   robot.liftAndHook.csrvPin.setPower(1);
@@ -157,12 +157,12 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches       (markerDist, .25,5);
+            robot.driveTrain.goInches(markerDist, .25,5);
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.srvMarker.setPosition(1);
+            robot.collector.srvMarker.setPosition(0);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);
@@ -364,11 +364,10 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 52;
-                                markerTurn = 85;
+                                markerTurn = 90;
                                 mineralDist = 26;
                                 backupDist = 14.5;
                                 parkAngle = 0;
-                                wallAngle = -75;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
@@ -439,7 +438,7 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.mtrLift2.setPower(1);
         sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep (2000);
+        sleep (2500);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
@@ -448,7 +447,7 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);
-        sleep(1000);
+        sleep(500);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(17, .4, 3);
