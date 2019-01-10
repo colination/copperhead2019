@@ -436,6 +436,7 @@ public class Autotestingangles extends LinearOpMode {
         //double angle = getAngle();
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
+        robot.liftAndHook.mtrLift3.setPower(1);
         sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
         sleep (2500);
@@ -447,11 +448,11 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);
-        sleep(500);
+        robot.liftAndHook.mtrLift3.setPower(-.5);
+        sleep(1000);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(17, .4, 3);
         robot.driveTrain.goInches(-2.5, .2, 1);
-
     }
 }
