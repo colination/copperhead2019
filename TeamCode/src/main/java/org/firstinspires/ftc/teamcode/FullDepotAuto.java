@@ -442,11 +442,11 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.8 * getAngle(), .4);
         sleep(1000);
-        robot.liftAndHook.timedRun();
-        robot.liftAndHook.mtrLift1.setPower(-.5);
-        robot.liftAndHook.mtrLift2.setPower(-.5);
-        robot.liftAndHook.mtrLift3.setPower(-.5);
-        sleep(1000);
+        //robot.liftAndHook.timedRun();
+        //robot.liftAndHook.mtrLift1.setPower(-.5);
+        //robot.liftAndHook.mtrLift2.setPower(-.5);
+        //robot.liftAndHook.mtrLift3.setPower(-.5);
+        //sleep(1000);
         robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(17, .4, 3);
