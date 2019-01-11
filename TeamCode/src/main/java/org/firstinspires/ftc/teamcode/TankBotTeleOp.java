@@ -23,12 +23,15 @@ public class TankBotTeleOp extends OpMode {
     final double SCALE_FACTOR = 255;
 
 
+
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry, false); // this is false here?
         telemetry.addData("Hello", "Driver");
         telemetry.addData("Yeet","yeet");
         telemetry.update();
+        robot.liftAndHook.srvShift.setPosition(.94);
+        //.84 is neutral
     }
 
     @Override
@@ -140,6 +143,16 @@ public class TankBotTeleOp extends OpMode {
         else {
             robot.collector.srvCollectorR.setPower(0);
             robot.collector.srvCollectorL.setPower(0);
+        }
+        // ball shifter
+        if (gamepad2.dpad_up) {
+            robot.liftAndHook.srvShift.setPosition(.94);
+        }
+        if (gamepad2.dpad_right) {
+            robot.liftAndHook.srvShift.setPosition(.84);
+        }
+        if (gamepad2.dpad_down) {
+            robot.liftAndHook.srvShift.setPosition(.74);
         }
 
         // Intake tubing

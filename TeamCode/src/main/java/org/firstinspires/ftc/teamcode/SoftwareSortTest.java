@@ -16,6 +16,7 @@ public class SoftwareSortTest extends OpMode {
     float hsvLValues[] = {0F, 0F, 0F};
     float hsvRValues[] = {0F, 0F, 0F};
     final double SCALE_FACTOR = 255;
+    double position;
 
     @Override
     public void init() {
@@ -23,6 +24,8 @@ public class SoftwareSortTest extends OpMode {
         telemetry.addData("Hello", "Driver");
         telemetry.addData("Yeet","yeet");
         telemetry.update();
+        robot.liftAndHook.srvShift.setPosition(.94);
+
     }
 
     @Override
@@ -94,6 +97,18 @@ public class SoftwareSortTest extends OpMode {
                 robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
+        if (gamepad1.y) {
+            position = .9;
+        }
+        if (gamepad2.dpad_up) {
+            position = .94;
+        }
+        if (gamepad2.dpad_down) {
+            position = .84;
+        }
+
+        robot.liftAndHook.srvShift.setPosition(position);
+
 
 
         //Telemetry

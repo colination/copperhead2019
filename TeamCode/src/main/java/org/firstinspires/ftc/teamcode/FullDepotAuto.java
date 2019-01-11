@@ -63,6 +63,7 @@ public class FullDepotAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
+        robot.liftAndHook.srvShift.setPosition(.94);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -134,6 +135,7 @@ public class FullDepotAuto extends LinearOpMode {
             rotate(mineralAngle, .35); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
+            robot.liftAndHook.goInches(25, .4, 3);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
             idle();
@@ -440,16 +442,17 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
-        rotate(-.8 * getAngle(), .4);
+        rotate(-.75 * getAngle(), .4);
         sleep(1000);
-        //robot.liftAndHook.timedRun();
-        //robot.liftAndHook.mtrLift1.setPower(-.5);
-        //robot.liftAndHook.mtrLift2.setPower(-.5);
-        //robot.liftAndHook.mtrLift3.setPower(-.5);
-        //sleep(1000);
+        robot.liftAndHook.timedRun();
+        robot.liftAndHook.mtrLift1.setPower(-.5);
+        robot.liftAndHook.mtrLift2.setPower(-.5);
+        robot.liftAndHook.mtrLift3.setPower(-.5);
+        sleep(250);
         robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(17, .4, 3);
+        //robot.liftAndHook.goInches(19, .4, 3);
+        robot.liftAndHook.goInches(-6, .4, 3);
         robot.driveTrain.goInches(2.5, .2, 1);
 
     }

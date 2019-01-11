@@ -63,6 +63,7 @@ public class Autotestingangles extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
+        robot.liftAndHook.srvShift.setPosition(.94);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -439,26 +440,18 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.mtrLift3.setPower(1);
         sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep (2500);
+        sleep (2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(-18, .4, 3);
+        robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.8 * getAngle(), .4);
         sleep(1000);
-<<<<<<< HEAD
         robot.liftAndHook.timedRun();
-//        robot.liftAndHook.mtrLift1.setPower(-.5);
-//        robot.liftAndHook.mtrLift2.setPower(-.5);
-//        robot.liftAndHook.mtrLift3.setPower(-.5);
-//        sleep(1000);
-=======
-        //robot.liftAndHook.timedRun();
-        //robot.liftAndHook.mtrLift1.setPower(-.5);
-        //robot.liftAndHook.mtrLift2.setPower(-.5);
-        //robot.liftAndHook.mtrLift3.setPower(-.5);
-        //sleep(1000);
->>>>>>> 2966ec1bd06d69e5d3a91c5f1bd8584af1fe38fb
-        robot.driveTrain.goInches(2, .2, 1);
+        robot.liftAndHook.mtrLift1.setPower(-.5);
+        robot.liftAndHook.mtrLift2.setPower(-.5);
+        robot.liftAndHook.mtrLift3.setPower(-.5);
+        sleep(500);
+        robot.driveTrain.goInches(2.5, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(17, .4, 3);
         robot.driveTrain.goInches(-2.5, .2, 1);
