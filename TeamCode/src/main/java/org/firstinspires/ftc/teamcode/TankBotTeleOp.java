@@ -145,18 +145,26 @@ public class TankBotTeleOp extends OpMode {
             robot.collector.srvCollectorL.setPower(0);
         }
         // ball shifter
-        if (gamepad2.dpad_up) {
-            robot.liftAndHook.srvShift.setPosition(.94);
-        }
-        if (gamepad2.dpad_right) {
-            robot.liftAndHook.srvShift.setPosition(.84);
-        }
-        if (gamepad2.dpad_down) {
-            robot.liftAndHook.srvShift.setPosition(.74);
-        }
+
+        robot.liftAndHook.srvShift.setPosition(.96);
 
         // Intake tubing
-        robot.driveTrain.Tank(leftPower, rightPower);
+        if (gamepad1.right_trigger > 0.1) {
+            leftPower = leftPower * .5;
+            rightPower = rightPower * .5;
+        }
+        if (gamepad1.left_trigger > 0.1) {
+            leftPower = leftPower * .75;
+            rightPower = rightPower * .75;
+        }
+
+
+        // flickmode
+        robot.driveTrain.mtrBL.setPower(leftPower);
+        robot.driveTrain.mtrFL.setPower(leftPower);
+        robot.driveTrain.mtrBR.setPower(rightPower);
+        robot.driveTrain.mtrFR.setPower(rightPower);
+        //robot.driveTrain.Tank(leftPower, rightPower);
         robot.liftAndHook.mtrFlop.setPower(flop);
 
 
