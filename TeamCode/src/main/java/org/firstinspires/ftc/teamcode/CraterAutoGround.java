@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="crater auto", group="12596")
+@Autonomous(name="crater auto ground", group="12596")
 
-public class Autotestingangles extends LinearOpMode {
+public class CraterAutoGround extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -38,7 +38,7 @@ public class Autotestingangles extends LinearOpMode {
     private int wallAngle = 68;
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
-    private double mineralDist = 18;
+    private double mineralDist = 22;
     private double backupDist = 8;
     private static final double markerDist = -40;
     private static final double toDepotDist = -38;
@@ -126,7 +126,7 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            unhangCrater();
+            //unhangCrater();
 
          //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
          //   robot.liftAndHook.csrvPin.setPower(1);
@@ -143,7 +143,7 @@ public class Autotestingangles extends LinearOpMode {
             //robot.liftAndHook.goInches(28, .4, 3);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
-            idle();
+            //idle();
             sleep(200);
             // Path for marker
             robot.driveTrain.goInches(backupDist,.3,2);
@@ -153,22 +153,18 @@ public class Autotestingangles extends LinearOpMode {
             rotate(markerTurn,.3);
             robot.driveTrain.goInches(toDepotDist, .3,3);
             robot.driveTrain.goInches(-15, .15, 5);
-            idle();
+            sleep(250);
             //michael's part : robot starts perpendicular to marker
-            robot.driveTrain.goInches(3,.25,5);
+            robot.driveTrain.goInches(3,.25,3);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(markerDist, .25,5);
             idle();
-            //robot.driveTrain.goInches(3,.25,5);
-            //rotate(67, .3);
-            //robot.driveTrain.goInches(-depotDist, .25,5);
             robot.collector.srvMarker.setPosition(0);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);
-            robot.driveTrain.goInches(10,.15,30);
-            robot.driveTrain.goInches(1,.01,30);
+            robot.driveTrain.move(-.2);
             sleep(25000);
 
             //robot.driveTrain.goLean(42,.12,8,true);
@@ -375,7 +371,7 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 112;
                                 mineralDist = 22;
-                                backupDist = 10;
+                                backupDist = 12;
                                 markerTurn = 35;
                                 parkAngle = 0;
                                 finished = true;
@@ -383,6 +379,7 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("Gold Mineral Position", "Center");
                                 mineralAngle = 83;
                                 markerTurn = 68;
+                                backupDist = 13;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -393,6 +390,7 @@ public class Autotestingangles extends LinearOpMode {
                 else {
                     mineralAngle = 78;
                     markerTurn = 68;
+                    backupDist = 13;
                     finished = true;
                     telemetry.addData("sadf",123);
 
@@ -445,7 +443,7 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.64 * getAngle(), .4);
-        sleep(500);
+        sleep(1000);
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);

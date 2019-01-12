@@ -15,7 +15,7 @@ import static android.os.SystemClock.sleep;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "Inch Test", group = "12596")
+@Autonomous(name = "Crater No Hang", group = "12596")
 
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
@@ -96,24 +96,11 @@ public class inchesTestAuto extends LinearOpMode {
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-//            robot.liftAndHook.mtrLift1.setPower(1);
-//            robot.liftAndHook.mtrLift2.setPower(1);
-//            sleep(1000);
-//            robot.liftAndHook.csrvPin.setPower(1);
-//            sleep(3000);
-//            robot.liftAndHook.csrvPin.setPower(0);
-//            robot.liftAndHook.stop();
-//            rotate(-1, .25);
-//            robot.liftAndHook.goInches(-15, .4, 3);
-//            robot.liftAndHook.mtrLift1.setPower(-.25);
-//            robot.liftAndHook.mtrLift2.setPower(-.25);
-//            sleep(1000);
-//            robot.driveTrain.goInches(6, .2, 1);
-//            robot.liftAndHook.stop();
-//            robot.liftAndHook.goInches(10, .4, 3);
-//            robot.driveTrain.goInches(-6, .2, 1);
-//            rotate(-1, .4);
-            unhangCrater();
+            robot.driveTrain.move(.2);
+            sleep(5000);
+            robot.driveTrain.move(-.2);
+            sleep(5000);
+
         }
     }
 

@@ -24,9 +24,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name="crater auto", group="12596")
+@Autonomous(name="Depot Auto No Hang", group="12596")
 
-public class Autotestingangles extends LinearOpMode {
+public class DepotAutoGround extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -34,17 +34,17 @@ public class Autotestingangles extends LinearOpMode {
     private static final String VUFORIA_KEY = "AYW0N2f/////AAABmT84r6SmN0sChsfyQEho5YdE8Og8poAwDZNV1kfc3qS0dk+45j/4jRV4/nQRE5A8/X4+dSgUpEZWiRaCemAh3sc5xw7EM8FH0kJlk8ExI2q6pg14KXs90dNDyDQWSm7V2WzkC/gIfRAICgCs5CmOE4P/iZ51zzQaYyYT+lGay0QFFhVhYjRaSdWPmijDWGqg3q+S6FIanvM2yHVbiKdOmHpV5aml1KjRgMzG258F9R1vThPPe6OY8O0TwTAK2FF514CX8zJUbS5gbjcoA6VDrCoaYZoxfJylyikeSYlGWXnSlOJqoj3PxxDiZRvMwseAnqcJ2nNwIDccYQRk5Er3rTv4lYNLuRgqbyepot2NNN7d";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
-    private int mineralAngle = 0;
-    private int wallAngle = 68;
+    private int mineralAngle = 0; // angle to hit mineral
+    private int wallAngle = -74; // angle for when we turn to depot from wall
     private static final double unlatchDist = -2;
-    private static final double liftDist = 23;
-    private double mineralDist = 18;
+    private static final double liftDist = 13;
+    private double mineralDist = 22;
     private double backupDist = 8;
-    private static final double markerDist = -40;
-    private static final double toDepotDist = -38;
-    private static final double depotToPark = 60;
+    private static final double markerDist = -50;
+    private static final double toDepotDist = -33;
+    private static final double depotToPark = 70;//incr by 10
     private static final double craterDist = 20;
-    private int markerTurn = 80;
+    private int markerTurn = 80; // angle to trun to wall
     private int parkAngle = -2;
 
 
@@ -62,7 +62,8 @@ public class Autotestingangles extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
-        telemetry.addLine().addData("unhooks from lander, turns 90 degrees, and runs into a mineral/crater",robot.driveTrain.mtrBL.getCurrentPosition());
+        telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
+        robot.liftAndHook.srvShift.setPosition(.94);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -80,6 +81,7 @@ public class Autotestingangles extends LinearOpMode {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         imu.initialize(parameters);
+        //robot.driveTrain.srvMarker.setPosition(1);
 
         telemetry.addData("Mode", "calibrating...");
         telemetry.update();
@@ -126,48 +128,40 @@ public class Autotestingangles extends LinearOpMode {
                 idle();
             }
             // Unhook
-            unhangCrater();
-
-         //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-         //   robot.liftAndHook.csrvPin.setPower(1);
-            //sleep(30000);
-            //robot.liftAndHook.csrvPin.setPower(0);
-            //robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
-            //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
-            //robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
+            //unhangDepot();
+            //sleep(25000);
             // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .3); // rotate towards mineral
+            rotate(mineralAngle, .35); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
-            //robot.liftAndHook.goInches(28, .4, 3);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
             idle();
-            sleep(200);
+            sleep(300);
             // Path for marker
             robot.driveTrain.goInches(backupDist,.3,2);
             //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
-            rotate(markerTurn,.3);
-            robot.driveTrain.goInches(toDepotDist, .3,3);
-            robot.driveTrain.goInches(-15, .15, 5);
+            rotate(markerTurn,.35);
+            robot.driveTrain.goInches(toDepotDist, .4,3);
+            robot.driveTrain.goInches(-10, .25, 5);
             idle();
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
-            rotate(wallAngle,.3); //80 worked
+            rotate(wallAngle,.4); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches(markerDist, .25,5);
+            robot.driveTrain.goInches(markerDist, .4,5);
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
+            robot.driveTrain.srvMarker.setPosition(0.4);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.srvMarker.setPosition(0);
-            rotate(7, .4);
+            rotate(-7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
-            rotate(-2, .4);
-            robot.driveTrain.goInches(10,.15,30);
+            //rotate(parkAngle, .4);
+            //robot.driveTrain.goInches(10,.15,30);
             robot.driveTrain.goInches(1,.01,30);
             sleep(25000);
 
@@ -364,16 +358,17 @@ public class Autotestingangles extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 57;
-                                markerTurn = 90;
+                                mineralAngle = 52;
+                                markerTurn = 85;
                                 mineralDist = 26;
                                 backupDist = 14.5;
                                 parkAngle = 0;
+                                wallAngle = -75;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 112;
+                                mineralAngle = 110;
                                 mineralDist = 22;
                                 backupDist = 10;
                                 markerTurn = 35;
@@ -381,8 +376,9 @@ public class Autotestingangles extends LinearOpMode {
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 83;
-                                markerTurn = 68;
+                                mineralAngle = 81;
+                                markerTurn = 69;
+                                backupDist = 10;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -391,6 +387,7 @@ public class Autotestingangles extends LinearOpMode {
                     }
                 }
                 else {
+                    telemetry.addData("Gold Mineral Position", "Center");
                     mineralAngle = 78;
                     markerTurn = 68;
                     finished = true;
@@ -432,30 +429,32 @@ public class Autotestingangles extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
-    private void unhangCrater () {
+
+    private void unhangDepot () {
         resetAngle();
         //double angle = getAngle();
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
         robot.liftAndHook.mtrLift3.setPower(1);
-        sleep(1000);
+        sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
         sleep(2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.64 * getAngle(), .4);
-        sleep(500);
+        sleep(1000);
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);
         robot.liftAndHook.mtrLift3.setPower(-.5);
         sleep(250);
-        robot.driveTrain.goInches(2, .2, 1);
+        robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
         //robot.liftAndHook.goInches(19, .4, 3);
         robot.liftAndHook.goInches(-6, .4, 3);
-        robot.driveTrain.goInches(-2.5, .2, 1);
+        robot.driveTrain.goInches(2.5, .2, 1);
 
     }
+
 }

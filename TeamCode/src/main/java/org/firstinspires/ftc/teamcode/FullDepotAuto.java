@@ -35,7 +35,7 @@ public class FullDepotAuto extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0; // angle to hit mineral
-    private int wallAngle = -70; // angle for when we turn to depot from wall
+    private int wallAngle = -74; // angle for when we turn to depot from wall
     private static final double unlatchDist = -2;
     private static final double liftDist = 13;
     private double mineralDist = 22;
@@ -131,11 +131,11 @@ public class FullDepotAuto extends LinearOpMode {
             unhangDepot();
             //sleep(25000);
             // Rotate towards gold
+            //robot.liftAndHook.goInches(20, );
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .35); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
-            robot.liftAndHook.goInches(25, .4, 3);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
             idle();
@@ -377,7 +377,7 @@ public class FullDepotAuto extends LinearOpMode {
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 78;
+                                mineralAngle = 81;
                                 markerTurn = 69;
                                 finished = true;
                                 telemetry.addData("sadf",123);
@@ -438,12 +438,12 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.mtrLift3.setPower(1);
         sleep(500);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep (2000);
+        sleep(2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
-        rotate(-.75 * getAngle(), .4);
-        sleep(1000);
+        //rotate(-.64 * getAngle(), .4);
+        sleep(500);
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);
@@ -451,8 +451,10 @@ public class FullDepotAuto extends LinearOpMode {
         sleep(250);
         robot.driveTrain.goInches(-2, .2, 1);
         robot.liftAndHook.stop();
+        rotate(-.64 * getAngle(), .4);
+        sleep(500);
         //robot.liftAndHook.goInches(19, .4, 3);
-        robot.liftAndHook.goInches(-6, .4, 3);
+        robot.liftAndHook.goInches(15, .4, 3);
         robot.driveTrain.goInches(2.5, .2, 1);
 
     }
