@@ -453,8 +453,8 @@ public class Autotestingangles extends LinearOpMode {
         sleep(250);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
-        //robot.liftAndHook.goInches(19, .4, 3);
-        robot.liftAndHook.goInches(-6, .4, 3);
+        robot.liftAndHook.goInches(19, .4, 3);
+        //robot.liftAndHook.goInches(-6, .4, 3);
         robot.driveTrain.goInches(-2.5, .2, 1);
 
     }

@@ -35,7 +35,7 @@ public class FullDepotAuto extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0; // angle to hit mineral
-    private int wallAngle = -74; // angle for when we turn to depot from wall
+    private int wallAngle = -76; // angle for when we turn to depot from wall
     private static final double unlatchDist = -2;
     private static final double liftDist = 13;
     private double mineralDist = 22;
@@ -63,7 +63,7 @@ public class FullDepotAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
-        robot.liftAndHook.srvShift.setPosition(.94);
+        //robot.liftAndHook.srvShift.setPosition(.94);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");
@@ -371,8 +371,8 @@ public class FullDepotAuto extends LinearOpMode {
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 110;
                                 mineralDist = 22;
-                                backupDist = 10;
-                                markerTurn = 35;
+                                backupDist = 12;
+                                markerTurn = 36;
                                 parkAngle = 0;
                                 finished = true;
                             } else {
@@ -436,26 +436,24 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
         robot.liftAndHook.mtrLift3.setPower(1);
-        sleep(500);
+        sleep(600);
         robot.liftAndHook.csrvPin.setPower(1);
         sleep(2000);
         robot.liftAndHook.csrvPin.setPower(0);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
-        //rotate(-.64 * getAngle(), .4);
+        rotate(-.64 * getAngle(), .4);
         sleep(500);
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.5);
         robot.liftAndHook.mtrLift2.setPower(-.5);
         robot.liftAndHook.mtrLift3.setPower(-.5);
-        sleep(250);
-        robot.driveTrain.goInches(-2, .2, 1);
-        robot.liftAndHook.stop();
-        rotate(-.64 * getAngle(), .4);
         sleep(500);
+        robot.driveTrain.goInches(-3, .2, 1);
+        robot.liftAndHook.stop();
         //robot.liftAndHook.goInches(19, .4, 3);
-        robot.liftAndHook.goInches(15, .4, 3);
-        robot.driveTrain.goInches(2.5, .2, 1);
+        robot.liftAndHook.goInches(19, .4, 3);
+        robot.driveTrain.goInches(2.75, .2, 1);
 
     }
 

@@ -63,7 +63,7 @@ public class DepotAutoGround extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
         telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
-        robot.liftAndHook.srvShift.setPosition(.94);
+        //robot.liftAndHook.srvShift.setPosition(.94);
 
         // get a reference to REV Touch sensor.
         //touch = hardwareMap.digitalChannel.get("touch_sensor");

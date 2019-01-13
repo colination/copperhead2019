@@ -15,7 +15,7 @@ import static android.os.SystemClock.sleep;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "Crater No Hang", group = "12596")
+@Autonomous(name = "inch test", group = "12596")
 
 public class inchesTestAuto extends LinearOpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
