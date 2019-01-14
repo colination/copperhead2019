@@ -249,26 +249,27 @@ public class DriveTrain extends robotPart {
         return correction;
     }
 
-    public void rotate(int degrees, double power)
+    public void rotate(double degrees, double power)
     {
+        turnMode();
         double  leftPower, rightPower;
 
         // restart imu movement tracking.
         resetAngle();
-        //telemetry.addLine().addData("Robot Angle", getAngle());
+        privateTelemetry.addLine().addData("Robot Angle", getAngle());
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0)
+        if (degrees > 0)
         {   // turn right.
-            leftPower = -power;
-            rightPower = power;
-        }
-        else if (degrees > 0)
-        {   // turn left.
             leftPower = power;
             rightPower = -power;
+        }
+        else if (degrees < 0)
+        {   // turn left.
+            leftPower = -power;
+            rightPower = power;
         }
         else return;
 
@@ -284,10 +285,24 @@ public class DriveTrain extends robotPart {
             // On right turn we have to get off zero first.
             while (getAngle() == 0) {}
 
-            while (getAngle() > degrees) {}
+            while (getAngle() > degrees) {
+//                mtrFL.setPower(leftPower);
+//                mtrBL.setPower(leftPower);
+//                mtrFR.setPower(rightPower);
+//                mtrBR.setPower(rightPower);
+                privateTelemetry.addData("degrees", getAngle());
+                privateTelemetry.update();
+            }
         }
         else    // left turn.
-            while (getAngle() < degrees) {}
+            while (getAngle() < degrees) {
+//                mtrFL.setPower(leftPower);
+//                mtrBL.setPower(leftPower);
+//                mtrFR.setPower(rightPower);
+//                mtrBR.setPower(rightPower);
+                privateTelemetry.addData("degrees", getAngle());
+                privateTelemetry.update();
+            }
 
         // turn the motors off.
         stopMotors();
