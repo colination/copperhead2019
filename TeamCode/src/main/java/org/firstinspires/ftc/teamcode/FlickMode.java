@@ -123,7 +123,8 @@ public class FlickMode extends OpMode {
             robot.liftAndHook.mtrLift1.setPower(Lift);
             robot.liftAndHook.mtrLift2.setPower(Lift);
             robot.liftAndHook.mtrLift3.setPower(Lift);
-        } else {
+        }
+        else {
             robot.liftAndHook.mtrLift1.setPower(0);
             robot.liftAndHook.mtrLift2.setPower(0);
             robot.liftAndHook.mtrLift3.setPower(0);
@@ -193,6 +194,7 @@ public class FlickMode extends OpMode {
                 String.format(Locale.US, "%.02f", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM)));
         telemetry.addData("rightBlue ", hsvRValues[0]);
         telemetry.addData("leftBlue ", hsvLValues[0]);
+        telemetry.addData("mtrFlopEncoder",robot.liftAndHook.mtrFlop.getCurrentPosition());
         telemetry.update();
     }
 }

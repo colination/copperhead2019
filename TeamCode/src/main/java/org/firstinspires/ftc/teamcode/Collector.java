@@ -56,7 +56,6 @@ public class    Collector extends robotPart {
 
         mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
-
     }
     public void markerDrop (double seconds) {
         runtime.reset();
@@ -133,9 +132,9 @@ public class    Collector extends robotPart {
         }
         srvFlopR.setPower(0);
         srvFlopR.setPower(0);
-        while (runtime.seconds() < 7.0) {
-            mtrExtendR.setPower(.5);
-            mtrExtendL.setPower(.5);
-        }
+            while (runtime.seconds() < 7.0) {
+                mtrExtendR.setPower(.5);
+                mtrExtendL.setPower(.5);
+            }
     }*/
 }
