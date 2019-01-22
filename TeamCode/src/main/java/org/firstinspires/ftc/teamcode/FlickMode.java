@@ -17,14 +17,11 @@ public class FlickMode extends OpMode {
     float hsvLValues[] = {0F, 0F, 0F};
     float hsvRValues[] = {0F, 0F, 0F};
     final double SCALE_FACTOR = 255;
-    int isSlow = 1;
 
     public DcMotor mtrFL = null;
     public DcMotor mtrFR = null;
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
-
-
 
     @Override
     public void init() {
@@ -53,14 +50,23 @@ public class FlickMode extends OpMode {
     public void loop() {
         double leftPower = gamepad1.left_stick_y;
         double rightPower = gamepad1.right_stick_y;
-        double Lift = gamepad2.right_stick_y;
+        double Lift = 0;
         double flop = gamepad2.left_stick_y;
-        //int slow;
+
+        // Hue conversion
+        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorL.red() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorL.green() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorL.blue() * SCALE_FACTOR),
+                hsvLValues);
+        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorR.red() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorR.green() * SCALE_FACTOR),
+                (int) (robot.liftAndHook.sensorColorR.blue() * SCALE_FACTOR),
+                hsvRValues);
 
         // sets drive train half power
         if (gamepad1.right_trigger > 0.1) {
             leftPower = leftPower * .35;
-            rightPower = rightPower * .35;
+            rightPower = rightPower * .5;
         }
         if (gamepad1.left_trigger > 0.1) {
             leftPower = leftPower * .75;
@@ -76,104 +82,47 @@ public class FlickMode extends OpMode {
         // Sets deposits straight up
         if (gamepad2.y) {
             // move to 0 degrees.
-            robot.collector.servoDepositL.setPosition(0);
-            robot.collector.servoDepositR.setPosition(1);
+            robot.liftAndHook.servoDepositL.setPosition(0);
+            robot.liftAndHook.servoDepositR.setPosition(1);
         }
 
-        // Balls - Left side deposit
         if (gamepad2.a) {
-            if (leftHue() > 85) {
-                robot.collector.servoDepositL.setPosition(.4); // Deposit silver
+            if (hsvRValues[0] > 100) {
+                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
             } else {
-                robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
+                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
-        // Balls - Right side deposit
+        // Right side deposit
         if (gamepad2.a) {
-            if (righttHue() > 90) { // Deposit silver mineral
-                robot.collector.servoDepositR.setPosition(.6); // Deposit Silver
+            if (hsvLValues[0] > 100) { // Deposit silver mineral
+                robot.liftAndHook.servoDepositR.setPosition(.35);
             } else {
-                robot.collector.servoDepositR.setPosition(.79); // Deposit Gold mineral
+                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
-        // Cubes - Left side deposit
         if (gamepad2.b) {
-            if (leftHue() < 85) {
-                robot.collector.servoDepositL.setPosition(.4); // Deposit silver
+            if (hsvRValues[0] < 100) {
+                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
             } else {
-                robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
+                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
-        // Cubes - right side deposit
+        // Right side deposit
         if (gamepad2.b) {
-            if (righttHue() < 90) { // Deposit silver mineral
-                robot.collector.servoDepositR.setPosition(.6);
+            if (hsvLValues[0] < 100) { // Deposit silver mineral
+                robot.liftAndHook.servoDepositR.setPosition(.35);
             } else {
-                robot.collector.servoDepositR.setPosition(.79); // Deposit Gold mineral
+                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
 
-        if (Math.abs(flop) > .1) {
-            flop = flop;
-        } else {
-            robot.liftAndHook.mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }
-
-        // Trigger intake
-        if (Math.abs(gamepad2.right_trigger) > .05) {
-            robot.collector.srvCollectorR.setPower(gamepad2.right_trigger * .7);
-            robot.collector.srvCollectorL.setPower(gamepad2.right_trigger * .7);
-        } else if (Math.abs(gamepad2.left_trigger) > .05) {
-            robot.collector.srvCollectorR.setPower(gamepad2.left_trigger * -.7);
-            robot.collector.srvCollectorL.setPower(gamepad2.left_trigger * -.7);
-        } else {
-            robot.collector.srvCollectorR.setPower(0);
-            robot.collector.srvCollectorL.setPower(0);
-        }
-
-        //bumper rotate
-        if (gamepad2.right_bumper) {
-            robot.collector.srvFlopR.setPower(1);
-            robot.collector.srvFlopL.setPower(1);
-        } else if (gamepad2.left_bumper) {
-            robot.collector.srvFlopR.setPower(-1);
-            robot.collector.srvFlopL.setPower(-1);
-        } else {
-            robot.collector.srvFlopR.setPower(0);
-            robot.collector.srvFlopL.setPower(0);
-        }
-
-        //Lift
-        if (gamepad1.a) {
-            Lift = -.25;
-        } else if (gamepad1.x) {
-            Lift = .25;
-        } else if (Math.abs(gamepad2.right_stick_y) > .01) {
-            Lift = Lift;
-        } else {
-            Lift = 0;
-        }
-
-        /* Lift with right stick up and down
+        // Lift with right stick up and down
         if (Math.abs(gamepad2.right_stick_y) > 0.1) {
             Lift = gamepad2.right_stick_y;
-            if (gamepad2.dpad_up) {
-                isSlow *= -1;
-                telemetry.addData("isSlow:", isSlow);
-                telemetry.update();
-            }
-            if ((isSlow < 0) && (Lift > 0)) {
-                Lift = .25;
-                telemetry.addLine().addData("isSlow:", isSlow);
-                robot.liftAndHook.mtrLift1.setPower(Lift);
-                robot.liftAndHook.mtrLift2.setPower(Lift);
-                robot.liftAndHook.mtrLift3.setPower(Lift);
-            }
-            else {
-                robot.liftAndHook.mtrLift1.setPower(Lift);
-                robot.liftAndHook.mtrLift2.setPower(Lift);
-                robot.liftAndHook.mtrLift3.setPower(Lift);
-            }
+            robot.liftAndHook.mtrLift1.setPower(Lift);
+            robot.liftAndHook.mtrLift2.setPower(Lift);
+            robot.liftAndHook.mtrLift3.setPower(Lift);
         } else {
             robot.liftAndHook.mtrLift1.setPower(0);
             robot.liftAndHook.mtrLift2.setPower(0);
@@ -181,21 +130,54 @@ public class FlickMode extends OpMode {
             robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }*/
-//        if (Math.abs(gamepad2.right_stick_y) > 0.1) {
-//            Lift = Lift;
-//        }
-//        else {
-//            Lift = 0;
-//        }
-        robot.liftAndHook.mtrLift1.setPower(Lift);
-        robot.liftAndHook.mtrLift2.setPower(Lift);
-        robot.liftAndHook.mtrLift3.setPower(Lift);
-        robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+        if (Math.abs(flop) > .1) {
+            flop = flop;
+        }
+        else {
+            robot.liftAndHook.mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
 
+        //bumper intake
+        if (gamepad2.right_trigger > 0.1) {
+            robot.collector.srvFlopR.setPower(.5);
+            robot.collector.srvFlopL.setPower(.5);}
+        else if (gamepad2.left_trigger > 0.1) {
+            robot.collector.srvFlopR.setPower(-.5);
+            robot.collector.srvFlopL.setPower(-.5);
+        }
+        else {
+            robot.collector.srvFlopR.setPower(0);
+            robot.collector.srvFlopL.setPower(0);
+        }
 
+        if (gamepad2.right_bumper) {
+            robot.collector.srvCollectorR.setPower(.7);
+            robot.collector.srvCollectorL.setPower(.7);
+        }
+        else if (gamepad2.left_bumper){
+            robot.collector.srvCollectorR.setPower(-.7);
+            robot.collector.srvCollectorL.setPower(-.7);
+        }
+        else {
+            robot.collector.srvCollectorR.setPower(0);
+            robot.collector.srvCollectorL.setPower(0);
+        }
+
+        // Lift with right stick up and down
+        if (Math.abs(gamepad2.right_stick_y) > 0.1) {
+            Lift = gamepad2.right_stick_y;
+            robot.liftAndHook.mtrLift1.setPower(Lift);
+            robot.liftAndHook.mtrLift2.setPower(Lift);
+            robot.liftAndHook.mtrLift3.setPower(Lift);
+        } else {
+            robot.liftAndHook.mtrLift1.setPower(0);
+            robot.liftAndHook.mtrLift2.setPower(0);
+            robot.liftAndHook.mtrLift3.setPower(0);
+            robot.liftAndHook.mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.liftAndHook.mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            robot.liftAndHook.mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
         // marker
         if (gamepad1.y) {
             robot.collector.srvMarker.setPosition(.4);
@@ -204,34 +186,14 @@ public class FlickMode extends OpMode {
         robot.liftAndHook.mtrFlop.setPower(flop);
 
 
-        /*Telemetry
+        //Telemetry
         telemetry.addData("rightDistance (cm)",
                 String.format(Locale.US, "%.02f", robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM)));
         telemetry.addData("leftDistance (cm)",
                 String.format(Locale.US, "%.02f", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM)));
         telemetry.addData("rightBlue ", hsvRValues[0]);
-        telemetry.addData("leftBlue ", hsvLValues[0]);*/
-        //telemetry.addData("mtrFlopEncoders",robot.liftAndHook.mtrFlop.getCurrentPosition());
+        telemetry.addData("leftBlue ", hsvLValues[0]);
         telemetry.update();
-    }
-
-
-    public double righttHue() {
-        // Hue conversion
-        Color.RGBToHSV((int) (robot.collector.sensorColorL.red() * SCALE_FACTOR),
-                (int) (robot.collector.sensorColorL.green() * SCALE_FACTOR),
-                (int) (robot.collector.sensorColorL.blue() * SCALE_FACTOR),
-                hsvLValues);
-        return hsvLValues[0];
-    }
-
-    public double leftHue() {
-        // Hue conversion
-        Color.RGBToHSV((int) (robot.collector.sensorColorR.red() * SCALE_FACTOR),
-                (int) (robot.collector.sensorColorR.green() * SCALE_FACTOR),
-                (int) (robot.collector.sensorColorR.blue() * SCALE_FACTOR),
-                hsvRValues);
-        return hsvRValues[0];
     }
 }
 
