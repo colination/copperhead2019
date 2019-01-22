@@ -38,16 +38,16 @@ public class TankBotTeleOp extends OpMode {
     public void loop() {
         double leftPower = (gamepad1.left_stick_y);
         double rightPower = (gamepad1.right_stick_y);
-        double Lift = 0;
+        double lift = 0;
         double flop = gamepad2.left_stick_y;
 
-        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorL.red() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorL.green() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorL.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (robot.collector.sensorColorL.red() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorL.green() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorL.blue() * SCALE_FACTOR),
                 hsvLValues);
-        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorR.red() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorR.green() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorR.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (robot.collector.sensorColorR.red() * SCALE_FACTOR),
+                    (int) (robot.collector.sensorColorR.green() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorR.blue() * SCALE_FACTOR),
                 hsvRValues);
 
         // sets drive train half power
@@ -63,47 +63,47 @@ public class TankBotTeleOp extends OpMode {
         // Sets deposits straight up
         if (gamepad2.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(0);
-            robot.liftAndHook.servoDepositR.setPosition(1);
+            robot.collector.servoDepositL.setPosition(0);
+            robot.collector.servoDepositR.setPosition(1);
         }
 
         if (gamepad2.a) {
             if (hsvRValues[0] > 100) {
-                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
+                robot.collector.servoDepositL.setPosition(.62); // Deposit silver
             } else {
-                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
+                robot.collector.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
         // Right side deposit
         if (gamepad2.a) {
             if (hsvLValues[0] > 100) { // Deposit silver mineral
-                robot.liftAndHook.servoDepositR.setPosition(.35);
+                robot.collector.servoDepositR.setPosition(.35);
             } else {
-                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
+                robot.collector.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
         if (gamepad2.b) {
             if (hsvLValues[0] > 100) {
-                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
+                robot.collector.servoDepositL.setPosition(.62); // Deposit silver
             } else {
-                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
+                robot.collector.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
         // Right side deposit
         if (gamepad2.b) {
             if (hsvRValues[0] > 100) { // Deposit silver mineral
-                robot.liftAndHook.servoDepositR.setPosition(.35);
+                robot.collector.servoDepositR.setPosition(.35);
             } else {
-                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
+                robot.collector.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
 
         // Lift with right stick up and down
         if (Math.abs(gamepad2.right_stick_y) > 0.1) {
-            Lift = gamepad2.right_stick_y;
-            robot.liftAndHook.mtrLift1.setPower(Lift);
-            robot.liftAndHook.mtrLift2.setPower(Lift);
-            robot.liftAndHook.mtrLift3.setPower(Lift);
+            lift = gamepad2.right_stick_y;
+            robot.liftAndHook.mtrLift1.setPower(lift);
+            robot.liftAndHook.mtrLift2.setPower(lift);
+            robot.liftAndHook.mtrLift3.setPower(lift);
         } else {
             robot.liftAndHook.mtrLift1.setPower(0);
             robot.liftAndHook.mtrLift2.setPower(0);

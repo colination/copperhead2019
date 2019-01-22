@@ -64,7 +64,6 @@ public class LiftAndHook extends robotPart {
         // Middle motor is reversed
         mtrLift2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
         // Run without encoder ticks
         mtrLift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrLift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -74,21 +73,11 @@ public class LiftAndHook extends robotPart {
         srvShift = ahwmap.servo.get("srvShift");
         csrvPin = ahwmap.crservo.get("csrvPin");
 
-        // Zero power to hold motor position
+       // Zero power to hold motor position        servoDepositL = ahwmap.servo.get("servoDepositL");
+
         mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        servoDepositR = ahwmap.servo.get("servoDepositR");
-        servoDepositL = ahwmap.servo.get("servoDepositL");
-
-        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
-        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
-
-        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
-        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
-
-        potentiometer = ahwmap.analogInput.get("potentiometer");
 
    }
     public void stop() {
@@ -129,7 +118,6 @@ public class LiftAndHook extends robotPart {
        mtrLift3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-
     public void move(double power){
        mtrLift1.setPower(power);
        mtrLift2.setPower(power);
@@ -157,6 +145,7 @@ public class LiftAndHook extends robotPart {
        timeoutExit(timeout);
        stop();
     }
+    
     public void unPin (double seconds) {
        runtime.reset();
        while (runtime.seconds() < seconds) {
