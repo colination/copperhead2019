@@ -79,16 +79,6 @@ public class LiftAndHook extends robotPart {
         mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servoDepositR = ahwmap.servo.get("servoDepositR");
-
-        sensorColorR = ahwmap.colorSensor.get("sensorColorR");
-        sensorColorL = ahwmap.colorSensor.get("sensorColorL");
-
-        sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
-        sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
-
-        potentiometer = ahwmap.analogInput.get("potentiometer");
-
    }
     public void stop() {
         mtrLift1.setPower(0);
