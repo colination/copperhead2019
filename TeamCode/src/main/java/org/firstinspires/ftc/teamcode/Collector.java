@@ -29,15 +29,12 @@ public class    Collector extends robotPart {
     public ColorSensor sensorColorR;
     public ColorSensor sensorColorL;
 
-    public DcMotor mtrFlop;
-
     public ElapsedTime runtime = new ElapsedTime();
 
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         super.init(ahwmap, myTelemetry);
 
         srvCollectorL = ahwmap.crservo.get("srvCollectorL");
-        srvCollectorL.setDirection(CRServo.Direction.REVERSE);
         srvCollectorR = ahwmap.crservo.get("srvCollectorR");
 
         srvFlopL = ahwmap.crservo.get("srvFlopL");
@@ -53,8 +50,6 @@ public class    Collector extends robotPart {
 
         sensorDistanceR = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorR");
         sensorDistanceL = (DistanceSensor) ahwmap.opticalDistanceSensor.get("sensorColorL");
-
-        mtrFlop = ahwmap.dcMotor.get("mtrFlop");
 
     }
     public void markerDrop (double seconds) {

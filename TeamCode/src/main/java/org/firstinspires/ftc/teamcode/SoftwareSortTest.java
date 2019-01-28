@@ -34,28 +34,28 @@ public class SoftwareSortTest extends OpMode {
         // Sets deposits straight up
         if (gamepad2.y) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(0);
-            robot.liftAndHook.servoDepositR.setPosition(1);
+            robot.collector.servoDepositL.setPosition(0);
+            robot.collector.servoDepositR.setPosition(1);
         }
         // Sets deposits straight down
         if (gamepad2.b) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(.62);
-            robot.liftAndHook.servoDepositR.setPosition(.35);
+            robot.collector.servoDepositL.setPosition(.37);
+            robot.collector.servoDepositR.setPosition(.53);
         }
         // Sets deposits at angle
         if (gamepad2.x) {
             // move to 0 degrees.
-            robot.liftAndHook.servoDepositL.setPosition(.4);
-            robot.liftAndHook.servoDepositR.setPosition(.57);
+            robot.collector.servoDepositL.setPosition(.21);
+            robot.collector.servoDepositR.setPosition(.73);
         }
-        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorL.red() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorL.green() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorL.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (robot.collector.sensorColorL.red() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorL.green() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorL.blue() * SCALE_FACTOR),
                 hsvLValues);
-        Color.RGBToHSV((int) (robot.liftAndHook.sensorColorR.red() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorR.green() * SCALE_FACTOR),
-                (int) (robot.liftAndHook.sensorColorR.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (robot.collector.sensorColorR.red() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorR.green() * SCALE_FACTOR),
+                (int) (robot.collector.sensorColorR.blue() * SCALE_FACTOR),
                 hsvRValues);
 
 /*******************************************************************
@@ -84,17 +84,17 @@ public class SoftwareSortTest extends OpMode {
         // Left side deposit
         if (gamepad2.a) {
             if (hsvRValues[0] > 100) {
-                robot.liftAndHook.servoDepositL.setPosition(.62); // Deposit silver
+                robot.collector.servoDepositL.setPosition(.62); // Deposit silver
             } else {
-                robot.liftAndHook.servoDepositL.setPosition(.4); // Deposit Gold
+                robot.collector.servoDepositL.setPosition(.4); // Deposit Gold
             }
         }
         // Right side deposit
         if (gamepad2.a) {
             if (hsvLValues[0] > 100) { // Deposit silver mineral
-                robot.liftAndHook.servoDepositR.setPosition(.35);
+                robot.collector.servoDepositR.setPosition(.35);
             } else {
-                robot.liftAndHook.servoDepositR.setPosition(.57); // Deposit Gold mineral
+                robot.collector.servoDepositR.setPosition(.57); // Deposit Gold mineral
             }
         }
         if (gamepad1.y) {
@@ -106,9 +106,6 @@ public class SoftwareSortTest extends OpMode {
         if (gamepad2.dpad_down) {
             position = .84;
         }
-
-        robot.liftAndHook.srvShift.setPosition(position);
-
 
 
         //Telemetry

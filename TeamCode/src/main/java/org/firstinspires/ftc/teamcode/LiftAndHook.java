@@ -74,10 +74,10 @@ public class LiftAndHook extends robotPart {
         csrvPin = ahwmap.crservo.get("csrvPin");
 
        // Zero power to hold motor position        servoDepositL = ahwmap.servo.get("servoDepositL");
-
         mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
    }
     public void stop() {
