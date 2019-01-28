@@ -160,6 +160,13 @@ public class FlickMode extends OpMode {
         // Motor rotate
         robot.liftAndHook.mtrFlop.setPower(flop);
 
+        if (gamepad2.dpad_down) {
+            robot.driveTrain.srvMarker.setPosition(0);
+        }
+        if (gamepad2.dpad_up) {
+            robot.driveTrain.srvMarker.setPosition(1);
+        }
+
         //telemetry.update();
     }
     public double leftHue() {

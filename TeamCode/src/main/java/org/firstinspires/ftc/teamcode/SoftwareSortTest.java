@@ -117,6 +117,7 @@ public class SoftwareSortTest extends OpMode {
         //telemetry.addData("leftBlue ", robot.collector.sensorColorL.blue());
         telemetry.addData("LHue", hsvLValues[0]);
         telemetry.addData("RHue", hsvRValues[0]);
+        telemetry.addData("MarkerPos", robot.collector.srvMarker.getPosition());
     }
 }
 

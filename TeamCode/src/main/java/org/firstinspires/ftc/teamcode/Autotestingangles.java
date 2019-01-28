@@ -41,7 +41,7 @@ public class Autotestingangles extends LinearOpMode {
     private double mineralDist = 18;
     private double backupDist = 8;
     private static final double markerDist = -40;
-    private static final double toDepotDist = -38;
+    private static double toDepotDist = -38;
     private static final double depotToPark = 60;
     private static final double craterDist = 20;
     private int markerTurn = 80;
@@ -168,7 +168,7 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);
             robot.driveTrain.goInches(10,.15,30);
-            robot.driveTrain.goInches(1,.01,30);
+            robot.driveTrain.move(-.2);
             sleep(25000);
 
             //robot.driveTrain.goLean(42,.12,8,true);
@@ -369,13 +369,14 @@ public class Autotestingangles extends LinearOpMode {
                                 mineralDist = 26;
                                 backupDist = 14.5;
                                 parkAngle = 0;
+                                toDepotDist -= 5;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 107;
-                                mineralDist = 22;
-                                backupDist = 10;
+                                mineralDist = 25;
+                                backupDist = 13;
                                 markerTurn = 35;
                                 parkAngle = 0;
                                 finished = true;
@@ -435,22 +436,22 @@ public class Autotestingangles extends LinearOpMode {
     private void unhangCrater () {
         resetAngle();
         //double angle = getAngle();
-        robot.liftAndHook.mtrLift1.setPower(1);
-        robot.liftAndHook.mtrLift2.setPower(1);
-        robot.liftAndHook.mtrLift3.setPower(1);
-        sleep(1000);
+//        robot.liftAndHook.mtrLift1.setPower(1);
+//        robot.liftAndHook.mtrLift2.setPower(1);
+//        robot.liftAndHook.mtrLift3.setPower(1);
+//        sleep(1000);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(2000);
+        sleep(3000);
         robot.liftAndHook.csrvPin.setPower(0);
-        robot.liftAndHook.stop();
+//        robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
         rotate(-.64 * getAngle(), .4);
         sleep(500);
-        robot.liftAndHook.timedRun();
-        robot.liftAndHook.mtrLift1.setPower(-.5);
-        robot.liftAndHook.mtrLift2.setPower(-.5);
-        robot.liftAndHook.mtrLift3.setPower(-.5);
-        sleep(250);
+        //robot.liftAndHook.timedRun();
+        //robot.liftAndHook.mtrLift1.setPower(-.5);
+        //robot.liftAndHook.mtrLift2.setPower(-.5);
+        //robot.liftAndHook.mtrLift3.setPower(-.5);
+        //sleep(250);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(19, .4, 3);

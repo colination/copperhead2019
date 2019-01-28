@@ -96,11 +96,11 @@ public class inchesTestAuto extends LinearOpMode {
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-            robot.driveTrain.move(.2);
-            sleep(5000);
-            robot.driveTrain.move(-.2);
-            sleep(5000);
-
+            robot.collector.srvMarker.setPosition(0);
+            sleep(2000);
+            robot.collector.srvMarker.setPosition(.5);
+            sleep(2000);
+            robot.collector.srvMarker.setPosition(1);
         }
     }
 
