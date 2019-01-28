@@ -152,14 +152,9 @@ public class LiftAndHook extends robotPart {
            csrvPin.setPower(1);
        }
     }
-
-    public double angleTurned(AnalogInput potatometer){
-       double voltage = potatometer.getVoltage();
-       return voltage;
-    }
 //    public void pidDrive(double P, double I, double D, double target, DcMotor motor) {
 //        double proportional, integral = 0, derivative, error, power = 0;
-//        runtime.reset();
+//        runtime.reset();.
 //        double time = runtime.milliseconds();
 //        double lastTime = 0;
 //        double lastError = 0;
@@ -169,12 +164,17 @@ public class LiftAndHook extends robotPart {
 //            integral += error * (runtime.milliseconds() - lastTime) * I;
 //            derivative = (error - lastError) / (runtime.seconds() - lastTime) * D;
 //            power = proportional + integral - derivative;
-//            move(power);
+//            move(power);`
 //            lastTime = runtime.milliseconds();
 //            lastError = error;
 //
 //        }
 //    }
+
+    public double angleTurned(AnalogInput potatometer){
+       double voltage = potatometer.getVoltage();
+       return voltage;
+    }
 
     public void pidRotate(double P, double I, double D, double target, DcMotor motor){
         double proportional, integral = 0, derivative, error, power = 0;
