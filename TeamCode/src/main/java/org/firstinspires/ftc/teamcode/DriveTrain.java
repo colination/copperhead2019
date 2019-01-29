@@ -24,7 +24,6 @@ public class DriveTrain extends robotPart {
     public DcMotor mtrBL = null;
     public DcMotor mtrBR = null;
 
-    public Servo srvMarker;
     DigitalChannel touch;
     BNO055IMU imu;
     Orientation lastAngles = new Orientation();
@@ -40,7 +39,6 @@ public class DriveTrain extends robotPart {
     //sensors
     public void init(HardwareMap ahwmap, Telemetry myTelemetry, boolean enableIMU) {
         super.init(ahwmap, myTelemetry);
-        srvMarker = ahwmap.servo.get("srvMarker");
         // Motors
         mtrFL = ahwmap.dcMotor.get("mtrFL");
         mtrFR = ahwmap.dcMotor.get("mtrFR");

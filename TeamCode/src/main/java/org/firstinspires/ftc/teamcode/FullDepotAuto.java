@@ -157,7 +157,7 @@ public class FullDepotAuto extends LinearOpMode {
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
-            robot.driveTrain.srvMarker.setPosition(0.4);
+          //  robot.driveTrain.srvMarker.setPosition(0.4);
             //robot.driveTrain.goInches(-depotDist, .25,5);
             rotate(-7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
