@@ -108,6 +108,22 @@ public class FlickMode extends OpMode {
             }
         }
 
+        if (gamepad2.x && gamepad2.dpad_right) {
+            robot.liftAndHook.goInches(24,.6, 5);
+            if (leftHue() < 90) {
+                robot.collector.servoDepositL.setPosition(.37); // Deposit silver
+            } else {
+                robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
+            }
+            if (rightHue() < 90) {
+                robot.collector.servoDepositR.setPosition(.53); // Deposit silver mineral
+            } else {
+                robot.collector.servoDepositR.setPosition(.72); // Deposit Gold mineral
+            }
+            robot.liftAndHook.goInches(-24, .3, 5);
+        }
+
+
         // Lift with right stick up and down
         if (Math.abs(gamepad2.right_stick_y) > 0.1) {
             Lift = gamepad2.right_stick_y;
@@ -127,7 +143,10 @@ public class FlickMode extends OpMode {
             flop = 0;
         }
 
-
+        if (gamepad2.dpad_left && gamepad2.b)
+        {
+            macroRelatch();
+        }
         //bumper rotate
         if (gamepad2.right_bumper) {
             robot.collector.srvFlopR.setPower(1);
@@ -184,5 +203,10 @@ public class FlickMode extends OpMode {
                 (int) (robot.collector.sensorColorL.blue() * SCALE_FACTOR),
                 hsvLValues);
         return hsvLValues[0];
+    }
+
+    public void macroRelatch() {
+        robot.liftAndHook.goInches(18, 1, 5);
+        robot.liftAndHook.goInches(-18, 1, 5);
     }
 }
