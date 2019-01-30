@@ -42,41 +42,6 @@ public class MergeConflicts extends OpMode {
 
     @Override
     public void loop() {
-        double leftPower = gamepad1.left_stick_y;
-        double rightPower = gamepad1.right_stick_y;
-        double Lift = 0;
-        double flop = gamepad2.left_stick_y;
-
-        // sets drive train half power
-        if (gamepad1.left_trigger > 0.1) {
-            leftPower = leftPower * .75;
-            rightPower = rightPower * .75;
-        }
-        if (gamepad1.right_trigger > 0.1) {
-            leftPower = leftPower * .35;
-            rightPower = rightPower * .35;
-        }
-
-        // Marker servo
-        if (gamepad1.y) {
-            robot.collector.srvMarker.setPosition(0.3);
-        }
-        if (gamepad1.b) {
-            robot.liftAndHook.csrvPin.setPower(1);
-        }
-        if (gamepad1.x) {
-            robot.liftAndHook.csrvPin.setPower(0);
-        }
-
-        // Ball Shifter
-        if (gamepad2.dpad_left) { //neutral
-            robot.liftAndHook.srvShift.setPosition(.96);
-        }
-        if (gamepad2.dpad_down) { //neutral
-            robot.liftAndHook.srvShift.setPosition(.84);
-        }
-        if (gamepad2.dpad_right) { //neutral
-            robot.liftAndHook.srvShift.setPosition(.79);
-        }
+        
     }
 }
