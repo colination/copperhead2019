@@ -122,6 +122,8 @@ public class Autotestingangles extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
+            robot.collector.srvMarker.setPosition(0.9);
+
             checkPosition();
             while (mineralAngle == 0) {
                 idle();
@@ -153,13 +155,13 @@ public class Autotestingangles extends LinearOpMode {
             //just test this part
             rotate(markerTurn,.3);
             robot.driveTrain.goInches(toDepotDist, .3,3);
-            robot.driveTrain.goInches(-15, .15, 5);
+            robot.driveTrain.goInches(-15, .2, 3);
             idle();
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
-            robot.driveTrain.goInches(markerDist, .25,5);
+            robot.driveTrain.goInches(markerDist, .7,3);
             idle();
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
@@ -168,7 +170,7 @@ public class Autotestingangles extends LinearOpMode {
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.4,5);
             rotate(-2, .4);
-            robot.driveTrain.goInches(10,.3,6);
+            robot.driveTrain.goInches(10,1,3);
             robot.driveTrain.move(-.2);
             sleep(25000);
 
@@ -384,7 +386,7 @@ public class Autotestingangles extends LinearOpMode {
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 83;
+                                mineralAngle = 85;
                                 markerTurn = 68;
                                 finished = true;
                                 telemetry.addData("sadf",123);
@@ -394,7 +396,7 @@ public class Autotestingangles extends LinearOpMode {
                     }
                 }
                 else {
-                    mineralAngle = 78;
+                    mineralAngle = 85;
                     markerTurn = 68;
                     finished = true;
                     telemetry.addData("sadf",123);
@@ -443,26 +445,28 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.mtrLift3.setPower(1);
         sleep(250);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(1750);
-//        robot.liftAndHook.stop();
-    //    robot.liftAndHook.goInches(-20, .4, 3);
-        robot.liftAndHook.mtrLift1.setPower(0);
-        robot.liftAndHook.mtrLift2.setPower(0);
-        robot.liftAndHook.mtrLift3.setPower(0);
-        robot.liftAndHook.csrvPin.setPower(0);
-        sleep(500);
-        robot.liftAndHook.mtrLift1.setPower(-.4);
-        robot.liftAndHook.mtrLift2.setPower(-.4);
-        robot.liftAndHook.mtrLift3.setPower(-.4);
         sleep(1500);
+        robot.liftAndHook.stop();
+        robot.liftAndHook.csrvPin.setPower(0);
+        sleep(1000);
+        robot.liftAndHook.goInches(-20, .4, 3);
+//        robot.liftAndHook.mtrLift1.setPower(0);
+//        robot.liftAndHook.mtrLift2.setPower(0);
+//        robot.liftAndHook.mtrLift3.setPower(0);
+//        robot.liftAndHook.csrvPin.setPower(0);
+//        sleep(500);
+//        robot.liftAndHook.mtrLift1.setPower(-.4);
+//        robot.liftAndHook.mtrLift2.setPower(-.4);
+//        robot.liftAndHook.mtrLift3.setPower(-.4);
+//        sleep(1500);
         robot.liftAndHook.stop();
         rotate(-.64 * getAngle(), .4);
         sleep(500);
-        //robot.liftAndHook.timedRun();
-        //robot.liftAndHook.mtrLift1.setPower(-.5);
-        //robot.liftAndHook.mtrLift2.setPower(-.5);
-        //robot.liftAndHook.mtrLift3.setPower(-.5);
-        //sleep(250);
+        robot.liftAndHook.timedRun();
+        robot.liftAndHook.mtrLift1.setPower(-.4);
+        robot.liftAndHook.mtrLift2.setPower(-.4);
+        robot.liftAndHook.mtrLift3.setPower(-.4);
+        sleep(250);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
         robot.liftAndHook.goInches(19, .4, 3);
