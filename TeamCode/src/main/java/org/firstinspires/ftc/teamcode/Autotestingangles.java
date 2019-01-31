@@ -42,7 +42,7 @@ public class Autotestingangles extends LinearOpMode {
     private double backupDist = 8;
     private static final double markerDist = -40;
     private static double toDepotDist = -38;
-    private static final double depotToPark = 60;
+    private static final double depotToPark = 58;
     private static final double craterDist = 20;
     private int markerTurn = 80;
     private int parkAngle = -2;
@@ -145,17 +145,17 @@ public class Autotestingangles extends LinearOpMode {
             sleep(250);
             //robot.liftAndHook.goInches(28, .4, 3);
             // Run into mineral
-            robot.driveTrain.goInches(-mineralDist, .3, 2);
+            goInches(-mineralDist, .3, 2);
             idle();
             sleep(200);
             // Path for marker
-            robot.driveTrain.goInches(backupDist,.3,2);
+            goInches(backupDist,.3,2);
             //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
             rotate(markerTurn,.3);
             robot.driveTrain.goInches(toDepotDist, .3,3);
-            robot.driveTrain.goInches(-15, .2, 3);
+            robot.driveTrain.goInches(-15, .15, 3);
             idle();
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
@@ -166,13 +166,14 @@ public class Autotestingangles extends LinearOpMode {
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.srvMarker.setPosition(0.3);
+            robot.collector.srvMarker.setPosition(0.2);
             rotate(7, .4);
-            robot.driveTrain.goInches(depotToPark,.4,5);
+            robot.driveTrain.goInches(depotToPark,.7,5);
             rotate(-2, .4);
-            robot.driveTrain.goInches(10,1,3);
+            robot.driveTrain.goInches(12,1,3);
             robot.driveTrain.move(-.2);
             sleep(25000);
+
 
             //robot.driveTrain.goLean(42,.12,8,true);
 
@@ -368,11 +369,11 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 57;
-                                markerTurn = 90;
+                                markerTurn = 88;
                                 mineralDist = 26;
                                 backupDist = 14.5;
                                 parkAngle = 0;
-                                toDepotDist -= 5;
+                                toDepotDist -= 8;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
@@ -445,7 +446,7 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.mtrLift3.setPower(1);
         sleep(250);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(1500);
+        sleep(1625);
         robot.liftAndHook.stop();
         robot.liftAndHook.csrvPin.setPower(0);
         sleep(1000);
@@ -461,17 +462,27 @@ public class Autotestingangles extends LinearOpMode {
 //        sleep(1500);
         robot.liftAndHook.stop();
         rotate(-.64 * getAngle(), .4);
-        sleep(500);
+        sleep(125);
         robot.liftAndHook.timedRun();
         robot.liftAndHook.mtrLift1.setPower(-.4);
         robot.liftAndHook.mtrLift2.setPower(-.4);
         robot.liftAndHook.mtrLift3.setPower(-.4);
-        sleep(250);
+        sleep(125);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(19, .4, 3);
+        robot.liftAndHook.goInches(19, .6, 3);
         //robot.liftAndHook.goInches(-6, .4, 3);
         robot.driveTrain.goInches(-2.5, .2, 1);
-
+    }
+    public void goInches(double inches, double speed, double timeout) {
+        robot.driveTrain.runtime.reset();
+        robot.driveTrain.reset();
+        robot.driveTrain.setMode();
+        robot.driveTrain.targetPosition(inches);
+        robot.driveTrain.move(speed);
+        robot.driveTrain.timeoutExit(timeout);
+        robot.driveTrain.stopMotors();
+        idle();
+        //robot.driveTrain.reset();
     }
 }

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Flicko Mode",group = "12596")
+@TeleOp(name = "don't run this please!!!",group = "12596")
 public class MergeConflicts extends OpMode {
     CopperHeadRobot robot = new CopperHeadRobot();
     public DcMotor mtrFL = null;
