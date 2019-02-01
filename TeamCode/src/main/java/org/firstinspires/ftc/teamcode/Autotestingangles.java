@@ -158,7 +158,7 @@ public class Autotestingangles extends LinearOpMode {
             robot.driveTrain.goInches(-15, .15, 3);
             idle();
             //michael's part : robot starts perpendicular to marker
-            robot.driveTrain.goInches(3,.25,5);
+            robot.driveTrain.goInches(3,.15,4);
             rotate(wallAngle,.3); //80 worked
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(markerDist, .7,3);
@@ -170,7 +170,7 @@ public class Autotestingangles extends LinearOpMode {
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.7,5);
             rotate(-2, .4);
-            robot.driveTrain.goInches(12,1,3);
+            //robot.driveTrain.goInches(12,1,3);
             robot.driveTrain.move(-.2);
             sleep(25000);
 

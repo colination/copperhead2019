@@ -159,18 +159,12 @@ public class FlickMode extends OpMode {
             robot.collector.srvFlopL.setPower(0);
         }
         // Trigger intake
-        if (gamepad2.right_trigger > .5) {
+        if (gamepad2.right_trigger > .05) {
             robot.collector.srvCollectorR.setPower(gamepad2.right_trigger * .7);
             robot.collector.srvCollectorL.setPower(gamepad2.right_trigger * .7);
-        } else if (gamepad2.left_trigger > .5) {
+        } else if (gamepad2.left_trigger > .05) {
             robot.collector.srvCollectorR.setPower(gamepad2.left_trigger * -.7);
             robot.collector.srvCollectorL.setPower(gamepad2.left_trigger * -.7);
-        } else if (gamepad2.right_trigger < .8) {
-            robot.collector.srvCollectorR.setPower(gamepad2.right_trigger * .7 * .5);
-            robot.collector.srvCollectorL.setPower(gamepad2.right_trigger * .7 * .5);
-        } else if (gamepad2.left_trigger < .8) {
-            robot.collector.srvCollectorR.setPower(gamepad2.left_trigger * -.7 * .5);
-            robot.collector.srvCollectorL.setPower(gamepad2.left_trigger * -.7 * .5);
         } else {
             robot.collector.srvCollectorR.setPower(0);
             robot.collector.srvCollectorL.setPower(0);
@@ -201,7 +195,9 @@ public class FlickMode extends OpMode {
             robot.liftAndHook.srvShift.setPosition(.79);
         }
 
-        //telemetry.update();
+//        telemetry.addData("left deposit", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM));
+//        telemetry.addData("right deposit", robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM));
+//        telemetry.update();
     }
     public double leftHue() {
         // Hue conversion

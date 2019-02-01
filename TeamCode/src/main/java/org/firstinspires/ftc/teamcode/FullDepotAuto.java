@@ -41,11 +41,12 @@ public class FullDepotAuto extends LinearOpMode {
     private double mineralDist = 22;
     private double backupDist = 8;
     private static final double markerDist = -50;
-    private static final double toDepotDist = -33;
+    private static final double toDepotDist = -38;
     private static final double depotToPark = 70;//incr by 10
     private static final double craterDist = 20;
     private int markerTurn = 80; // angle to trun to wall
     private int parkAngle = -2;
+    private int easeIn = -15;
 
 
 
@@ -133,7 +134,7 @@ public class FullDepotAuto extends LinearOpMode {
             // Rotate towards gold
             //robot.liftAndHook.goInches(20, );
             telemetry.addLine().addData("turning", getAngle());
-            rotate(mineralAngle, .35); // rotate towards mineral
+            rotate(mineralAngle, .3); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
             // Run into mineral
@@ -145,9 +146,9 @@ public class FullDepotAuto extends LinearOpMode {
             //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
-            rotate(markerTurn,.35);
-            robot.driveTrain.goInches(toDepotDist, .4,3);
-            robot.driveTrain.goInches(-10, .25, 5);
+            rotate(markerTurn,.3);
+            goCoast(toDepotDist, .3,3);
+            robot.driveTrain.goInches(easeIn, .15, 3);
             idle();
             //michael's part : robot starts perpendicular to marker
             robot.driveTrain.goInches(3,.25,5);
@@ -155,15 +156,16 @@ public class FullDepotAuto extends LinearOpMode {
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(markerDist, .4,5);
             idle();
+            robot.collector.srvMarker.setPosition(0.3);
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
           //  robot.driveTrain.srvMarker.setPosition(0.4);
             //robot.driveTrain.goInches(-depotDist, .25,5);
             rotate(-7, .4);
-            robot.driveTrain.goInches(depotToPark,.4,5);
+            goCoast(depotToPark,1,5);
             //rotate(parkAngle, .4);
             //robot.driveTrain.goInches(10,.15,30);
-            robot.driveTrain.goInches(1,.01,30);
+            robot.driveTrain.move(-.2);
             sleep(25000);
 
             //robot.driveTrain.goLean(42,.12,8,true);
@@ -377,8 +379,9 @@ public class FullDepotAuto extends LinearOpMode {
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 81;
+                                mineralAngle = 80;
                                 markerTurn = 67;
+                                backupDist = 9;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -388,8 +391,9 @@ public class FullDepotAuto extends LinearOpMode {
                 }
                 else {
                     telemetry.addData("Gold Mineral Position", "Center");
-                    mineralAngle = 78;
-                    markerTurn = 68;
+                    mineralAngle = 80;
+                    markerTurn = 67;
+                    backupDist = 9;
                     finished = true;
                     telemetry.addData("sadf",123);
 
@@ -466,6 +470,17 @@ public class FullDepotAuto extends LinearOpMode {
         robot.driveTrain.move(speed);
         robot.driveTrain.timeoutExit(timeout);
         robot.driveTrain.stopMotors();
+        idle();
+        //robot.driveTrain.reset();
+    }
+    public void goCoast(double inches, double speed, double timeout) {
+        robot.driveTrain.runtime.reset();
+        robot.driveTrain.reset();
+        robot.driveTrain.setMode();
+        robot.driveTrain.targetPosition(inches);
+        robot.driveTrain.move(speed);
+        robot.driveTrain.timeoutExit(timeout);
+        //robot.driveTrain.stopMotors();
         idle();
         //robot.driveTrain.reset();
     }
