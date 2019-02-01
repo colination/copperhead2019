@@ -451,15 +451,6 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.csrvPin.setPower(0);
         sleep(1000);
         robot.liftAndHook.goInches(-20, .4, 3);
-//        robot.liftAndHook.mtrLift1.setPower(0);
-//        robot.liftAndHook.mtrLift2.setPower(0);
-//        robot.liftAndHook.mtrLift3.setPower(0);
-//        robot.liftAndHook.csrvPin.setPower(0);
-//        sleep(500);
-//        robot.liftAndHook.mtrLift1.setPower(-.4);
-//        robot.liftAndHook.mtrLift2.setPower(-.4);
-//        robot.liftAndHook.mtrLift3.setPower(-.4);
-//        sleep(1500);
         robot.liftAndHook.stop();
         rotate(-.64 * getAngle(), .4);
         sleep(125);

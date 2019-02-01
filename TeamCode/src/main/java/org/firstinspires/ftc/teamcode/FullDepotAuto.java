@@ -137,11 +137,11 @@ public class FullDepotAuto extends LinearOpMode {
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
             // Run into mineral
-            robot.driveTrain.goInches(-mineralDist, .3, 2);
+            goInches(-mineralDist, .3, 2);
             idle();
             sleep(300);
             // Path for marker
-            robot.driveTrain.goInches(backupDist,.3,2);
+            goInches(backupDist,.3,2);
             //sleep(5000); //mark off where robot stops with tape
 
             //just test this part
@@ -364,7 +364,7 @@ public class FullDepotAuto extends LinearOpMode {
                                 mineralDist = 26;
                                 backupDist = 14.5;
                                 parkAngle = 0;
-                                wallAngle = -75;
+                                wallAngle = -78;
                                 finished = true;
                             } else if (goldMineralX < silverMineral1X) {
                                 telemetry.addData("Gold Mineral Position", "Left");
@@ -378,7 +378,7 @@ public class FullDepotAuto extends LinearOpMode {
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
                                 mineralAngle = 81;
-                                markerTurn = 69;
+                                markerTurn = 67;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -436,25 +436,38 @@ public class FullDepotAuto extends LinearOpMode {
         robot.liftAndHook.mtrLift1.setPower(1);
         robot.liftAndHook.mtrLift2.setPower(1);
         robot.liftAndHook.mtrLift3.setPower(1);
-        sleep(600);
+        sleep(250);
         robot.liftAndHook.csrvPin.setPower(1);
-        sleep(2000);
+        sleep(1625);
+        robot.liftAndHook.stop();
+        //robot.liftAndHook.csrvPin.setPower(0);
+        sleep(1000);
         robot.liftAndHook.csrvPin.setPower(0);
-        robot.liftAndHook.stop();
         robot.liftAndHook.goInches(-20, .4, 3);
-        rotate(-.64 * getAngle(), .4);
-        sleep(500);
-        robot.liftAndHook.timedRun();
-        robot.liftAndHook.mtrLift1.setPower(-.5);
-        robot.liftAndHook.mtrLift2.setPower(-.5);
-        robot.liftAndHook.mtrLift3.setPower(-.5);
-        sleep(500);
-        robot.driveTrain.goInches(-3, .2, 1);
         robot.liftAndHook.stop();
-        //robot.liftAndHook.goInches(19, .4, 3);
-        robot.liftAndHook.goInches(19, .4, 3);
-        robot.driveTrain.goInches(2.75, .2, 1);
-
+        rotate(-.64 * getAngle(), .4);
+        sleep(125);
+        robot.liftAndHook.timedRun();
+        robot.liftAndHook.mtrLift1.setPower(-.4);
+        robot.liftAndHook.mtrLift2.setPower(-.4);
+        robot.liftAndHook.mtrLift3.setPower(-.4);
+        sleep(125);
+        robot.driveTrain.goInches(-2, .2, 1);
+        robot.liftAndHook.stop();
+        robot.liftAndHook.goInches(19, .6, 3);
+        //robot.liftAndHook.goInches(-6, .4, 3);
+        robot.driveTrain.goInches(2.5, .2, 1);
+    }
+    public void goInches(double inches, double speed, double timeout) {
+        robot.driveTrain.runtime.reset();
+        robot.driveTrain.reset();
+        robot.driveTrain.setMode();
+        robot.driveTrain.targetPosition(inches);
+        robot.driveTrain.move(speed);
+        robot.driveTrain.timeoutExit(timeout);
+        robot.driveTrain.stopMotors();
+        idle();
+        //robot.driveTrain.reset();
     }
 
 }
