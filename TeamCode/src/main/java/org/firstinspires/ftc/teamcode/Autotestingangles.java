@@ -122,7 +122,7 @@ public class Autotestingangles extends LinearOpMode {
         //test
         if (opModeIsActive()) {
             // Check position of gold, and set turn angle
-            robot.collector.srvMarker.setPosition(0.9);
+            robot.collector.srvMarker.setPosition(0.95);
 
             checkPosition();
             while (mineralAngle == 0) {
@@ -166,7 +166,7 @@ public class Autotestingangles extends LinearOpMode {
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
             //robot.driveTrain.goInches(-depotDist, .25,5);
-            robot.collector.srvMarker.setPosition(0.2);
+            robot.collector.srvMarker.setPosition(0.3);
             rotate(7, .4);
             robot.driveTrain.goInches(depotToPark,.7,5);
             rotate(-2, .4);
@@ -380,7 +380,7 @@ public class Autotestingangles extends LinearOpMode {
                                 telemetry.addData("sadf",123);
                                 mineralAngle = 109;
                                 mineralDist = 25;
-                                backupDist = 13;
+                                backupDist = 11;
                                 markerTurn = 35;
                                 parkAngle = 0;
                                 wallEaseIn = 0;
