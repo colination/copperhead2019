@@ -41,8 +41,8 @@ public class FullDepotAuto extends LinearOpMode {
     private double mineralDist = 22;
     private double backupDist = 8;
     private static final double markerDist = -50;
-    private static final double toDepotDist = -38;
-    private static final double depotToPark = 70;//incr by 10
+    private static final double toDepotDist = -32;
+    private static final double depotToPark = 75;//incr by 10
     private static final double craterDist = 20;
     private int markerTurn = 80; // angle to trun to wall
     private int parkAngle = -2;
@@ -140,7 +140,7 @@ public class FullDepotAuto extends LinearOpMode {
             // Run into mineral
             goInches(-mineralDist, .3, 2);
             idle();
-            sleep(300);
+            sleep(200);
             // Path for marker
             goInches(backupDist,.3,2);
             //sleep(5000); //mark off where robot stops with tape
@@ -361,10 +361,10 @@ public class FullDepotAuto extends LinearOpMode {
                             if (goldMineralX  == -1) {
                                 telemetry.addData("Gold Mineral Position", "Right");
                                 telemetry.addData("sadf",123);
-                                mineralAngle = 52;
-                                markerTurn = 85;
+                                mineralAngle = 54;
+                                markerTurn = 87;
                                 mineralDist = 26;
-                                backupDist = 14.5;
+                                backupDist = 16;
                                 parkAngle = 0;
                                 wallAngle = -78;
                                 finished = true;
@@ -376,12 +376,14 @@ public class FullDepotAuto extends LinearOpMode {
                                 backupDist = 12;
                                 markerTurn = 36;
                                 parkAngle = 0;
+                                easeIn = -4;
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 80;
+                                mineralAngle = 81;
                                 markerTurn = 67;
-                                backupDist = 9;
+                                backupDist = 10;
+                                easeIn = -8;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -391,9 +393,10 @@ public class FullDepotAuto extends LinearOpMode {
                 }
                 else {
                     telemetry.addData("Gold Mineral Position", "Center");
-                    mineralAngle = 80;
+                    mineralAngle = 81;
                     markerTurn = 67;
-                    backupDist = 9;
+                    backupDist = 10;
+                    easeIn = -8;
                     finished = true;
                     telemetry.addData("sadf",123);
 
