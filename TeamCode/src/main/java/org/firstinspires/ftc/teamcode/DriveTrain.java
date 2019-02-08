@@ -312,24 +312,24 @@ public class DriveTrain extends robotPart {
         resetAngle();
     }
 
-//    public double pidDrive(double P,double I, double D, double target, DcMotor motor){
-//        double proportional, integral = 0, derivative, error, power = 0;
-//        runtime.reset();
-//        double time = runtime.milliseconds();
-//        double lastTime = 0;
-//        double lastError = 0;
-//        error = target - motor.getCurrentPosition();
-//        while(Math.abs(error) > 5 && privateOpMode.opModeIsActive()){
-//            proportional = error * P;
-//            integral += error * (runtime.milliseconds() - lastTime) * I;
-//            derivative =  (error - lastError) / (runtime.milliseconds() - lastTime) * D;
-//            power = proportional + integral + derivative;
-//            //motor.setPower(power);
-//            lastTime = runtime.milliseconds();
-//            lastError = error;
-//        }
-//        return power;
-//    }
+    public double pidDrive(double kP,double kI, double kD, double target, DcMotor motor){
+        double proportional, integral = 0, derivative, error, power = 0;
+        runtime.reset();
+        double time = runtime.milliseconds();
+        double lastTime = 0;
+        double lastError = 0;
+        error = target - motor.getCurrentPosition();
+        while(Math.abs(error) > 5 && privateOpMode.opModeIsActive()){
+            proportional = error * kP;
+            integral += error * (runtime.milliseconds() - lastTime) * kI;
+            derivative =  (error - lastError) / (runtime.milliseconds() - lastTime) * kD;
+            power = proportional + integral + derivative;
+            //motor.setPower(power);
+            lastTime = runtime.milliseconds();
+            lastError = error;
+        }
+        return power;
+    }
 }
 
 
