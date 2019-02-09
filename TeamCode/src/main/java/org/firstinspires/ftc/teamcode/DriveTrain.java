@@ -97,6 +97,14 @@ public class DriveTrain extends robotPart {
         mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() - (inches * COUNTS_PER_INCH)));
     }
 
+    public void rightAndLeftPosition(double left, double right) {
+        mtrFL.setTargetPosition((int) (mtrFL.getCurrentPosition() + (left)));
+        mtrFR.setTargetPosition((int) (mtrFR.getCurrentPosition() + (right)));
+        mtrBL.setTargetPosition((int) (mtrBL.getCurrentPosition() + (left)));
+        mtrBR.setTargetPosition((int) (mtrBR.getCurrentPosition() + (right)));
+    }
+
+
     public int target(double inches) {
         return (int) (inches * COUNTS_PER_INCH);
     }
@@ -159,6 +167,7 @@ public class DriveTrain extends robotPart {
         timeoutExit(timeout);
         stopMotors();
         reset();
+
     }
     public void gyroInches(double inches, double leftSpeed, double rightSpeed,  double timeout) {
         runtime.reset();

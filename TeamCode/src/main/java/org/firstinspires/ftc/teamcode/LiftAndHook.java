@@ -77,7 +77,7 @@ public class LiftAndHook extends robotPart {
         mtrLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mtrLift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
    }
     public void stop() {
