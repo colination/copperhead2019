@@ -44,6 +44,7 @@ public class FlickMode extends OpMode {
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.liftAndHook.mtrFlop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
     @Override

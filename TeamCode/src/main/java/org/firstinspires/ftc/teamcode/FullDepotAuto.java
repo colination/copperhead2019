@@ -448,8 +448,8 @@ public class FullDepotAuto extends LinearOpMode {
         sleep(1625);
         robot.liftAndHook.stop();
         //robot.liftAndHook.csrvPin.setPower(0);
-        sleep(1000);
         robot.liftAndHook.csrvPin.setPower(0);
+        sleep(1000);
         robot.liftAndHook.goInches(-20, .4, 3);
         robot.liftAndHook.stop();
         rotate(-.64 * getAngle(), .4);

@@ -42,7 +42,7 @@ public class Autotestingangles extends LinearOpMode {
     private double backupDist = 8;
     private static final double markerDist = -40;
     private static double toDepotDist = -34;
-    private static final double depotToPark = 58;
+    private static final double depotToPark = 61;
     private static final double craterDist = 20;
     private int markerTurn = 80;
     private int parkAngle = -2;
@@ -385,8 +385,11 @@ public class Autotestingangles extends LinearOpMode {
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
                                 mineralAngle = 85;
+                                mineralDist = 22;
                                 markerTurn = 70;
                                 wallEaseIn = -13;
+                                wallAngle = 60;
+                                backupDist = 10;
                                 finished = true;
                                 telemetry.addData("sadf",123);
                             }
@@ -447,20 +450,20 @@ public class Autotestingangles extends LinearOpMode {
         robot.liftAndHook.csrvPin.setPower(1);
         sleep(1625);
         robot.liftAndHook.stop();
-        robot.liftAndHook.csrvPin.setPower(0);
         sleep(1000);
-        robot.liftAndHook.goInches(20, .4, 3);
+        robot.liftAndHook.csrvPin.setPower(0);
+        robot.liftAndHook.goInches(-20, .4, 3);
         robot.liftAndHook.stop();
         rotate(-.64 * getAngle(), .4);
         sleep(125);
         robot.liftAndHook.timedRun();
-        robot.liftAndHook.mtrLift1.setPower(-.7);
-        robot.liftAndHook.mtrLift2.setPower(-.7);
-        robot.liftAndHook.mtrLift3.setPower(-.7);
-        sleep(1000);
+        robot.liftAndHook.mtrLift1.setPower(-.4);
+        robot.liftAndHook.mtrLift2.setPower(-.4);
+        robot.liftAndHook.mtrLift3.setPower(-.4);
+        sleep(125);
         robot.driveTrain.goInches(2, .2, 1);
         robot.liftAndHook.stop();
-        robot.liftAndHook.goInches(-19, .6, 3);
+        robot.liftAndHook.goInches(19, .6, 3);
         //robot.liftAndHook.goInches(-6, .4, 3);
         robot.driveTrain.goInches(-2.5, .2, 1);
     }
