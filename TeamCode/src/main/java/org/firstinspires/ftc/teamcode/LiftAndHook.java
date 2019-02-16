@@ -193,4 +193,23 @@ public class LiftAndHook extends robotPart {
             lastError =  error;
         }
     }
+    public void depositMacro(){
+        mtrLift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        mtrLift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        mtrLift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        mtrLift1.setTargetPosition(2000);
+        mtrLift2.setTargetPosition(2000);
+        mtrLift3.setTargetPosition(2000);
+        mtrLift1.setPower(.4);
+        mtrLift2.setPower(.4);
+        mtrLift3.setPower(.4);
+        if (Math.abs(mtrLift1.getCurrentPosition() - 2000) > 5){
+            mtrLift1.setPower(0);
+            mtrLift2.setPower(0);
+            mtrLift3.setPower(0);
+            mtrLift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            mtrLift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            mtrLift3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
 }

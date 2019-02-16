@@ -121,62 +121,44 @@ public class Autotestingangles extends LinearOpMode {
         waitForStart();
         //test
         if (opModeIsActive()) {
-            // Check position of gold, and set turn angle
             robot.collector.srvMarker.setPosition(0.95);
-
-            checkPosition();
+            checkPosition(); // scan minerals and determine position of mineral
             while (mineralAngle == 0) {
                 idle();
             }
             // Unhook
             unhangCrater();
-
-         //   robot.liftAndHook.goInches(-liftDist, .4, 2); // move up to lower down to ground
-         //   robot.liftAndHook.csrvPin.setPower(1);
-            //sleep(30000);
-            //robot.liftAndHook.csrvPin.setPower(0);
-            //robot.driveTrain.goInches(-unlatchDist, .2, 1); // move off latch
-            //robot.liftAndHook.goInches(liftDist, .4, 2);// move the lift back down
-            //robot.driveTrain.goInches(unlatchDist, .2, 1); // move off latch
-            // Rotate towards gold
             telemetry.addLine().addData("turning", getAngle());
             rotate(mineralAngle, .3); // rotate towards mineral
             telemetry.addLine().addData("turnt", getAngle());
             sleep(250);
-            //robot.liftAndHook.goInches(28, .4, 3);
             // Run into mineral
             robot.driveTrain.goInches(-mineralDist, .3, 2);
             sleep(200);
-            // Path for marker
+            // Back up from mineral
             robot.driveTrain.goInches(backupDist,.3,2);
-            //sleep(5000); //mark off where robot stops with tape
-
-            //just test this part
+            // Turn towards wall
             rotate(markerTurn,.3);
+            // drive to wall
             robot.driveTrain.goInches(toDepotDist, .3,3);
             robot.driveTrain.goInches(wallEaseIn, .15, 3);
-            //michael's part : robot starts perpendicular to marker
+            // Back up slightly from wall
             robot.driveTrain.goInches(3,.15,4);
-            rotate(wallAngle,.3); //80 worked
-            //robot.driveTrain.goInches(markerDist,.25,5);
+            // turn towards depot
+            rotate(wallAngle,.3);
+            //drive into depot
             robot.driveTrain.goInches(markerDist, .7,3);
-            //robot.driveTrain.goInches(3,.25,5);
-            //rotate(67, .3);
-            //robot.driveTrain.goInches(-depotDist, .25,5);
+            //drop marker
             robot.collector.srvMarker.setPosition(0.3);
+            // angle inwards towards wall
             rotate(7, .4);
+            // drive to park in crater
             robot.driveTrain.goInches(depotToPark,.7,5);
+            // slight adjustment to ensure a park
             rotate(-2, .4);
-            //robot.driveTrain.goInches(12,1,3);
             robot.driveTrain.move(-.2);
-            sleep(25000);
-
-
-            //robot.driveTrain.goLean(42,.12,8,true);
-
+            sleep(25000); // end sleep
         }
-        // turn the motors off.
-//        robot.driveTrain.stopMotors();
     }
 
     /**

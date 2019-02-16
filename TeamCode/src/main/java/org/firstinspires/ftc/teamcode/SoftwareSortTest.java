@@ -110,9 +110,9 @@ public class SoftwareSortTest extends OpMode {
 
         //Telemetry
         telemetry.addData("rightDistance (cm)",
-                String.format(Locale.US, "%.02f", robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM)));
-        telemetry.addData("leftDistance (cm)",
                 String.format(Locale.US, "%.02f", robot.collector.sensorDistanceL.getDistance(DistanceUnit.CM)));
+        telemetry.addData("leftDistance (cm)",
+                String.format(Locale.US, "%.02f", robot.collector.sensorDistanceR.getDistance(DistanceUnit.CM)));
         //telemetry.addData("rightBlue ", robot.collector.sensorColorR.blue());
         //telemetry.addData("leftBlue ", robot.collector.sensorColorL.blue());
         telemetry.addData("LHue", hsvLValues[0]);

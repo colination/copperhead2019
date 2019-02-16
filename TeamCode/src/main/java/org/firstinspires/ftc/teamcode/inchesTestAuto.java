@@ -73,8 +73,10 @@ public class inchesTestAuto extends LinearOpMode {
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-           goTest(25, .4, 30);
-            finished = true;
+           runToPositionDrive(.3,.3, -12, 5, .5);
+           sleep(1000);
+           runToPositionDrive(.3,.3, 12, 5, .5);
+           finished = true;
         }
 
     }

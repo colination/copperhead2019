@@ -78,7 +78,7 @@ public class FlickMode extends OpMode {
         }
         // Ball Side left side deposit
         if (gamepad2.a) {
-            if (leftHue() > 90) {
+            if (leftHue() > 70) {
                 robot.collector.servoDepositL.setPosition(.37); // Deposit silver
             } else {
                 robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
@@ -86,7 +86,7 @@ public class FlickMode extends OpMode {
         }
         // Ball Side Right side deposit
         if (gamepad2.a) {
-            if (rightHue() > 90) {
+            if (rightHue() > 70) {
                 robot.collector.servoDepositR.setPosition(.53); // Deposit silver mineral
             } else {
                 robot.collector.servoDepositR.setPosition(.72); // Deposit Gold mineral
@@ -94,7 +94,7 @@ public class FlickMode extends OpMode {
         }
         // Cube side left side deposit
         if (gamepad2.b && !gamepad2.start) {
-            if (leftHue() < 90) {
+            if (leftHue() < 70) {
                 robot.collector.servoDepositL.setPosition(.37); // Deposit silver
             } else {
                 robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
@@ -102,28 +102,16 @@ public class FlickMode extends OpMode {
         }
         // Cube side Right side deposit
         if (gamepad2.b && !gamepad2.start) {
-            if (rightHue() < 90) {
+            if (rightHue() < 70) {
                 robot.collector.servoDepositR.setPosition(.53); // Deposit silver mineral
             } else {
                 robot.collector.servoDepositR.setPosition(.72); // Deposit Gold mineral
             }
         }
 
-        if (gamepad2.x && gamepad2.dpad_right) {
-            robot.liftAndHook.goInches(24,.6, 5);
-            if (leftHue() < 90) {
-                robot.collector.servoDepositL.setPosition(.37); // Deposit silver
-            } else {
-                robot.collector.servoDepositL.setPosition(.21); // Deposit Gold
-            }
-            if (rightHue() < 90) {
-                robot.collector.servoDepositR.setPosition(.53); // Deposit silver mineral
-            } else {
-                robot.collector.servoDepositR.setPosition(.72); // Deposit Gold mineral
-            }
-            robot.liftAndHook.goInches(-24, .3, 5);
+        if (gamepad2.dpad_up && gamepad2.start) {
+            macroRelatch();
         }
-
 
         // Lift with right stick up and down
         if (Math.abs(gamepad2.right_stick_y) > 0.1) {
