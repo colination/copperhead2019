@@ -63,6 +63,7 @@ public class FullDepotAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry, true);
+
         telemetry.addLine().addData("Unhooks, samples, puts marker, parks, starting depot side",robot.driveTrain.mtrBL.getCurrentPosition());
         //robot.liftAndHook.srvShift.setPosition(.94);
 
@@ -129,6 +130,7 @@ public class FullDepotAuto extends LinearOpMode {
                 idle();
             }
             // Unhook
+            robot.collector.srvMarker.setPosition(1);
             unhangDepot();
             //sleep(25000);
             // Rotate towards gold
@@ -156,7 +158,7 @@ public class FullDepotAuto extends LinearOpMode {
             //robot.driveTrain.goInches(markerDist,.25,5);
             robot.driveTrain.goInches(markerDist, .4,5);
             idle();
-            robot.collector.srvMarker.setPosition(0.3);
+            robot.collector.srvMarker.setPosition(.12);
             //robot.driveTrain.goInches(3,.25,5);
             //rotate(67, .3);
           //  robot.driveTrain.srvMarker.setPosition(0.4);
@@ -380,7 +382,7 @@ public class FullDepotAuto extends LinearOpMode {
                                 finished = true;
                             } else {
                                 telemetry.addData("Gold Mineral Position", "Center");
-                                mineralAngle = 81;
+                                mineralAngle = 84;
                                 markerTurn = 67;
                                 backupDist = 10;
                                 easeIn = -8;
@@ -438,6 +440,7 @@ public class FullDepotAuto extends LinearOpMode {
     }
 
     private void unhangDepot () {
+
         resetAngle();
         //double angle = getAngle();
         robot.liftAndHook.mtrLift1.setPower(1);

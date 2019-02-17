@@ -35,7 +35,7 @@ public class Autotestingangles extends LinearOpMode {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
     private int mineralAngle = 0;
-    private int wallAngle = 68;
+    private int wallAngle = 61;
     private static final double unlatchDist = -2;
     private static final double liftDist = 23;
     private double mineralDist = 18;
@@ -121,7 +121,7 @@ public class Autotestingangles extends LinearOpMode {
         waitForStart();
         //test
         if (opModeIsActive()) {
-            robot.collector.srvMarker.setPosition(0.95);
+            //robot.collector.srvMarker.setPosition(0.95);
             checkPosition(); // scan minerals and determine position of mineral
             while (mineralAngle == 0) {
                 idle();
@@ -149,7 +149,7 @@ public class Autotestingangles extends LinearOpMode {
             //drive into depot
             robot.driveTrain.goInches(markerDist, .7,3);
             //drop marker
-            robot.collector.srvMarker.setPosition(0.3);
+            robot.collector.srvMarker.setPosition(0);
             // angle inwards towards wall
             rotate(7, .4);
             // drive to park in crater
