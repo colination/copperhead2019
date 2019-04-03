@@ -73,9 +73,9 @@ public class inchesTestAuto extends LinearOpMode {
         int position = 0;
         waitForStart();
         if (opModeIsActive() && finished == false) {
-           runToPositionDrive(.3,.3, -12, 5, .5);
+            robot.collector.srvMarker.setPosition(0.95);
            sleep(1000);
-           runToPositionDrive(.3,.3, 12, 5, .5);
+            robot.collector.srvMarker.setPosition(0);
            finished = true;
         }
 
