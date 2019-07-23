@@ -11,7 +11,7 @@ public abstract class robotPart {
     protected Telemetry privateTelemetry;
     protected LinearOpMode privateOpMode;
     public ElapsedTime runtime;
-
+//lmao
     public void init(HardwareMap ahwmap, Telemetry myTelemetry){
         privateTelemetry = myTelemetry;
         privateTelemetry.update();
